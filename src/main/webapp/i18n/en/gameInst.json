@@ -1,0 +1,38 @@
+{
+  "gammaJhApp": {
+    "gameInst": {
+      "home": {
+        "title": "Game Insts",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Game Inst",
+        "createOrEditLabel": "Create or edit a Game Inst",
+        "notFound": "No Game Insts found"
+      },
+      "created": "A new Game Inst is created with identifier {{ param }}",
+      "updated": "A Game Inst is updated with identifier {{ param }}",
+      "deleted": "A Game Inst is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Game Inst {{ id }}?"
+      },
+      "detail": {
+        "title": "Game Inst"
+      },
+      "id": "Id",
+      "version": "Version",
+      "gameName": "Game Name",
+      "passcode": "Passcode",
+      "created": "Created",
+      "started": "Started",
+      "finished": "Finished",
+      "updated": "Updated",
+      "scoreA": "Score A",
+      "scoreB": "Score B",
+      "ticks": "Ticks",
+      "hostUrl": "Host Url",
+      "propsId": "Props Id",
+      "gameClass": "Game Class",
+      "playerB": "Player B",
+      "gamePlayer": "Game Player"
+    }
+  }
+}

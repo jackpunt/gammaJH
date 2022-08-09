@@ -1,0 +1,88 @@
+{
+  "applications": "*",
+  "changelogDate": "20220809231005",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "game_inst",
+  "fields": [
+    {
+      "fieldName": "id",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "version",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "gameName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "passcode",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "created",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "started",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "finished",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "updated",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "scoreA",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "scoreB",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "ticks",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "hostUrl",
+      "fieldType": "String"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "GameInst",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "gameInstProps",
+      "relationshipName": "propsId",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityName": "gameClass",
+      "otherEntityRelationshipName": "gameInst",
+      "relationshipName": "gameClass",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityName": "player",
+      "otherEntityRelationshipName": "idB",
+      "relationshipName": "playerB",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityName": "gamePlayer",
+      "otherEntityRelationshipName": "gameInst",
+      "relationshipName": "gamePlayer",
+      "relationshipType": "one-to-many"
+    }
+  ],
+  "service": "no"
+}

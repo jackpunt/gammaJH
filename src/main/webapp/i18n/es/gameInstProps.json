@@ -1,0 +1,31 @@
+{
+  "gammaJhApp": {
+    "gameInstProps": {
+      "home": {
+        "title": "Game Inst Props",
+        "refreshListLabel": "Refrescar lista",
+        "createLabel": "Crear nuevo Game Inst Props",
+        "createOrEditLabel": "Crear o editar Game Inst Props",
+        "notFound": "Ningún Game Inst Props encontrado"
+      },
+      "created": "Un nuevo Game Inst Props ha sido creado con el identificador {{ param }}",
+      "updated": "Un Game Inst Props ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Un Game Inst Props ha sido eliminado con el identificador {{ param }}",
+      "delete": {
+        "question": "¿Seguro que quiere eliminar Game Inst Props {{ id }}?"
+      },
+      "detail": {
+        "title": "Game Inst Props"
+      },
+      "id": "Id",
+      "version": "Version",
+      "seed": "Seed",
+      "mapName": "Map Name",
+      "mapSize": "Map Size",
+      "npcCount": "Npc Count",
+      "jsonProps": "Json Props",
+      "updated": "Updated",
+      "gameInst": "Game Inst"
+    }
+  }
+}

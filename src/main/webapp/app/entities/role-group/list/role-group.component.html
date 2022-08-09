@@ -1,0 +1,84 @@
+<div>
+  <h2 id="page-heading" data-cy="RoleGroupHeading">
+    <span jhiTranslate="gammaJhApp.roleGroup.home.title">Role Groups</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span jhiTranslate="gammaJhApp.roleGroup.home.refreshListLabel">Refrescar lista</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-role-group"
+        [routerLink]="['/role-group/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="gammaJhApp.roleGroup.home.createLabel"> Crear nuevo Role Group </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="roleGroups?.length === 0">
+    <span jhiTranslate="gammaJhApp.roleGroup.home.notFound">Ningún Role Groups encontrado</span>
+  </div>
+
+  <div class="table-responsive" id="entities" *ngIf="roleGroups && roleGroups.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="navigateToWithComponentValues()">
+          <th scope="col" jhiSortBy="id"><span jhiTranslate="gammaJhApp.roleGroup.id">Id</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="version">
+            <span jhiTranslate="gammaJhApp.roleGroup.version">Version</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="groupName">
+            <span jhiTranslate="gammaJhApp.roleGroup.groupName">Group Name</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let roleGroup of roleGroups; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/role-group', roleGroup.id, 'view']">{{ roleGroup.id }}</a>
+          </td>
+          <td>{{ roleGroup.version }}</td>
+          <td>{{ roleGroup.groupName }}</td>
+          <td class="text-end">
+            <div class="btn-group">
+              <button
+                type="submit"
+                [routerLink]="['/role-group', roleGroup.id, 'view']"
+                class="btn btn-info btn-sm"
+                data-cy="entityDetailsButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">Vista</span>
+              </button>
+
+              <button
+                type="submit"
+                [routerLink]="['/role-group', roleGroup.id, 'edit']"
+                class="btn btn-primary btn-sm"
+                data-cy="entityEditButton"
+              >
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Editar</span>
+              </button>
+
+              <button type="submit" (click)="delete(roleGroup)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Eliminar</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

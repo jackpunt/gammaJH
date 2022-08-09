@@ -1,0 +1,42 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="groupAuthority">
+      <h2 data-cy="groupAuthorityDetailsHeading"><span jhiTranslate="gammaJhApp.groupAuthority.detail.title">Group Authority</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="gammaJhApp.groupAuthority.id">Id</span></dt>
+        <dd>
+          <span>{{ groupAuthority.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="gammaJhApp.groupAuthority.version">Version</span></dt>
+        <dd>
+          <span>{{ groupAuthority.version }}</span>
+        </dd>
+        <dt><span jhiTranslate="gammaJhApp.groupAuthority.authority">Authority</span></dt>
+        <dd>
+          <span>{{ groupAuthority.authority }}</span>
+        </dd>
+        <dt><span jhiTranslate="gammaJhApp.groupAuthority.roleGroup">Role Group</span></dt>
+        <dd>
+          <div *ngIf="groupAuthority.roleGroup">
+            <a [routerLink]="['/role-group', groupAuthority.roleGroup.id, 'view']">{{ groupAuthority.roleGroup?.id }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Volver</span>
+      </button>
+
+      <button type="button" [routerLink]="['/group-authority', groupAuthority.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Editar</span>
+      </button>
+    </div>
+  </div>
+</div>

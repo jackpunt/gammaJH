@@ -1,0 +1,43 @@
+{
+  "applications": "*",
+  "changelogDate": "20220809231009",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "mmember",
+  "fields": [
+    {
+      "fieldName": "id",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "version",
+      "fieldType": "Long"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Mmember",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "roleGroup",
+      "otherEntityRelationshipName": "mmember",
+      "relationshipName": "roleGroup",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityName": "asset",
+      "otherEntityRelationshipName": "mmember",
+      "relationshipName": "asset",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "mmemberGameProps",
+      "otherEntityRelationshipName": "mmember",
+      "relationshipName": "mmemberGameProps",
+      "relationshipType": "one-to-many"
+    }
+  ],
+  "service": "no"
+}

@@ -1,0 +1,35 @@
+{
+  "applications": "*",
+  "changelogDate": "20220809231012",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "group_authority",
+  "fields": [
+    {
+      "fieldName": "id",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "version",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "authority",
+      "fieldType": "String"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "GroupAuthority",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "roleGroup",
+      "otherEntityRelationshipName": "groupAuthority",
+      "relationshipName": "roleGroup",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "service": "no"
+}

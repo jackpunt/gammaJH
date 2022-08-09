@@ -1,0 +1,26 @@
+{
+  "gammaJhApp": {
+    "groupAuthority": {
+      "home": {
+        "title": "Group Authorities",
+        "refreshListLabel": "Refrescar lista",
+        "createLabel": "Crear nuevo Group Authority",
+        "createOrEditLabel": "Crear o editar Group Authority",
+        "notFound": "Ningún Group Authorities encontrado"
+      },
+      "created": "Un nuevo Group Authority ha sido creado con el identificador {{ param }}",
+      "updated": "Un Group Authority ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Un Group Authority ha sido eliminado con el identificador {{ param }}",
+      "delete": {
+        "question": "¿Seguro que quiere eliminar Group Authority {{ id }}?"
+      },
+      "detail": {
+        "title": "Group Authority"
+      },
+      "id": "Id",
+      "version": "Version",
+      "authority": "Authority",
+      "roleGroup": "Role Group"
+    }
+  }
+}

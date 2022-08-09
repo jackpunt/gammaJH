@@ -1,0 +1,27 @@
+{
+  "gammaJhApp": {
+    "roleGroup": {
+      "home": {
+        "title": "Role Groups",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Role Group",
+        "createOrEditLabel": "Create or edit a Role Group",
+        "notFound": "No Role Groups found"
+      },
+      "created": "A new Role Group is created with identifier {{ param }}",
+      "updated": "A Role Group is updated with identifier {{ param }}",
+      "deleted": "A Role Group is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Role Group {{ id }}?"
+      },
+      "detail": {
+        "title": "Role Group"
+      },
+      "id": "Id",
+      "version": "Version",
+      "groupName": "Group Name",
+      "mmember": "Mmember",
+      "groupAuthority": "Group Authority"
+    }
+  }
+}

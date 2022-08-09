@@ -1,0 +1,112 @@
+<div>
+  <h2 id="page-heading" data-cy="GameInstPropsHeading">
+    <span jhiTranslate="gammaJhApp.gameInstProps.home.title">Game Inst Props</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span jhiTranslate="gammaJhApp.gameInstProps.home.refreshListLabel">Refrescar lista</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-game-inst-props"
+        [routerLink]="['/game-inst-props/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="gammaJhApp.gameInstProps.home.createLabel"> Crear nuevo Game Inst Props </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="gameInstProps?.length === 0">
+    <span jhiTranslate="gammaJhApp.gameInstProps.home.notFound">Ningún Game Inst Props encontrado</span>
+  </div>
+
+  <div class="table-responsive" id="entities" *ngIf="gameInstProps && gameInstProps.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="navigateToWithComponentValues()">
+          <th scope="col" jhiSortBy="id"><span jhiTranslate="gammaJhApp.gameInstProps.id">Id</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="version">
+            <span jhiTranslate="gammaJhApp.gameInstProps.version">Version</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="seed">
+            <span jhiTranslate="gammaJhApp.gameInstProps.seed">Seed</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="mapName">
+            <span jhiTranslate="gammaJhApp.gameInstProps.mapName">Map Name</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="mapSize">
+            <span jhiTranslate="gammaJhApp.gameInstProps.mapSize">Map Size</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="npcCount">
+            <span jhiTranslate="gammaJhApp.gameInstProps.npcCount">Npc Count</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="jsonProps">
+            <span jhiTranslate="gammaJhApp.gameInstProps.jsonProps">Json Props</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="updated">
+            <span jhiTranslate="gammaJhApp.gameInstProps.updated">Updated</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="gameInst.id">
+            <span jhiTranslate="gammaJhApp.gameInstProps.gameInst">Game Inst</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let gameInstProps of gameInstProps; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/game-inst-props', gameInstProps.id, 'view']">{{ gameInstProps.id }}</a>
+          </td>
+          <td>{{ gameInstProps.version }}</td>
+          <td>{{ gameInstProps.seed }}</td>
+          <td>{{ gameInstProps.mapName }}</td>
+          <td>{{ gameInstProps.mapSize }}</td>
+          <td>{{ gameInstProps.npcCount }}</td>
+          <td>{{ gameInstProps.jsonProps }}</td>
+          <td>{{ gameInstProps.updated | formatMediumDatetime }}</td>
+          <td>
+            <div *ngIf="gameInstProps.gameInst">
+              <a [routerLink]="['/game-inst', gameInstProps.gameInst.id, 'view']">{{ gameInstProps.gameInst?.id }}</a>
+            </div>
+          </td>
+          <td class="text-end">
+            <div class="btn-group">
+              <button
+                type="submit"
+                [routerLink]="['/game-inst-props', gameInstProps.id, 'view']"
+                class="btn btn-info btn-sm"
+                data-cy="entityDetailsButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">Vista</span>
+              </button>
+
+              <button
+                type="submit"
+                [routerLink]="['/game-inst-props', gameInstProps.id, 'edit']"
+                class="btn btn-primary btn-sm"
+                data-cy="entityEditButton"
+              >
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Editar</span>
+              </button>
+
+              <button type="submit" (click)="delete(gameInstProps)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Eliminar</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

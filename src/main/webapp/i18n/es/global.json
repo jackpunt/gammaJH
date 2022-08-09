@@ -7,6 +7,16 @@
       "jhipster-needle-menu-add-element": "JHipster will add additional menu entries here (do not translate!)",
       "entities": {
         "main": "Entidades",
+        "gameInstProps": "Game Inst Props",
+        "gameInst": "Game Inst",
+        "gamePlayer": "Game Player",
+        "gameClass": "Game Class",
+        "player": "Player",
+        "mmember": "Mmember",
+        "asset": "Asset",
+        "roleGroup": "Role Group",
+        "groupAuthority": "Group Authority",
+        "mmemberGameProps": "Mmember Game Props",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
       },
       "account": {

@@ -1,0 +1,61 @@
+{
+  "applications": "*",
+  "changelogDate": "20220809231013",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "mmember_game_props",
+  "fields": [
+    {
+      "fieldName": "id",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "version",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "seed",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "mapName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "mapSize",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "npcCount",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "jsonProps",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "configName",
+      "fieldType": "String"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "MmemberGameProps",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "mmember",
+      "otherEntityRelationshipName": "mmemberGameProps",
+      "relationshipName": "mmember",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityName": "gameClass",
+      "otherEntityRelationshipName": "mmemberGameProps",
+      "relationshipName": "gameClass",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "service": "no"
+}

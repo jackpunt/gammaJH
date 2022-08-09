@@ -1,0 +1,41 @@
+{
+  "applications": "*",
+  "changelogDate": "20220809231011",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "role_group",
+  "fields": [
+    {
+      "fieldName": "id",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "version",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "groupName",
+      "fieldType": "String"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "RoleGroup",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "mmember",
+      "otherEntityRelationshipName": "roleGroup",
+      "relationshipName": "mmember",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "groupAuthority",
+      "otherEntityRelationshipName": "roleGroup",
+      "relationshipName": "groupAuthority",
+      "relationshipType": "one-to-many"
+    }
+  ],
+  "service": "no"
+}

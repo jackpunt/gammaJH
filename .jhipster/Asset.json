@@ -1,0 +1,37 @@
+{
+  "applications": "*",
+  "changelogDate": "20220809231010",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "asset",
+  "fields": [
+    {
+      "fieldName": "id",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "version",
+      "fieldType": "Long"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Asset",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "mmember",
+      "otherEntityRelationshipName": "asset",
+      "relationshipName": "mmember",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityName": "player",
+      "otherEntityRelationshipName": "asset",
+      "relationshipName": "player",
+      "relationshipType": "one-to-many"
+    }
+  ],
+  "service": "no"
+}

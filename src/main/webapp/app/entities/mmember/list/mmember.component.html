@@ -1,0 +1,88 @@
+<div>
+  <h2 id="page-heading" data-cy="MmemberHeading">
+    <span jhiTranslate="gammaJhApp.mmember.home.title">Mmembers</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span jhiTranslate="gammaJhApp.mmember.home.refreshListLabel">Refrescar lista</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-mmember"
+        [routerLink]="['/mmember/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="gammaJhApp.mmember.home.createLabel"> Crear nuevo Mmember </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="mmembers?.length === 0">
+    <span jhiTranslate="gammaJhApp.mmember.home.notFound">Ningún Mmembers encontrado</span>
+  </div>
+
+  <div class="table-responsive" id="entities" *ngIf="mmembers && mmembers.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="navigateToWithComponentValues()">
+          <th scope="col" jhiSortBy="id"><span jhiTranslate="gammaJhApp.mmember.id">Id</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="version">
+            <span jhiTranslate="gammaJhApp.mmember.version">Version</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="roleGroup.id">
+            <span jhiTranslate="gammaJhApp.mmember.roleGroup">Role Group</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let mmember of mmembers; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/mmember', mmember.id, 'view']">{{ mmember.id }}</a>
+          </td>
+          <td>{{ mmember.version }}</td>
+          <td>
+            <div *ngIf="mmember.roleGroup">
+              <a [routerLink]="['/role-group', mmember.roleGroup.id, 'view']">{{ mmember.roleGroup?.id }}</a>
+            </div>
+          </td>
+          <td class="text-end">
+            <div class="btn-group">
+              <button
+                type="submit"
+                [routerLink]="['/mmember', mmember.id, 'view']"
+                class="btn btn-info btn-sm"
+                data-cy="entityDetailsButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">Vista</span>
+              </button>
+
+              <button
+                type="submit"
+                [routerLink]="['/mmember', mmember.id, 'edit']"
+                class="btn btn-primary btn-sm"
+                data-cy="entityEditButton"
+              >
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Editar</span>
+              </button>
+
+              <button type="submit" (click)="delete(mmember)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Eliminar</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

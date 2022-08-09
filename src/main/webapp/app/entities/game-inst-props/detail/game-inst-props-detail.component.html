@@ -1,0 +1,62 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="gameInstProps">
+      <h2 data-cy="gameInstPropsDetailsHeading"><span jhiTranslate="gammaJhApp.gameInstProps.detail.title">Game Inst Props</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="gammaJhApp.gameInstProps.id">Id</span></dt>
+        <dd>
+          <span>{{ gameInstProps.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="gammaJhApp.gameInstProps.version">Version</span></dt>
+        <dd>
+          <span>{{ gameInstProps.version }}</span>
+        </dd>
+        <dt><span jhiTranslate="gammaJhApp.gameInstProps.seed">Seed</span></dt>
+        <dd>
+          <span>{{ gameInstProps.seed }}</span>
+        </dd>
+        <dt><span jhiTranslate="gammaJhApp.gameInstProps.mapName">Map Name</span></dt>
+        <dd>
+          <span>{{ gameInstProps.mapName }}</span>
+        </dd>
+        <dt><span jhiTranslate="gammaJhApp.gameInstProps.mapSize">Map Size</span></dt>
+        <dd>
+          <span>{{ gameInstProps.mapSize }}</span>
+        </dd>
+        <dt><span jhiTranslate="gammaJhApp.gameInstProps.npcCount">Npc Count</span></dt>
+        <dd>
+          <span>{{ gameInstProps.npcCount }}</span>
+        </dd>
+        <dt><span jhiTranslate="gammaJhApp.gameInstProps.jsonProps">Json Props</span></dt>
+        <dd>
+          <span>{{ gameInstProps.jsonProps }}</span>
+        </dd>
+        <dt><span jhiTranslate="gammaJhApp.gameInstProps.updated">Updated</span></dt>
+        <dd>
+          <span>{{ gameInstProps.updated | formatMediumDatetime }}</span>
+        </dd>
+        <dt><span jhiTranslate="gammaJhApp.gameInstProps.gameInst">Game Inst</span></dt>
+        <dd>
+          <div *ngIf="gameInstProps.gameInst">
+            <a [routerLink]="['/game-inst', gameInstProps.gameInst.id, 'view']">{{ gameInstProps.gameInst?.id }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Volver</span>
+      </button>
+
+      <button type="button" [routerLink]="['/game-inst-props', gameInstProps.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Editar</span>
+      </button>
+    </div>
+  </div>
+</div>

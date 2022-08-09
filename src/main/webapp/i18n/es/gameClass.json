@@ -1,0 +1,34 @@
+{
+  "gammaJhApp": {
+    "gameClass": {
+      "home": {
+        "title": "Game Classes",
+        "refreshListLabel": "Refrescar lista",
+        "createLabel": "Crear nuevo Game Class",
+        "createOrEditLabel": "Crear o editar Game Class",
+        "notFound": "Ningún Game Classes encontrado"
+      },
+      "created": "Un nuevo Game Class ha sido creado con el identificador {{ param }}",
+      "updated": "Un Game Class ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Un Game Class ha sido eliminado con el identificador {{ param }}",
+      "delete": {
+        "question": "¿Seguro que quiere eliminar Game Class {{ id }}?"
+      },
+      "detail": {
+        "title": "Game Class"
+      },
+      "id": "Id",
+      "version": "Version",
+      "name": "Name",
+      "revision": "Revision",
+      "launcherPath": "Launcher Path",
+      "gamePath": "Game Path",
+      "docsPath": "Docs Path",
+      "propsNames": "Props Names",
+      "updateed": "Updateed",
+      "gameInst": "Game Inst",
+      "player": "Player",
+      "mmemberGameProps": "Mmember Game Props"
+    }
+  }
+}

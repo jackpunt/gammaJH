@@ -1,0 +1,98 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2
+        id="jhi-game-inst-props-heading"
+        data-cy="GameInstPropsCreateUpdateHeading"
+        jhiTranslate="gammaJhApp.gameInstProps.home.createOrEditLabel"
+      >
+        Crear o editar Game Inst Props
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="row mb-3" *ngIf="editForm.controls.id.value !== null">
+          <label class="form-label" jhiTranslate="gammaJhApp.gameInstProps.id" for="field_id">Id</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="gammaJhApp.gameInstProps.version" for="field_version">Version</label>
+          <input type="number" class="form-control" name="version" id="field_version" data-cy="version" formControlName="version" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="gammaJhApp.gameInstProps.seed" for="field_seed">Seed</label>
+          <input type="number" class="form-control" name="seed" id="field_seed" data-cy="seed" formControlName="seed" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="gammaJhApp.gameInstProps.mapName" for="field_mapName">Map Name</label>
+          <input type="text" class="form-control" name="mapName" id="field_mapName" data-cy="mapName" formControlName="mapName" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="gammaJhApp.gameInstProps.mapSize" for="field_mapSize">Map Size</label>
+          <input type="number" class="form-control" name="mapSize" id="field_mapSize" data-cy="mapSize" formControlName="mapSize" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="gammaJhApp.gameInstProps.npcCount" for="field_npcCount">Npc Count</label>
+          <input type="number" class="form-control" name="npcCount" id="field_npcCount" data-cy="npcCount" formControlName="npcCount" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="gammaJhApp.gameInstProps.jsonProps" for="field_jsonProps">Json Props</label>
+          <input type="text" class="form-control" name="jsonProps" id="field_jsonProps" data-cy="jsonProps" formControlName="jsonProps" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="gammaJhApp.gameInstProps.updated" for="field_updated">Updated</label>
+          <div class="d-flex">
+            <input
+              id="field_updated"
+              data-cy="updated"
+              type="datetime-local"
+              class="form-control"
+              name="updated"
+              formControlName="updated"
+              placeholder="YYYY-MM-DD HH:mm"
+            />
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="gammaJhApp.gameInstProps.gameInst" for="field_gameInst">Game Inst</label>
+          <select
+            class="form-control"
+            id="field_gameInst"
+            data-cy="gameInst"
+            name="gameInst"
+            formControlName="gameInst"
+            [compareWith]="compareGameInst"
+          >
+            <option [ngValue]="null"></option>
+            <option [ngValue]="gameInstOption" *ngFor="let gameInstOption of gameInstsSharedCollection">{{ gameInstOption.id }}</option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancelar</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Guardar</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

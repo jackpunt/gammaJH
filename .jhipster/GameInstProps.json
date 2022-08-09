@@ -1,0 +1,54 @@
+{
+  "applications": "*",
+  "changelogDate": "20220809231004",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "game_inst_props",
+  "fields": [
+    {
+      "fieldName": "id",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "version",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "seed",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "mapName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "mapSize",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "npcCount",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "jsonProps",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "updated",
+      "fieldType": "Instant"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "GameInstProps",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "gameInst",
+      "relationshipName": "gameInst",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "service": "no"
+}

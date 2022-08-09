@@ -1,0 +1,32 @@
+{
+  "gammaJhApp": {
+    "mmemberGameProps": {
+      "home": {
+        "title": "Mmember Game Props",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Mmember Game Props",
+        "createOrEditLabel": "Create or edit a Mmember Game Props",
+        "notFound": "No Mmember Game Props found"
+      },
+      "created": "A new Mmember Game Props is created with identifier {{ param }}",
+      "updated": "A Mmember Game Props is updated with identifier {{ param }}",
+      "deleted": "A Mmember Game Props is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Mmember Game Props {{ id }}?"
+      },
+      "detail": {
+        "title": "Mmember Game Props"
+      },
+      "id": "Id",
+      "version": "Version",
+      "seed": "Seed",
+      "mapName": "Map Name",
+      "mapSize": "Map Size",
+      "npcCount": "Npc Count",
+      "jsonProps": "Json Props",
+      "configName": "Config Name",
+      "mmember": "Mmember",
+      "gameClass": "Game Class"
+    }
+  }
+}

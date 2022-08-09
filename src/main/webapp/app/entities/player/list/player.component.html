@@ -1,0 +1,86 @@
+<div>
+  <h2 id="page-heading" data-cy="PlayerHeading">
+    <span jhiTranslate="gammaJhApp.player.home.title">Players</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span jhiTranslate="gammaJhApp.player.home.refreshListLabel">Refrescar lista</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-player"
+        [routerLink]="['/player/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="gammaJhApp.player.home.createLabel"> Crear nuevo Player </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="players?.length === 0">
+    <span jhiTranslate="gammaJhApp.player.home.notFound">Ningún Players encontrado</span>
+  </div>
+
+  <div class="table-responsive" id="entities" *ngIf="players && players.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="navigateToWithComponentValues()">
+          <th scope="col" jhiSortBy="id"><span jhiTranslate="gammaJhApp.player.id">Id</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="version">
+            <span jhiTranslate="gammaJhApp.player.version">Version</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="gameClass.id">
+            <span jhiTranslate="gammaJhApp.player.gameClass">Game Class</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="asset.id">
+            <span jhiTranslate="gammaJhApp.player.asset">Asset</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let player of players; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/player', player.id, 'view']">{{ player.id }}</a>
+          </td>
+          <td>{{ player.version }}</td>
+          <td>
+            <div *ngIf="player.gameClass">
+              <a [routerLink]="['/game-class', player.gameClass.id, 'view']">{{ player.gameClass?.id }}</a>
+            </div>
+          </td>
+          <td>
+            <div *ngIf="player.asset">
+              <a [routerLink]="['/asset', player.asset.id, 'view']">{{ player.asset?.id }}</a>
+            </div>
+          </td>
+          <td class="text-end">
+            <div class="btn-group">
+              <button type="submit" [routerLink]="['/player', player.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">Vista</span>
+              </button>
+
+              <button type="submit" [routerLink]="['/player', player.id, 'edit']" class="btn btn-primary btn-sm" data-cy="entityEditButton">
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Editar</span>
+              </button>
+
+              <button type="submit" (click)="delete(player)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Eliminar</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
