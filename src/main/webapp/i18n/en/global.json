@@ -12,11 +12,8 @@
         "gamePlayer": "Game Player",
         "gameClass": "Game Class",
         "player": "Player",
-        "mmember": "Mmember",
         "asset": "Asset",
-        "roleGroup": "Role Group",
-        "groupAuthority": "Group Authority",
-        "mmemberGameProps": "Mmember Game Props",
+        "memberGameProps": "Member Game Props",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
       },
       "account": {

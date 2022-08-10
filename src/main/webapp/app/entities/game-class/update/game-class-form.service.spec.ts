@@ -27,7 +27,7 @@ describe('GameClass Form Service', () => {
             gamePath: expect.any(Object),
             docsPath: expect.any(Object),
             propsNames: expect.any(Object),
-            updateed: expect.any(Object),
+            updated: expect.any(Object),
           })
         );
       });
@@ -45,7 +45,7 @@ describe('GameClass Form Service', () => {
             gamePath: expect.any(Object),
             docsPath: expect.any(Object),
             propsNames: expect.any(Object),
-            updateed: expect.any(Object),
+            updated: expect.any(Object),
           })
         );
       });

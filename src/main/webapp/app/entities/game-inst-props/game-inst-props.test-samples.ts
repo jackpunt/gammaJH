@@ -15,11 +15,11 @@ export const sampleWithFullData: IGameInstProps = {
   id: 6858,
   version: 14055,
   seed: 62572,
-  mapName: 'exploit de interface',
+  mapName: 'exploit Delaware interface',
   mapSize: 54582,
   npcCount: 50482,
   jsonProps: 'portals',
-  updated: dayjs('2022-08-09T00:18'),
+  updated: dayjs('2022-08-09T22:55'),
 };
 
 export const sampleWithNewData: NewGameInstProps = {

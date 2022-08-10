@@ -54,21 +54,29 @@ public class GameInst implements Serializable {
     @Column(name = "host_url")
     private String hostUrl;
 
-    @ManyToOne
-    @JsonIgnoreProperties(value = { "gameInst" }, allowSetters = true)
-    private GameInstProps propsId;
-
-    @ManyToOne
-    @JsonIgnoreProperties(value = { "gameInsts", "players", "mmemberGameProps" }, allowSetters = true)
-    private GameClass gameClass;
-
-    @ManyToOne
-    @JsonIgnoreProperties(value = { "gameClass", "asset", "idBS", "gamePlayers" }, allowSetters = true)
-    private Player playerB;
+    @OneToMany(mappedBy = "gameInst1")
+    @JsonIgnoreProperties(value = { "gameInsts", "gameInst1" }, allowSetters = true)
+    private Set<GameInstProps> gameInstProps = new HashSet<>();
 
     @OneToMany(mappedBy = "gameInst")
     @JsonIgnoreProperties(value = { "gameInst", "player" }, allowSetters = true)
     private Set<GamePlayer> gamePlayers = new HashSet<>();
+
+    @ManyToOne
+    @JsonIgnoreProperties(value = { "gameInsts", "gameInst1" }, allowSetters = true)
+    private GameInstProps props;
+
+    @ManyToOne
+    @JsonIgnoreProperties(value = { "gameInsts", "memberGameProps", "players" }, allowSetters = true)
+    private GameClass gameClass;
+
+    @ManyToOne
+    @JsonIgnoreProperties(value = { "idas", "idbs", "gamePlayers", "gameClass", "asset" }, allowSetters = true)
+    private Player playerA;
+
+    @ManyToOne
+    @JsonIgnoreProperties(value = { "idas", "idbs", "gamePlayers", "gameClass", "asset" }, allowSetters = true)
+    private Player playerB;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -228,42 +236,34 @@ public class GameInst implements Serializable {
         this.hostUrl = hostUrl;
     }
 
-    public GameInstProps getPropsId() {
-        return this.propsId;
+    public Set<GameInstProps> getGameInstProps() {
+        return this.gameInstProps;
     }
 
-    public void setPropsId(GameInstProps gameInstProps) {
-        this.propsId = gameInstProps;
+    public void setGameInstProps(Set<GameInstProps> gameInstProps) {
+        if (this.gameInstProps != null) {
+            this.gameInstProps.forEach(i -> i.setGameInst1(null));
+        }
+        if (gameInstProps != null) {
+            gameInstProps.forEach(i -> i.setGameInst1(this));
+        }
+        this.gameInstProps = gameInstProps;
     }
 
-    public GameInst propsId(GameInstProps gameInstProps) {
-        this.setPropsId(gameInstProps);
+    public GameInst gameInstProps(Set<GameInstProps> gameInstProps) {
+        this.setGameInstProps(gameInstProps);
         return this;
     }
 
-    public GameClass getGameClass() {
-        return this.gameClass;
-    }
-
-    public void setGameClass(GameClass gameClass) {
-        this.gameClass = gameClass;
-    }
-
-    public GameInst gameClass(GameClass gameClass) {
-        this.setGameClass(gameClass);
+    public GameInst addGameInstProps(GameInstProps gameInstProps) {
+        this.gameInstProps.add(gameInstProps);
+        gameInstProps.setGameInst1(this);
         return this;
     }
 
-    public Player getPlayerB() {
-        return this.playerB;
-    }
-
-    public void setPlayerB(Player player) {
-        this.playerB = player;
-    }
-
-    public GameInst playerB(Player player) {
-        this.setPlayerB(player);
+    public GameInst removeGameInstProps(GameInstProps gameInstProps) {
+        this.gameInstProps.remove(gameInstProps);
+        gameInstProps.setGameInst1(null);
         return this;
     }
 
@@ -295,6 +295,58 @@ public class GameInst implements Serializable {
     public GameInst removeGamePlayer(GamePlayer gamePlayer) {
         this.gamePlayers.remove(gamePlayer);
         gamePlayer.setGameInst(null);
+        return this;
+    }
+
+    public GameInstProps getProps() {
+        return this.props;
+    }
+
+    public void setProps(GameInstProps gameInstProps) {
+        this.props = gameInstProps;
+    }
+
+    public GameInst props(GameInstProps gameInstProps) {
+        this.setProps(gameInstProps);
+        return this;
+    }
+
+    public GameClass getGameClass() {
+        return this.gameClass;
+    }
+
+    public void setGameClass(GameClass gameClass) {
+        this.gameClass = gameClass;
+    }
+
+    public GameInst gameClass(GameClass gameClass) {
+        this.setGameClass(gameClass);
+        return this;
+    }
+
+    public Player getPlayerA() {
+        return this.playerA;
+    }
+
+    public void setPlayerA(Player player) {
+        this.playerA = player;
+    }
+
+    public GameInst playerA(Player player) {
+        this.setPlayerA(player);
+        return this;
+    }
+
+    public Player getPlayerB() {
+        return this.playerB;
+    }
+
+    public void setPlayerB(Player player) {
+        this.playerB = player;
+    }
+
+    public GameInst playerB(Player player) {
+        this.setPlayerB(player);
         return this;
     }
 

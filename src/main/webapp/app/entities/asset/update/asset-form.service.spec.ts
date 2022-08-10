@@ -21,7 +21,12 @@ describe('Asset Form Service', () => {
           expect.objectContaining({
             id: expect.any(Object),
             version: expect.any(Object),
-            mmember: expect.any(Object),
+            name: expect.any(Object),
+            main: expect.any(Object),
+            auto: expect.any(Object),
+            path: expect.any(Object),
+            include: expect.any(Object),
+            user: expect.any(Object),
           })
         );
       });
@@ -33,7 +38,12 @@ describe('Asset Form Service', () => {
           expect.objectContaining({
             id: expect.any(Object),
             version: expect.any(Object),
-            mmember: expect.any(Object),
+            name: expect.any(Object),
+            main: expect.any(Object),
+            auto: expect.any(Object),
+            path: expect.any(Object),
+            include: expect.any(Object),
+            user: expect.any(Object),
           })
         );
       });

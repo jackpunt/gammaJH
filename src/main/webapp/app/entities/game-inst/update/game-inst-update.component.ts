@@ -94,7 +94,7 @@ export class GameInstUpdateComponent implements OnInit {
 
     this.gameInstPropsSharedCollection = this.gameInstPropsService.addGameInstPropsToCollectionIfMissing<IGameInstProps>(
       this.gameInstPropsSharedCollection,
-      gameInst.propsId
+      gameInst.props
     );
     this.gameClassesSharedCollection = this.gameClassService.addGameClassToCollectionIfMissing<IGameClass>(
       this.gameClassesSharedCollection,
@@ -102,6 +102,7 @@ export class GameInstUpdateComponent implements OnInit {
     );
     this.playersSharedCollection = this.playerService.addPlayerToCollectionIfMissing<IPlayer>(
       this.playersSharedCollection,
+      gameInst.playerA,
       gameInst.playerB
     );
   }
@@ -112,7 +113,7 @@ export class GameInstUpdateComponent implements OnInit {
       .pipe(map((res: HttpResponse<IGameInstProps[]>) => res.body ?? []))
       .pipe(
         map((gameInstProps: IGameInstProps[]) =>
-          this.gameInstPropsService.addGameInstPropsToCollectionIfMissing<IGameInstProps>(gameInstProps, this.gameInst?.propsId)
+          this.gameInstPropsService.addGameInstPropsToCollectionIfMissing<IGameInstProps>(gameInstProps, this.gameInst?.props)
         )
       )
       .subscribe((gameInstProps: IGameInstProps[]) => (this.gameInstPropsSharedCollection = gameInstProps));
@@ -130,7 +131,11 @@ export class GameInstUpdateComponent implements OnInit {
     this.playerService
       .query()
       .pipe(map((res: HttpResponse<IPlayer[]>) => res.body ?? []))
-      .pipe(map((players: IPlayer[]) => this.playerService.addPlayerToCollectionIfMissing<IPlayer>(players, this.gameInst?.playerB)))
+      .pipe(
+        map((players: IPlayer[]) =>
+          this.playerService.addPlayerToCollectionIfMissing<IPlayer>(players, this.gameInst?.playerA, this.gameInst?.playerB)
+        )
+      )
       .subscribe((players: IPlayer[]) => (this.playersSharedCollection = players));
   }
 }

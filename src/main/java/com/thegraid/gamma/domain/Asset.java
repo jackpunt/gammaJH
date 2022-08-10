@@ -23,13 +23,27 @@ public class Asset implements Serializable {
     @Column(name = "version")
     private Long version;
 
-    @ManyToOne
-    @JsonIgnoreProperties(value = { "roleGroup", "assets", "mmemberGameProps" }, allowSetters = true)
-    private Mmember mmember;
+    @Column(name = "name")
+    private String name;
+
+    @Column(name = "main")
+    private Boolean main;
+
+    @Column(name = "auto")
+    private Boolean auto;
+
+    @Column(name = "path")
+    private String path;
+
+    @Column(name = "include")
+    private String include;
 
     @OneToMany(mappedBy = "asset")
-    @JsonIgnoreProperties(value = { "gameClass", "asset", "idBS", "gamePlayers" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "idas", "idbs", "gamePlayers", "gameClass", "asset" }, allowSetters = true)
     private Set<Player> players = new HashSet<>();
+
+    @ManyToOne
+    private User user;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -59,17 +73,69 @@ public class Asset implements Serializable {
         this.version = version;
     }
 
-    public Mmember getMmember() {
-        return this.mmember;
+    public String getName() {
+        return this.name;
     }
 
-    public void setMmember(Mmember mmember) {
-        this.mmember = mmember;
-    }
-
-    public Asset mmember(Mmember mmember) {
-        this.setMmember(mmember);
+    public Asset name(String name) {
+        this.setName(name);
         return this;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Boolean getMain() {
+        return this.main;
+    }
+
+    public Asset main(Boolean main) {
+        this.setMain(main);
+        return this;
+    }
+
+    public void setMain(Boolean main) {
+        this.main = main;
+    }
+
+    public Boolean getAuto() {
+        return this.auto;
+    }
+
+    public Asset auto(Boolean auto) {
+        this.setAuto(auto);
+        return this;
+    }
+
+    public void setAuto(Boolean auto) {
+        this.auto = auto;
+    }
+
+    public String getPath() {
+        return this.path;
+    }
+
+    public Asset path(String path) {
+        this.setPath(path);
+        return this;
+    }
+
+    public void setPath(String path) {
+        this.path = path;
+    }
+
+    public String getInclude() {
+        return this.include;
+    }
+
+    public Asset include(String include) {
+        this.setInclude(include);
+        return this;
+    }
+
+    public void setInclude(String include) {
+        this.include = include;
     }
 
     public Set<Player> getPlayers() {
@@ -103,6 +169,19 @@ public class Asset implements Serializable {
         return this;
     }
 
+    public User getUser() {
+        return this.user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Asset user(User user) {
+        this.setUser(user);
+        return this;
+    }
+
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 
     @Override
@@ -128,6 +207,11 @@ public class Asset implements Serializable {
         return "Asset{" +
             "id=" + getId() +
             ", version=" + getVersion() +
+            ", name='" + getName() + "'" +
+            ", main='" + getMain() + "'" +
+            ", auto='" + getAuto() + "'" +
+            ", path='" + getPath() + "'" +
+            ", include='" + getInclude() + "'" +
             "}";
     }
 }

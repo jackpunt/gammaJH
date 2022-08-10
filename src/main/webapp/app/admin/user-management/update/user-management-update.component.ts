@@ -7,7 +7,7 @@ import { User } from '../user-management.model';
 import { UserManagementService } from '../service/user-management.service';
 
 const initialUser: User = {
-  langKey: 'es',
+  langKey: 'en',
 };
 
 @Component({

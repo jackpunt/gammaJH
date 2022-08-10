@@ -42,20 +42,20 @@ public class GameClass implements Serializable {
     @Column(name = "props_names")
     private String propsNames;
 
-    @Column(name = "updateed")
-    private Instant updateed;
+    @Column(name = "updated")
+    private Instant updated;
 
     @OneToMany(mappedBy = "gameClass")
-    @JsonIgnoreProperties(value = { "propsId", "gameClass", "playerB", "gamePlayers" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "gameInstProps", "gamePlayers", "props", "gameClass", "playerA", "playerB" }, allowSetters = true)
     private Set<GameInst> gameInsts = new HashSet<>();
 
     @OneToMany(mappedBy = "gameClass")
-    @JsonIgnoreProperties(value = { "gameClass", "asset", "idBS", "gamePlayers" }, allowSetters = true)
-    private Set<Player> players = new HashSet<>();
+    @JsonIgnoreProperties(value = { "user", "gameClass" }, allowSetters = true)
+    private Set<MemberGameProps> memberGameProps = new HashSet<>();
 
     @OneToMany(mappedBy = "gameClass")
-    @JsonIgnoreProperties(value = { "mmember", "gameClass" }, allowSetters = true)
-    private Set<MmemberGameProps> mmemberGameProps = new HashSet<>();
+    @JsonIgnoreProperties(value = { "idas", "idbs", "gamePlayers", "gameClass", "asset" }, allowSetters = true)
+    private Set<Player> players = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -163,17 +163,17 @@ public class GameClass implements Serializable {
         this.propsNames = propsNames;
     }
 
-    public Instant getUpdateed() {
-        return this.updateed;
+    public Instant getUpdated() {
+        return this.updated;
     }
 
-    public GameClass updateed(Instant updateed) {
-        this.setUpdateed(updateed);
+    public GameClass updated(Instant updated) {
+        this.setUpdated(updated);
         return this;
     }
 
-    public void setUpdateed(Instant updateed) {
-        this.updateed = updateed;
+    public void setUpdated(Instant updated) {
+        this.updated = updated;
     }
 
     public Set<GameInst> getGameInsts() {
@@ -204,6 +204,37 @@ public class GameClass implements Serializable {
     public GameClass removeGameInst(GameInst gameInst) {
         this.gameInsts.remove(gameInst);
         gameInst.setGameClass(null);
+        return this;
+    }
+
+    public Set<MemberGameProps> getMemberGameProps() {
+        return this.memberGameProps;
+    }
+
+    public void setMemberGameProps(Set<MemberGameProps> memberGameProps) {
+        if (this.memberGameProps != null) {
+            this.memberGameProps.forEach(i -> i.setGameClass(null));
+        }
+        if (memberGameProps != null) {
+            memberGameProps.forEach(i -> i.setGameClass(this));
+        }
+        this.memberGameProps = memberGameProps;
+    }
+
+    public GameClass memberGameProps(Set<MemberGameProps> memberGameProps) {
+        this.setMemberGameProps(memberGameProps);
+        return this;
+    }
+
+    public GameClass addMemberGameProps(MemberGameProps memberGameProps) {
+        this.memberGameProps.add(memberGameProps);
+        memberGameProps.setGameClass(this);
+        return this;
+    }
+
+    public GameClass removeMemberGameProps(MemberGameProps memberGameProps) {
+        this.memberGameProps.remove(memberGameProps);
+        memberGameProps.setGameClass(null);
         return this;
     }
 
@@ -238,37 +269,6 @@ public class GameClass implements Serializable {
         return this;
     }
 
-    public Set<MmemberGameProps> getMmemberGameProps() {
-        return this.mmemberGameProps;
-    }
-
-    public void setMmemberGameProps(Set<MmemberGameProps> mmemberGameProps) {
-        if (this.mmemberGameProps != null) {
-            this.mmemberGameProps.forEach(i -> i.setGameClass(null));
-        }
-        if (mmemberGameProps != null) {
-            mmemberGameProps.forEach(i -> i.setGameClass(this));
-        }
-        this.mmemberGameProps = mmemberGameProps;
-    }
-
-    public GameClass mmemberGameProps(Set<MmemberGameProps> mmemberGameProps) {
-        this.setMmemberGameProps(mmemberGameProps);
-        return this;
-    }
-
-    public GameClass addMmemberGameProps(MmemberGameProps mmemberGameProps) {
-        this.mmemberGameProps.add(mmemberGameProps);
-        mmemberGameProps.setGameClass(this);
-        return this;
-    }
-
-    public GameClass removeMmemberGameProps(MmemberGameProps mmemberGameProps) {
-        this.mmemberGameProps.remove(mmemberGameProps);
-        mmemberGameProps.setGameClass(null);
-        return this;
-    }
-
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 
     @Override
@@ -300,7 +300,7 @@ public class GameClass implements Serializable {
             ", gamePath='" + getGamePath() + "'" +
             ", docsPath='" + getDocsPath() + "'" +
             ", propsNames='" + getPropsNames() + "'" +
-            ", updateed='" + getUpdateed() + "'" +
+            ", updated='" + getUpdated() + "'" +
             "}";
     }
 }

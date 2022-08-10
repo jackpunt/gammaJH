@@ -12,7 +12,7 @@ export const sampleWithPartialData: IGamePlayer = {
 export const sampleWithFullData: IGamePlayer = {
   id: 91942,
   version: 26709,
-  role: 'Seguridada Región',
+  role: 'Security West',
   ready: false,
 };
 

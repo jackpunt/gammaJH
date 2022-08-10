@@ -2,14 +2,14 @@
   <div class="col-8">
     <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
       <h2 id="jhi-asset-heading" data-cy="AssetCreateUpdateHeading" jhiTranslate="gammaJhApp.asset.home.createOrEditLabel">
-        Crear o editar Asset
+        Create or edit a Asset
       </h2>
 
       <div>
         <jhi-alert-error></jhi-alert-error>
 
         <div class="row mb-3" *ngIf="editForm.controls.id.value !== null">
-          <label class="form-label" jhiTranslate="gammaJhApp.asset.id" for="field_id">Id</label>
+          <label class="form-label" jhiTranslate="global.field.id" for="field_id">ID</label>
           <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
         </div>
 
@@ -19,24 +19,42 @@
         </div>
 
         <div class="row mb-3">
-          <label class="form-label" jhiTranslate="gammaJhApp.asset.mmember" for="field_mmember">Mmember</label>
-          <select
-            class="form-control"
-            id="field_mmember"
-            data-cy="mmember"
-            name="mmember"
-            formControlName="mmember"
-            [compareWith]="compareMmember"
-          >
+          <label class="form-label" jhiTranslate="gammaJhApp.asset.name" for="field_name">Name</label>
+          <input type="text" class="form-control" name="name" id="field_name" data-cy="name" formControlName="name" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="gammaJhApp.asset.main" for="field_main">Main</label>
+          <input type="checkbox" class="form-check" name="main" id="field_main" data-cy="main" formControlName="main" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="gammaJhApp.asset.auto" for="field_auto">Auto</label>
+          <input type="checkbox" class="form-check" name="auto" id="field_auto" data-cy="auto" formControlName="auto" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="gammaJhApp.asset.path" for="field_path">Path</label>
+          <input type="text" class="form-control" name="path" id="field_path" data-cy="path" formControlName="path" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="gammaJhApp.asset.include" for="field_include">Include</label>
+          <input type="text" class="form-control" name="include" id="field_include" data-cy="include" formControlName="include" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="gammaJhApp.asset.user" for="field_user">User</label>
+          <select class="form-control" id="field_user" data-cy="user" name="user" formControlName="user" [compareWith]="compareUser">
             <option [ngValue]="null"></option>
-            <option [ngValue]="mmemberOption" *ngFor="let mmemberOption of mmembersSharedCollection">{{ mmemberOption.id }}</option>
+            <option [ngValue]="userOption" *ngFor="let userOption of usersSharedCollection">{{ userOption.id }}</option>
           </select>
         </div>
       </div>
 
       <div>
         <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
-          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancelar</span>
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
         </button>
 
         <button
@@ -46,7 +64,7 @@
           [disabled]="editForm.invalid || isSaving"
           class="btn btn-primary"
         >
-          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Guardar</span>
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
         </button>
       </div>
     </form>

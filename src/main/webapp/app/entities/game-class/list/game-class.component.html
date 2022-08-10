@@ -5,7 +5,7 @@
     <div class="d-flex justify-content-end">
       <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
         <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
-        <span jhiTranslate="gammaJhApp.gameClass.home.refreshListLabel">Refrescar lista</span>
+        <span jhiTranslate="gammaJhApp.gameClass.home.refreshListLabel">Refresh list</span>
       </button>
 
       <button
@@ -15,7 +15,7 @@
         [routerLink]="['/game-class/new']"
       >
         <fa-icon icon="plus"></fa-icon>
-        <span jhiTranslate="gammaJhApp.gameClass.home.createLabel"> Crear nuevo Game Class </span>
+        <span jhiTranslate="gammaJhApp.gameClass.home.createLabel"> Create a new Game Class </span>
       </button>
     </div>
   </h2>
@@ -25,14 +25,14 @@
   <jhi-alert></jhi-alert>
 
   <div class="alert alert-warning" id="no-result" *ngIf="gameClasses?.length === 0">
-    <span jhiTranslate="gammaJhApp.gameClass.home.notFound">Ningún Game Classes encontrado</span>
+    <span jhiTranslate="gammaJhApp.gameClass.home.notFound">No Game Classes found</span>
   </div>
 
   <div class="table-responsive" id="entities" *ngIf="gameClasses && gameClasses.length > 0">
     <table class="table table-striped" aria-describedby="page-heading">
       <thead>
         <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="navigateToWithComponentValues()">
-          <th scope="col" jhiSortBy="id"><span jhiTranslate="gammaJhApp.gameClass.id">Id</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon icon="sort"></fa-icon></th>
           <th scope="col" jhiSortBy="version">
             <span jhiTranslate="gammaJhApp.gameClass.version">Version</span> <fa-icon icon="sort"></fa-icon>
           </th>
@@ -52,8 +52,8 @@
           <th scope="col" jhiSortBy="propsNames">
             <span jhiTranslate="gammaJhApp.gameClass.propsNames">Props Names</span> <fa-icon icon="sort"></fa-icon>
           </th>
-          <th scope="col" jhiSortBy="updateed">
-            <span jhiTranslate="gammaJhApp.gameClass.updateed">Updateed</span> <fa-icon icon="sort"></fa-icon>
+          <th scope="col" jhiSortBy="updated">
+            <span jhiTranslate="gammaJhApp.gameClass.updated">Updated</span> <fa-icon icon="sort"></fa-icon>
           </th>
           <th scope="col"></th>
         </tr>
@@ -70,7 +70,7 @@
           <td>{{ gameClass.gamePath }}</td>
           <td>{{ gameClass.docsPath }}</td>
           <td>{{ gameClass.propsNames }}</td>
-          <td>{{ gameClass.updateed | formatMediumDatetime }}</td>
+          <td>{{ gameClass.updated | formatMediumDatetime }}</td>
           <td class="text-end">
             <div class="btn-group">
               <button
@@ -80,7 +80,7 @@
                 data-cy="entityDetailsButton"
               >
                 <fa-icon icon="eye"></fa-icon>
-                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">Vista</span>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
               </button>
 
               <button
@@ -90,12 +90,12 @@
                 data-cy="entityEditButton"
               >
                 <fa-icon icon="pencil-alt"></fa-icon>
-                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Editar</span>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
               </button>
 
               <button type="submit" (click)="delete(gameClass)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
                 <fa-icon icon="times"></fa-icon>
-                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Eliminar</span>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
               </button>
             </div>
           </td>

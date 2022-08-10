@@ -1,14 +1,10 @@
 {
-  "applications": "*",
-  "changelogDate": "20220809231006",
+  "applications": ["gammaJH"],
+  "changelogDate": "20220810214703",
   "dto": "no",
   "embedded": false,
   "entityTableName": "game_player",
   "fields": [
-    {
-      "fieldName": "id",
-      "fieldType": "Long"
-    },
     {
       "fieldName": "version",
       "fieldType": "Long"

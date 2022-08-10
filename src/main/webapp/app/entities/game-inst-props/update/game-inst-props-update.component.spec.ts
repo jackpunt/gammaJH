@@ -51,12 +51,12 @@ describe('GameInstProps Management Update Component', () => {
   describe('ngOnInit', () => {
     it('Should call GameInst query and add missing value', () => {
       const gameInstProps: IGameInstProps = { id: 456 };
-      const gameInst: IGameInst = { id: 94154 };
-      gameInstProps.gameInst = gameInst;
+      const gameInst1: IGameInst = { id: 94154 };
+      gameInstProps.gameInst1 = gameInst1;
 
       const gameInstCollection: IGameInst[] = [{ id: 5587 }];
       jest.spyOn(gameInstService, 'query').mockReturnValue(of(new HttpResponse({ body: gameInstCollection })));
-      const additionalGameInsts = [gameInst];
+      const additionalGameInsts = [gameInst1];
       const expectedCollection: IGameInst[] = [...additionalGameInsts, ...gameInstCollection];
       jest.spyOn(gameInstService, 'addGameInstToCollectionIfMissing').mockReturnValue(expectedCollection);
 
@@ -73,13 +73,13 @@ describe('GameInstProps Management Update Component', () => {
 
     it('Should update editForm', () => {
       const gameInstProps: IGameInstProps = { id: 456 };
-      const gameInst: IGameInst = { id: 29122 };
-      gameInstProps.gameInst = gameInst;
+      const gameInst1: IGameInst = { id: 29122 };
+      gameInstProps.gameInst1 = gameInst1;
 
       activatedRoute.data = of({ gameInstProps });
       comp.ngOnInit();
 
-      expect(comp.gameInstsSharedCollection).toContain(gameInst);
+      expect(comp.gameInstsSharedCollection).toContain(gameInst1);
       expect(comp.gameInstProps).toEqual(gameInstProps);
     });
   });

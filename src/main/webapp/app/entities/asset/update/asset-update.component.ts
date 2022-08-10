@@ -7,8 +7,8 @@ import { finalize, map } from 'rxjs/operators';
 import { AssetFormService, AssetFormGroup } from './asset-form.service';
 import { IAsset } from '../asset.model';
 import { AssetService } from '../service/asset.service';
-import { IMmember } from 'app/entities/mmember/mmember.model';
-import { MmemberService } from 'app/entities/mmember/service/mmember.service';
+import { IUser } from 'app/entities/user/user.model';
+import { UserService } from 'app/entities/user/user.service';
 
 @Component({
   selector: 'jhi-asset-update',
@@ -18,18 +18,18 @@ export class AssetUpdateComponent implements OnInit {
   isSaving = false;
   asset: IAsset | null = null;
 
-  mmembersSharedCollection: IMmember[] = [];
+  usersSharedCollection: IUser[] = [];
 
   editForm: AssetFormGroup = this.assetFormService.createAssetFormGroup();
 
   constructor(
     protected assetService: AssetService,
     protected assetFormService: AssetFormService,
-    protected mmemberService: MmemberService,
+    protected userService: UserService,
     protected activatedRoute: ActivatedRoute
   ) {}
 
-  compareMmember = (o1: IMmember | null, o2: IMmember | null): boolean => this.mmemberService.compareMmember(o1, o2);
+  compareUser = (o1: IUser | null, o2: IUser | null): boolean => this.userService.compareUser(o1, o2);
 
   ngOnInit(): void {
     this.activatedRoute.data.subscribe(({ asset }) => {
@@ -79,17 +79,14 @@ export class AssetUpdateComponent implements OnInit {
     this.asset = asset;
     this.assetFormService.resetForm(this.editForm, asset);
 
-    this.mmembersSharedCollection = this.mmemberService.addMmemberToCollectionIfMissing<IMmember>(
-      this.mmembersSharedCollection,
-      asset.mmember
-    );
+    this.usersSharedCollection = this.userService.addUserToCollectionIfMissing<IUser>(this.usersSharedCollection, asset.user);
   }
 
   protected loadRelationshipsOptions(): void {
-    this.mmemberService
+    this.userService
       .query()
-      .pipe(map((res: HttpResponse<IMmember[]>) => res.body ?? []))
-      .pipe(map((mmembers: IMmember[]) => this.mmemberService.addMmemberToCollectionIfMissing<IMmember>(mmembers, this.asset?.mmember)))
-      .subscribe((mmembers: IMmember[]) => (this.mmembersSharedCollection = mmembers));
+      .pipe(map((res: HttpResponse<IUser[]>) => res.body ?? []))
+      .pipe(map((users: IUser[]) => this.userService.addUserToCollectionIfMissing<IUser>(users, this.asset?.user)))
+      .subscribe((users: IUser[]) => (this.usersSharedCollection = users));
   }
 }

@@ -1,14 +1,10 @@
 {
-  "applications": "*",
-  "changelogDate": "20220809231005",
+  "applications": ["gammaJH"],
+  "changelogDate": "20220810214702",
   "dto": "no",
   "embedded": false,
   "entityTableName": "game_inst",
   "fields": [
-    {
-      "fieldName": "id",
-      "fieldType": "Long"
-    },
     {
       "fieldName": "version",
       "fieldType": "Long"
@@ -62,7 +58,20 @@
   "relationships": [
     {
       "otherEntityName": "gameInstProps",
-      "relationshipName": "propsId",
+      "otherEntityRelationshipName": "gameInst1",
+      "relationshipName": "gameInstProps",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "gamePlayer",
+      "otherEntityRelationshipName": "gameInst",
+      "relationshipName": "gamePlayer",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "gameInstProps",
+      "otherEntityRelationshipName": "gameInst",
+      "relationshipName": "props",
       "relationshipType": "many-to-one"
     },
     {
@@ -73,15 +82,15 @@
     },
     {
       "otherEntityName": "player",
-      "otherEntityRelationshipName": "idB",
-      "relationshipName": "playerB",
+      "otherEntityRelationshipName": "ida",
+      "relationshipName": "playerA",
       "relationshipType": "many-to-one"
     },
     {
-      "otherEntityName": "gamePlayer",
-      "otherEntityRelationshipName": "gameInst",
-      "relationshipName": "gamePlayer",
-      "relationshipType": "one-to-many"
+      "otherEntityName": "player",
+      "otherEntityRelationshipName": "idb",
+      "relationshipName": "playerB",
+      "relationshipType": "many-to-one"
     }
   ],
   "service": "no"

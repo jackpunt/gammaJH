@@ -5,7 +5,7 @@
     <div class="d-flex justify-content-end">
       <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
         <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
-        <span jhiTranslate="gammaJhApp.gameInstProps.home.refreshListLabel">Refrescar lista</span>
+        <span jhiTranslate="gammaJhApp.gameInstProps.home.refreshListLabel">Refresh list</span>
       </button>
 
       <button
@@ -15,7 +15,7 @@
         [routerLink]="['/game-inst-props/new']"
       >
         <fa-icon icon="plus"></fa-icon>
-        <span jhiTranslate="gammaJhApp.gameInstProps.home.createLabel"> Crear nuevo Game Inst Props </span>
+        <span jhiTranslate="gammaJhApp.gameInstProps.home.createLabel"> Create a new Game Inst Props </span>
       </button>
     </div>
   </h2>
@@ -25,14 +25,14 @@
   <jhi-alert></jhi-alert>
 
   <div class="alert alert-warning" id="no-result" *ngIf="gameInstProps?.length === 0">
-    <span jhiTranslate="gammaJhApp.gameInstProps.home.notFound">Ningún Game Inst Props encontrado</span>
+    <span jhiTranslate="gammaJhApp.gameInstProps.home.notFound">No Game Inst Props found</span>
   </div>
 
   <div class="table-responsive" id="entities" *ngIf="gameInstProps && gameInstProps.length > 0">
     <table class="table table-striped" aria-describedby="page-heading">
       <thead>
         <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="navigateToWithComponentValues()">
-          <th scope="col" jhiSortBy="id"><span jhiTranslate="gammaJhApp.gameInstProps.id">Id</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon icon="sort"></fa-icon></th>
           <th scope="col" jhiSortBy="version">
             <span jhiTranslate="gammaJhApp.gameInstProps.version">Version</span> <fa-icon icon="sort"></fa-icon>
           </th>
@@ -54,8 +54,8 @@
           <th scope="col" jhiSortBy="updated">
             <span jhiTranslate="gammaJhApp.gameInstProps.updated">Updated</span> <fa-icon icon="sort"></fa-icon>
           </th>
-          <th scope="col" jhiSortBy="gameInst.id">
-            <span jhiTranslate="gammaJhApp.gameInstProps.gameInst">Game Inst</span> <fa-icon icon="sort"></fa-icon>
+          <th scope="col" jhiSortBy="gameInst1.id">
+            <span jhiTranslate="gammaJhApp.gameInstProps.gameInst1">Game Inst 1</span> <fa-icon icon="sort"></fa-icon>
           </th>
           <th scope="col"></th>
         </tr>
@@ -73,8 +73,8 @@
           <td>{{ gameInstProps.jsonProps }}</td>
           <td>{{ gameInstProps.updated | formatMediumDatetime }}</td>
           <td>
-            <div *ngIf="gameInstProps.gameInst">
-              <a [routerLink]="['/game-inst', gameInstProps.gameInst.id, 'view']">{{ gameInstProps.gameInst?.id }}</a>
+            <div *ngIf="gameInstProps.gameInst1">
+              <a [routerLink]="['/game-inst', gameInstProps.gameInst1.id, 'view']">{{ gameInstProps.gameInst1?.id }}</a>
             </div>
           </td>
           <td class="text-end">
@@ -86,7 +86,7 @@
                 data-cy="entityDetailsButton"
               >
                 <fa-icon icon="eye"></fa-icon>
-                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">Vista</span>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
               </button>
 
               <button
@@ -96,12 +96,12 @@
                 data-cy="entityEditButton"
               >
                 <fa-icon icon="pencil-alt"></fa-icon>
-                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Editar</span>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
               </button>
 
               <button type="submit" (click)="delete(gameInstProps)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
                 <fa-icon icon="times"></fa-icon>
-                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Eliminar</span>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
               </button>
             </div>
           </td>

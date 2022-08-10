@@ -21,6 +21,12 @@ describe('Player Form Service', () => {
           expect.objectContaining({
             id: expect.any(Object),
             version: expect.any(Object),
+            name: expect.any(Object),
+            rank: expect.any(Object),
+            score: expect.any(Object),
+            scoreTime: expect.any(Object),
+            rankTime: expect.any(Object),
+            displayClient: expect.any(Object),
             gameClass: expect.any(Object),
             asset: expect.any(Object),
           })
@@ -34,6 +40,12 @@ describe('Player Form Service', () => {
           expect.objectContaining({
             id: expect.any(Object),
             version: expect.any(Object),
+            name: expect.any(Object),
+            rank: expect.any(Object),
+            score: expect.any(Object),
+            scoreTime: expect.any(Object),
+            rankTime: expect.any(Object),
+            displayClient: expect.any(Object),
             gameClass: expect.any(Object),
             asset: expect.any(Object),
           })

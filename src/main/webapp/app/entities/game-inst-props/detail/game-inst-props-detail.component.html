@@ -10,7 +10,7 @@
       <jhi-alert></jhi-alert>
 
       <dl class="row-md jh-entity-details">
-        <dt><span jhiTranslate="gammaJhApp.gameInstProps.id">Id</span></dt>
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
         <dd>
           <span>{{ gameInstProps.id }}</span>
         </dd>
@@ -42,20 +42,20 @@
         <dd>
           <span>{{ gameInstProps.updated | formatMediumDatetime }}</span>
         </dd>
-        <dt><span jhiTranslate="gammaJhApp.gameInstProps.gameInst">Game Inst</span></dt>
+        <dt><span jhiTranslate="gammaJhApp.gameInstProps.gameInst1">Game Inst 1</span></dt>
         <dd>
-          <div *ngIf="gameInstProps.gameInst">
-            <a [routerLink]="['/game-inst', gameInstProps.gameInst.id, 'view']">{{ gameInstProps.gameInst?.id }}</a>
+          <div *ngIf="gameInstProps.gameInst1">
+            <a [routerLink]="['/game-inst', gameInstProps.gameInst1.id, 'view']">{{ gameInstProps.gameInst1?.id }}</a>
           </div>
         </dd>
       </dl>
 
       <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
-        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Volver</span>
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
       </button>
 
       <button type="button" [routerLink]="['/game-inst-props', gameInstProps.id, 'edit']" class="btn btn-primary">
-        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Editar</span>
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
       </button>
     </div>
   </div>

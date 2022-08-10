@@ -124,6 +124,24 @@ public class PlayerResource {
                 if (player.getVersion() != null) {
                     existingPlayer.setVersion(player.getVersion());
                 }
+                if (player.getName() != null) {
+                    existingPlayer.setName(player.getName());
+                }
+                if (player.getRank() != null) {
+                    existingPlayer.setRank(player.getRank());
+                }
+                if (player.getScore() != null) {
+                    existingPlayer.setScore(player.getScore());
+                }
+                if (player.getScoreTime() != null) {
+                    existingPlayer.setScoreTime(player.getScoreTime());
+                }
+                if (player.getRankTime() != null) {
+                    existingPlayer.setRankTime(player.getRankTime());
+                }
+                if (player.getDisplayClient() != null) {
+                    existingPlayer.setDisplayClient(player.getDisplayClient());
+                }
 
                 return existingPlayer;
             })

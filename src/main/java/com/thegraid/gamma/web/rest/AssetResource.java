@@ -122,6 +122,21 @@ public class AssetResource {
                 if (asset.getVersion() != null) {
                     existingAsset.setVersion(asset.getVersion());
                 }
+                if (asset.getName() != null) {
+                    existingAsset.setName(asset.getName());
+                }
+                if (asset.getMain() != null) {
+                    existingAsset.setMain(asset.getMain());
+                }
+                if (asset.getAuto() != null) {
+                    existingAsset.setAuto(asset.getAuto());
+                }
+                if (asset.getPath() != null) {
+                    existingAsset.setPath(asset.getPath());
+                }
+                if (asset.getInclude() != null) {
+                    existingAsset.setInclude(asset.getInclude());
+                }
 
                 return existingAsset;
             })

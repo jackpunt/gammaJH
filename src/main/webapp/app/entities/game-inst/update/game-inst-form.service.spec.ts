@@ -31,8 +31,9 @@ describe('GameInst Form Service', () => {
             scoreB: expect.any(Object),
             ticks: expect.any(Object),
             hostUrl: expect.any(Object),
-            propsId: expect.any(Object),
+            props: expect.any(Object),
             gameClass: expect.any(Object),
+            playerA: expect.any(Object),
             playerB: expect.any(Object),
           })
         );
@@ -55,8 +56,9 @@ describe('GameInst Form Service', () => {
             scoreB: expect.any(Object),
             ticks: expect.any(Object),
             hostUrl: expect.any(Object),
-            propsId: expect.any(Object),
+            props: expect.any(Object),
             gameClass: expect.any(Object),
+            playerA: expect.any(Object),
             playerB: expect.any(Object),
           })
         );

@@ -9,8 +9,9 @@ import { of, Subject, from } from 'rxjs';
 import { AssetFormService } from './asset-form.service';
 import { AssetService } from '../service/asset.service';
 import { IAsset } from '../asset.model';
-import { IMmember } from 'app/entities/mmember/mmember.model';
-import { MmemberService } from 'app/entities/mmember/service/mmember.service';
+
+import { IUser } from 'app/entities/user/user.model';
+import { UserService } from 'app/entities/user/user.service';
 
 import { AssetUpdateComponent } from './asset-update.component';
 
@@ -20,7 +21,7 @@ describe('Asset Management Update Component', () => {
   let activatedRoute: ActivatedRoute;
   let assetFormService: AssetFormService;
   let assetService: AssetService;
-  let mmemberService: MmemberService;
+  let userService: UserService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -43,43 +44,43 @@ describe('Asset Management Update Component', () => {
     activatedRoute = TestBed.inject(ActivatedRoute);
     assetFormService = TestBed.inject(AssetFormService);
     assetService = TestBed.inject(AssetService);
-    mmemberService = TestBed.inject(MmemberService);
+    userService = TestBed.inject(UserService);
 
     comp = fixture.componentInstance;
   });
 
   describe('ngOnInit', () => {
-    it('Should call Mmember query and add missing value', () => {
+    it('Should call User query and add missing value', () => {
       const asset: IAsset = { id: 456 };
-      const mmember: IMmember = { id: 7577 };
-      asset.mmember = mmember;
+      const user: IUser = { id: 41869 };
+      asset.user = user;
 
-      const mmemberCollection: IMmember[] = [{ id: 96857 }];
-      jest.spyOn(mmemberService, 'query').mockReturnValue(of(new HttpResponse({ body: mmemberCollection })));
-      const additionalMmembers = [mmember];
-      const expectedCollection: IMmember[] = [...additionalMmembers, ...mmemberCollection];
-      jest.spyOn(mmemberService, 'addMmemberToCollectionIfMissing').mockReturnValue(expectedCollection);
+      const userCollection: IUser[] = [{ id: 79069 }];
+      jest.spyOn(userService, 'query').mockReturnValue(of(new HttpResponse({ body: userCollection })));
+      const additionalUsers = [user];
+      const expectedCollection: IUser[] = [...additionalUsers, ...userCollection];
+      jest.spyOn(userService, 'addUserToCollectionIfMissing').mockReturnValue(expectedCollection);
 
       activatedRoute.data = of({ asset });
       comp.ngOnInit();
 
-      expect(mmemberService.query).toHaveBeenCalled();
-      expect(mmemberService.addMmemberToCollectionIfMissing).toHaveBeenCalledWith(
-        mmemberCollection,
-        ...additionalMmembers.map(expect.objectContaining)
+      expect(userService.query).toHaveBeenCalled();
+      expect(userService.addUserToCollectionIfMissing).toHaveBeenCalledWith(
+        userCollection,
+        ...additionalUsers.map(expect.objectContaining)
       );
-      expect(comp.mmembersSharedCollection).toEqual(expectedCollection);
+      expect(comp.usersSharedCollection).toEqual(expectedCollection);
     });
 
     it('Should update editForm', () => {
       const asset: IAsset = { id: 456 };
-      const mmember: IMmember = { id: 31532 };
-      asset.mmember = mmember;
+      const user: IUser = { id: 97358 };
+      asset.user = user;
 
       activatedRoute.data = of({ asset });
       comp.ngOnInit();
 
-      expect(comp.mmembersSharedCollection).toContain(mmember);
+      expect(comp.usersSharedCollection).toContain(user);
       expect(comp.asset).toEqual(asset);
     });
   });
@@ -153,13 +154,13 @@ describe('Asset Management Update Component', () => {
   });
 
   describe('Compare relationships', () => {
-    describe('compareMmember', () => {
-      it('Should forward to mmemberService', () => {
+    describe('compareUser', () => {
+      it('Should forward to userService', () => {
         const entity = { id: 123 };
         const entity2 = { id: 456 };
-        jest.spyOn(mmemberService, 'compareMmember');
-        comp.compareMmember(entity, entity2);
-        expect(mmemberService.compareMmember).toHaveBeenCalledWith(entity, entity2);
+        jest.spyOn(userService, 'compareUser');
+        comp.compareUser(entity, entity2);
+        expect(userService.compareUser).toHaveBeenCalledWith(entity, entity2);
       });
     });
   });

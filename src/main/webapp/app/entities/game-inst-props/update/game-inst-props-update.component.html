@@ -6,14 +6,14 @@
         data-cy="GameInstPropsCreateUpdateHeading"
         jhiTranslate="gammaJhApp.gameInstProps.home.createOrEditLabel"
       >
-        Crear o editar Game Inst Props
+        Create or edit a Game Inst Props
       </h2>
 
       <div>
         <jhi-alert-error></jhi-alert-error>
 
         <div class="row mb-3" *ngIf="editForm.controls.id.value !== null">
-          <label class="form-label" jhiTranslate="gammaJhApp.gameInstProps.id" for="field_id">Id</label>
+          <label class="form-label" jhiTranslate="global.field.id" for="field_id">ID</label>
           <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
         </div>
 
@@ -63,13 +63,13 @@
         </div>
 
         <div class="row mb-3">
-          <label class="form-label" jhiTranslate="gammaJhApp.gameInstProps.gameInst" for="field_gameInst">Game Inst</label>
+          <label class="form-label" jhiTranslate="gammaJhApp.gameInstProps.gameInst1" for="field_gameInst1">Game Inst 1</label>
           <select
             class="form-control"
-            id="field_gameInst"
-            data-cy="gameInst"
-            name="gameInst"
-            formControlName="gameInst"
+            id="field_gameInst1"
+            data-cy="gameInst1"
+            name="gameInst1"
+            formControlName="gameInst1"
             [compareWith]="compareGameInst"
           >
             <option [ngValue]="null"></option>
@@ -80,7 +80,7 @@
 
       <div>
         <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
-          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancelar</span>
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
         </button>
 
         <button
@@ -90,7 +90,7 @@
           [disabled]="editForm.invalid || isSaving"
           class="btn btn-primary"
         >
-          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Guardar</span>
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
         </button>
       </div>
     </form>

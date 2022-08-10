@@ -19,15 +19,15 @@ type GameClassFormGroupInput = IGameClass | PartialWithRequiredKeyOf<NewGameClas
 /**
  * Type that converts some properties for forms.
  */
-type FormValueOf<T extends IGameClass | NewGameClass> = Omit<T, 'updateed'> & {
-  updateed?: string | null;
+type FormValueOf<T extends IGameClass | NewGameClass> = Omit<T, 'updated'> & {
+  updated?: string | null;
 };
 
 type GameClassFormRawValue = FormValueOf<IGameClass>;
 
 type NewGameClassFormRawValue = FormValueOf<NewGameClass>;
 
-type GameClassFormDefaults = Pick<NewGameClass, 'id' | 'updateed'>;
+type GameClassFormDefaults = Pick<NewGameClass, 'id' | 'updated'>;
 
 type GameClassFormGroupContent = {
   id: FormControl<GameClassFormRawValue['id'] | NewGameClass['id']>;
@@ -38,7 +38,7 @@ type GameClassFormGroupContent = {
   gamePath: FormControl<GameClassFormRawValue['gamePath']>;
   docsPath: FormControl<GameClassFormRawValue['docsPath']>;
   propsNames: FormControl<GameClassFormRawValue['propsNames']>;
-  updateed: FormControl<GameClassFormRawValue['updateed']>;
+  updated: FormControl<GameClassFormRawValue['updated']>;
 };
 
 export type GameClassFormGroup = FormGroup<GameClassFormGroupContent>;
@@ -65,7 +65,7 @@ export class GameClassFormService {
       gamePath: new FormControl(gameClassRawValue.gamePath),
       docsPath: new FormControl(gameClassRawValue.docsPath),
       propsNames: new FormControl(gameClassRawValue.propsNames),
-      updateed: new FormControl(gameClassRawValue.updateed),
+      updated: new FormControl(gameClassRawValue.updated),
     });
   }
 
@@ -88,14 +88,14 @@ export class GameClassFormService {
 
     return {
       id: null,
-      updateed: currentTime,
+      updated: currentTime,
     };
   }
 
   private convertGameClassRawValueToGameClass(rawGameClass: GameClassFormRawValue | NewGameClassFormRawValue): IGameClass | NewGameClass {
     return {
       ...rawGameClass,
-      updateed: dayjs(rawGameClass.updateed, DATE_TIME_FORMAT),
+      updated: dayjs(rawGameClass.updated, DATE_TIME_FORMAT),
     };
   }
 
@@ -104,7 +104,7 @@ export class GameClassFormService {
   ): GameClassFormRawValue | PartialWithRequiredKeyOf<NewGameClassFormRawValue> {
     return {
       ...gameClass,
-      updateed: gameClass.updateed ? gameClass.updateed.format(DATE_TIME_FORMAT) : undefined,
+      updated: gameClass.updated ? gameClass.updated.format(DATE_TIME_FORMAT) : undefined,
     };
   }
 }

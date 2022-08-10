@@ -20,7 +20,7 @@ describe('SessionsComponent', () => {
     lastName: 'Doe',
     activated: true,
     email: 'john.doe@mail.com',
-    langKey: 'es',
+    langKey: 'en',
     login: 'john',
     authorities: [],
     imageUrl: '',

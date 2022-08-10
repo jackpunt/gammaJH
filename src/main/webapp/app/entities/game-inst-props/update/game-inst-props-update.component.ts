@@ -81,7 +81,7 @@ export class GameInstPropsUpdateComponent implements OnInit {
 
     this.gameInstsSharedCollection = this.gameInstService.addGameInstToCollectionIfMissing<IGameInst>(
       this.gameInstsSharedCollection,
-      gameInstProps.gameInst
+      gameInstProps.gameInst1
     );
   }
 
@@ -91,7 +91,7 @@ export class GameInstPropsUpdateComponent implements OnInit {
       .pipe(map((res: HttpResponse<IGameInst[]>) => res.body ?? []))
       .pipe(
         map((gameInsts: IGameInst[]) =>
-          this.gameInstService.addGameInstToCollectionIfMissing<IGameInst>(gameInsts, this.gameInstProps?.gameInst)
+          this.gameInstService.addGameInstToCollectionIfMissing<IGameInst>(gameInsts, this.gameInstProps?.gameInst1)
         )
       )
       .subscribe((gameInsts: IGameInst[]) => (this.gameInstsSharedCollection = gameInsts));

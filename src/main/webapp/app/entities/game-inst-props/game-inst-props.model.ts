@@ -10,7 +10,7 @@ export interface IGameInstProps {
   npcCount?: number | null;
   jsonProps?: string | null;
   updated?: dayjs.Dayjs | null;
-  gameInst?: Pick<IGameInst, 'id'> | null;
+  gameInst1?: Pick<IGameInst, 'id'> | null;
 }
 
 export type NewGameInstProps = Omit<IGameInstProps, 'id'> & { id: null };

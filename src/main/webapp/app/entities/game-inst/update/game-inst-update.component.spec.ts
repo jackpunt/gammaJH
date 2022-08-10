@@ -59,12 +59,12 @@ describe('GameInst Management Update Component', () => {
   describe('ngOnInit', () => {
     it('Should call GameInstProps query and add missing value', () => {
       const gameInst: IGameInst = { id: 456 };
-      const propsId: IGameInstProps = { id: 421 };
-      gameInst.propsId = propsId;
+      const props: IGameInstProps = { id: 421 };
+      gameInst.props = props;
 
       const gameInstPropsCollection: IGameInstProps[] = [{ id: 12810 }];
       jest.spyOn(gameInstPropsService, 'query').mockReturnValue(of(new HttpResponse({ body: gameInstPropsCollection })));
-      const additionalGameInstProps = [propsId];
+      const additionalGameInstProps = [props];
       const expectedCollection: IGameInstProps[] = [...additionalGameInstProps, ...gameInstPropsCollection];
       jest.spyOn(gameInstPropsService, 'addGameInstPropsToCollectionIfMissing').mockReturnValue(expectedCollection);
 
@@ -103,12 +103,14 @@ describe('GameInst Management Update Component', () => {
 
     it('Should call Player query and add missing value', () => {
       const gameInst: IGameInst = { id: 456 };
-      const playerB: IPlayer = { id: 24830 };
+      const playerA: IPlayer = { id: 24830 };
+      gameInst.playerA = playerA;
+      const playerB: IPlayer = { id: 673 };
       gameInst.playerB = playerB;
 
-      const playerCollection: IPlayer[] = [{ id: 673 }];
+      const playerCollection: IPlayer[] = [{ id: 30253 }];
       jest.spyOn(playerService, 'query').mockReturnValue(of(new HttpResponse({ body: playerCollection })));
-      const additionalPlayers = [playerB];
+      const additionalPlayers = [playerA, playerB];
       const expectedCollection: IPlayer[] = [...additionalPlayers, ...playerCollection];
       jest.spyOn(playerService, 'addPlayerToCollectionIfMissing').mockReturnValue(expectedCollection);
 
@@ -125,18 +127,21 @@ describe('GameInst Management Update Component', () => {
 
     it('Should update editForm', () => {
       const gameInst: IGameInst = { id: 456 };
-      const propsId: IGameInstProps = { id: 80442 };
-      gameInst.propsId = propsId;
+      const props: IGameInstProps = { id: 80442 };
+      gameInst.props = props;
       const gameClass: IGameClass = { id: 70074 };
       gameInst.gameClass = gameClass;
-      const playerB: IPlayer = { id: 30253 };
+      const playerA: IPlayer = { id: 32095 };
+      gameInst.playerA = playerA;
+      const playerB: IPlayer = { id: 87163 };
       gameInst.playerB = playerB;
 
       activatedRoute.data = of({ gameInst });
       comp.ngOnInit();
 
-      expect(comp.gameInstPropsSharedCollection).toContain(propsId);
+      expect(comp.gameInstPropsSharedCollection).toContain(props);
       expect(comp.gameClassesSharedCollection).toContain(gameClass);
+      expect(comp.playersSharedCollection).toContain(playerA);
       expect(comp.playersSharedCollection).toContain(playerB);
       expect(comp.gameInst).toEqual(gameInst);
     });

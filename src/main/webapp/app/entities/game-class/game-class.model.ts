@@ -9,7 +9,7 @@ export interface IGameClass {
   gamePath?: string | null;
   docsPath?: string | null;
   propsNames?: string | null;
-  updateed?: dayjs.Dayjs | null;
+  updated?: dayjs.Dayjs | null;
 }
 
 export type NewGameClass = Omit<IGameClass, 'id'> & { id: null };

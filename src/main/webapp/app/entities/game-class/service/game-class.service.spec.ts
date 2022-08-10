@@ -8,7 +8,7 @@ import { GameClassService, RestGameClass } from './game-class.service';
 
 const requireRestSample: RestGameClass = {
   ...sampleWithRequiredData,
-  updateed: sampleWithRequiredData.updateed?.toJSON(),
+  updated: sampleWithRequiredData.updated?.toJSON(),
 };
 
 describe('GameClass Service', () => {

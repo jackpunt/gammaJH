@@ -1,3 +1,5 @@
+import dayjs from 'dayjs/esm';
+
 import { IPlayer, NewPlayer } from './player.model';
 
 export const sampleWithRequiredData: IPlayer = {
@@ -5,13 +7,22 @@ export const sampleWithRequiredData: IPlayer = {
 };
 
 export const sampleWithPartialData: IPlayer = {
-  id: 17736,
-  version: 59658,
+  id: 24081,
+  version: 70291,
+  rank: 28559,
+  score: 3535,
+  rankTime: dayjs('2022-08-10T19:43'),
 };
 
 export const sampleWithFullData: IPlayer = {
-  id: 81997,
-  version: 43339,
+  id: 97222,
+  version: 47305,
+  name: 'Somalia 1080p',
+  rank: 40885,
+  score: 26894,
+  scoreTime: dayjs('2022-08-10T16:08'),
+  rankTime: dayjs('2022-08-10T07:16'),
+  displayClient: 'brand',
 };
 
 export const sampleWithNewData: NewPlayer = {

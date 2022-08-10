@@ -42,13 +42,7 @@ application {
   entities Asset, GameClass, GameInst, GameInstProps, GamePlayer, MemberGameProps, Player
 }
 
-
-
-
-
-
 entity Asset {
-  //id Long
   version Long
   name String
   main Boolean
@@ -57,7 +51,6 @@ entity Asset {
   include String
 }
 entity GameClass {
-  //id Long
   version Long
   name String
   revision String
@@ -65,10 +58,9 @@ entity GameClass {
   gamePath String
   docsPath String
   propsNames String
-  updateed Instant
+  updated Instant
 }
 entity GameInst {
-  //id Long
   version Long
   gameName String
   passcode String
@@ -82,7 +74,6 @@ entity GameInst {
   hostUrl String
 }
 entity GameInstProps {
-  //id Long
   version Long
   seed Long
   mapName String
@@ -92,13 +83,11 @@ entity GameInstProps {
   updated Instant
 }
 entity GamePlayer {
-  //id Long
   version Long
   role String
   ready Boolean
 }
 entity MemberGameProps {
-  //id Long
   version Long
   seed Long
   mapName String
@@ -108,7 +97,6 @@ entity MemberGameProps {
   configName String
 }
 entity Player {
-  //id Long
   version Long
   name String
   rank Integer
@@ -117,20 +105,20 @@ entity Player {
   rankTime Instant
   displayClient String
 }
-
 relationship OneToMany {
-  GameClass{player} to Player{gameClass}
-  GameClass{MemberGameProps} to MemberGameProps{gameClass}
+  GameInstProps{gameInst} to GameInst{props}
   GameClass{gameInst} to GameInst{gameClass}
-  GameInst{gamePlayer} to GamePlayer{gameInst}
   Player{ida} to GameInst{playerA}
   Player{idb} to GameInst{playerB}
+  GameInst{gameInstProps} to GameInstProps{gameInst1}
+  GameInst{gamePlayer} to GamePlayer{gameInst}
   Player{gamePlayer} to GamePlayer{player}
+  GameClass{memberGameProps} to MemberGameProps{gameClass}
+  GameClass{player} to Player{gameClass}
   Asset{player} to Player{asset}
 }
 relationship ManyToOne {
-  Asset{user} to User{asset}
-  GameInst{props} to GameInstProps{gameInst1}
-  GameInstProps{gameInst2} to GameInst{gameInstProps}
-  MemberGameProps{user} to User{gameProps}
+  Asset{user} to User
+  MemberGameProps{user} to User
 }
+

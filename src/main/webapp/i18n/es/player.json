@@ -17,12 +17,19 @@
       "detail": {
         "title": "Player"
       },
-      "id": "Id",
+      "id": "ID",
       "version": "Version",
+      "name": "Name",
+      "rank": "Rank",
+      "score": "Score",
+      "scoreTime": "Score Time",
+      "rankTime": "Rank Time",
+      "displayClient": "Display Client",
+      "ida": "Ida",
+      "idb": "Idb",
+      "gamePlayer": "Game Player",
       "gameClass": "Game Class",
-      "asset": "Asset",
-      "idB": "Id B",
-      "gamePlayer": "Game Player"
+      "asset": "Asset"
     }
   }
 }

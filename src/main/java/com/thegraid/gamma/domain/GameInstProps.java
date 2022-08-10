@@ -3,6 +3,8 @@ package com.thegraid.gamma.domain;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.*;
 
 /**
@@ -40,9 +42,13 @@ public class GameInstProps implements Serializable {
     @Column(name = "updated")
     private Instant updated;
 
+    @OneToMany(mappedBy = "props")
+    @JsonIgnoreProperties(value = { "gameInstProps", "gamePlayers", "props", "gameClass", "playerA", "playerB" }, allowSetters = true)
+    private Set<GameInst> gameInsts = new HashSet<>();
+
     @ManyToOne
-    @JsonIgnoreProperties(value = { "propsId", "gameClass", "playerB", "gamePlayers" }, allowSetters = true)
-    private GameInst gameInst;
+    @JsonIgnoreProperties(value = { "gameInstProps", "gamePlayers", "props", "gameClass", "playerA", "playerB" }, allowSetters = true)
+    private GameInst gameInst1;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -150,16 +156,47 @@ public class GameInstProps implements Serializable {
         this.updated = updated;
     }
 
-    public GameInst getGameInst() {
-        return this.gameInst;
+    public Set<GameInst> getGameInsts() {
+        return this.gameInsts;
     }
 
-    public void setGameInst(GameInst gameInst) {
-        this.gameInst = gameInst;
+    public void setGameInsts(Set<GameInst> gameInsts) {
+        if (this.gameInsts != null) {
+            this.gameInsts.forEach(i -> i.setProps(null));
+        }
+        if (gameInsts != null) {
+            gameInsts.forEach(i -> i.setProps(this));
+        }
+        this.gameInsts = gameInsts;
     }
 
-    public GameInstProps gameInst(GameInst gameInst) {
-        this.setGameInst(gameInst);
+    public GameInstProps gameInsts(Set<GameInst> gameInsts) {
+        this.setGameInsts(gameInsts);
+        return this;
+    }
+
+    public GameInstProps addGameInst(GameInst gameInst) {
+        this.gameInsts.add(gameInst);
+        gameInst.setProps(this);
+        return this;
+    }
+
+    public GameInstProps removeGameInst(GameInst gameInst) {
+        this.gameInsts.remove(gameInst);
+        gameInst.setProps(null);
+        return this;
+    }
+
+    public GameInst getGameInst1() {
+        return this.gameInst1;
+    }
+
+    public void setGameInst1(GameInst gameInst) {
+        this.gameInst1 = gameInst;
+    }
+
+    public GameInstProps gameInst1(GameInst gameInst) {
+        this.setGameInst1(gameInst);
         return this;
     }
 

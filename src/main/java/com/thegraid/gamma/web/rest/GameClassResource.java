@@ -144,8 +144,8 @@ public class GameClassResource {
                 if (gameClass.getPropsNames() != null) {
                     existingGameClass.setPropsNames(gameClass.getPropsNames());
                 }
-                if (gameClass.getUpdateed() != null) {
-                    existingGameClass.setUpdateed(gameClass.getUpdateed());
+                if (gameClass.getUpdated() != null) {
+                    existingGameClass.setUpdated(gameClass.getUpdated());
                 }
 
                 return existingGameClass;

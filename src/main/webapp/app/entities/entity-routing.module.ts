@@ -30,29 +30,14 @@ import { RouterModule } from '@angular/router';
         loadChildren: () => import('./player/player.module').then(m => m.PlayerModule),
       },
       {
-        path: 'mmember',
-        data: { pageTitle: 'gammaJhApp.mmember.home.title' },
-        loadChildren: () => import('./mmember/mmember.module').then(m => m.MmemberModule),
-      },
-      {
         path: 'asset',
         data: { pageTitle: 'gammaJhApp.asset.home.title' },
         loadChildren: () => import('./asset/asset.module').then(m => m.AssetModule),
       },
       {
-        path: 'role-group',
-        data: { pageTitle: 'gammaJhApp.roleGroup.home.title' },
-        loadChildren: () => import('./role-group/role-group.module').then(m => m.RoleGroupModule),
-      },
-      {
-        path: 'group-authority',
-        data: { pageTitle: 'gammaJhApp.groupAuthority.home.title' },
-        loadChildren: () => import('./group-authority/group-authority.module').then(m => m.GroupAuthorityModule),
-      },
-      {
-        path: 'mmember-game-props',
-        data: { pageTitle: 'gammaJhApp.mmemberGameProps.home.title' },
-        loadChildren: () => import('./mmember-game-props/mmember-game-props.module').then(m => m.MmemberGamePropsModule),
+        path: 'member-game-props',
+        data: { pageTitle: 'gammaJhApp.memberGameProps.home.title' },
+        loadChildren: () => import('./member-game-props/member-game-props.module').then(m => m.MemberGamePropsModule),
       },
       /* jhipster-needle-add-entity-route - JHipster will add entity modules routes here */
     ]),

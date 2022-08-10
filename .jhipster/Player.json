@@ -1,17 +1,37 @@
 {
-  "applications": "*",
-  "changelogDate": "20220809231008",
+  "applications": ["gammaJH"],
+  "changelogDate": "20220810214705",
   "dto": "no",
   "embedded": false,
   "entityTableName": "player",
   "fields": [
     {
-      "fieldName": "id",
+      "fieldName": "version",
       "fieldType": "Long"
     },
     {
-      "fieldName": "version",
-      "fieldType": "Long"
+      "fieldName": "name",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "rank",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "score",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "scoreTime",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "rankTime",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "displayClient",
+      "fieldType": "String"
     }
   ],
   "fluentMethods": true,
@@ -20,6 +40,24 @@
   "pagination": "no",
   "readOnly": false,
   "relationships": [
+    {
+      "otherEntityName": "gameInst",
+      "otherEntityRelationshipName": "playerA",
+      "relationshipName": "ida",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "gameInst",
+      "otherEntityRelationshipName": "playerB",
+      "relationshipName": "idb",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "gamePlayer",
+      "otherEntityRelationshipName": "player",
+      "relationshipName": "gamePlayer",
+      "relationshipType": "one-to-many"
+    },
     {
       "otherEntityName": "gameClass",
       "otherEntityRelationshipName": "player",
@@ -31,18 +69,6 @@
       "otherEntityRelationshipName": "player",
       "relationshipName": "asset",
       "relationshipType": "many-to-one"
-    },
-    {
-      "otherEntityName": "gameInst",
-      "otherEntityRelationshipName": "playerB",
-      "relationshipName": "idB",
-      "relationshipType": "one-to-many"
-    },
-    {
-      "otherEntityName": "gamePlayer",
-      "otherEntityRelationshipName": "player",
-      "relationshipName": "gamePlayer",
-      "relationshipType": "one-to-many"
     }
   ],
   "service": "no"

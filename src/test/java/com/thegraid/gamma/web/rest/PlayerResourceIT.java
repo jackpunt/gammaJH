@@ -9,6 +9,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import com.thegraid.gamma.IntegrationTest;
 import com.thegraid.gamma.domain.Player;
 import com.thegraid.gamma.repository.PlayerRepository;
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicLong;
@@ -32,6 +34,24 @@ class PlayerResourceIT {
 
     private static final Long DEFAULT_VERSION = 1L;
     private static final Long UPDATED_VERSION = 2L;
+
+    private static final String DEFAULT_NAME = "AAAAAAAAAA";
+    private static final String UPDATED_NAME = "BBBBBBBBBB";
+
+    private static final Integer DEFAULT_RANK = 1;
+    private static final Integer UPDATED_RANK = 2;
+
+    private static final Integer DEFAULT_SCORE = 1;
+    private static final Integer UPDATED_SCORE = 2;
+
+    private static final Instant DEFAULT_SCORE_TIME = Instant.ofEpochMilli(0L);
+    private static final Instant UPDATED_SCORE_TIME = Instant.now().truncatedTo(ChronoUnit.MILLIS);
+
+    private static final Instant DEFAULT_RANK_TIME = Instant.ofEpochMilli(0L);
+    private static final Instant UPDATED_RANK_TIME = Instant.now().truncatedTo(ChronoUnit.MILLIS);
+
+    private static final String DEFAULT_DISPLAY_CLIENT = "AAAAAAAAAA";
+    private static final String UPDATED_DISPLAY_CLIENT = "BBBBBBBBBB";
 
     private static final String ENTITY_API_URL = "/api/players";
     private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{id}";
@@ -57,7 +77,14 @@ class PlayerResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Player createEntity(EntityManager em) {
-        Player player = new Player().version(DEFAULT_VERSION);
+        Player player = new Player()
+            .version(DEFAULT_VERSION)
+            .name(DEFAULT_NAME)
+            .rank(DEFAULT_RANK)
+            .score(DEFAULT_SCORE)
+            .scoreTime(DEFAULT_SCORE_TIME)
+            .rankTime(DEFAULT_RANK_TIME)
+            .displayClient(DEFAULT_DISPLAY_CLIENT);
         return player;
     }
 
@@ -68,7 +95,14 @@ class PlayerResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Player createUpdatedEntity(EntityManager em) {
-        Player player = new Player().version(UPDATED_VERSION);
+        Player player = new Player()
+            .version(UPDATED_VERSION)
+            .name(UPDATED_NAME)
+            .rank(UPDATED_RANK)
+            .score(UPDATED_SCORE)
+            .scoreTime(UPDATED_SCORE_TIME)
+            .rankTime(UPDATED_RANK_TIME)
+            .displayClient(UPDATED_DISPLAY_CLIENT);
         return player;
     }
 
@@ -93,6 +127,12 @@ class PlayerResourceIT {
         assertThat(playerList).hasSize(databaseSizeBeforeCreate + 1);
         Player testPlayer = playerList.get(playerList.size() - 1);
         assertThat(testPlayer.getVersion()).isEqualTo(DEFAULT_VERSION);
+        assertThat(testPlayer.getName()).isEqualTo(DEFAULT_NAME);
+        assertThat(testPlayer.getRank()).isEqualTo(DEFAULT_RANK);
+        assertThat(testPlayer.getScore()).isEqualTo(DEFAULT_SCORE);
+        assertThat(testPlayer.getScoreTime()).isEqualTo(DEFAULT_SCORE_TIME);
+        assertThat(testPlayer.getRankTime()).isEqualTo(DEFAULT_RANK_TIME);
+        assertThat(testPlayer.getDisplayClient()).isEqualTo(DEFAULT_DISPLAY_CLIENT);
     }
 
     @Test
@@ -127,7 +167,13 @@ class PlayerResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(player.getId().intValue())))
-            .andExpect(jsonPath("$.[*].version").value(hasItem(DEFAULT_VERSION.intValue())));
+            .andExpect(jsonPath("$.[*].version").value(hasItem(DEFAULT_VERSION.intValue())))
+            .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME)))
+            .andExpect(jsonPath("$.[*].rank").value(hasItem(DEFAULT_RANK)))
+            .andExpect(jsonPath("$.[*].score").value(hasItem(DEFAULT_SCORE)))
+            .andExpect(jsonPath("$.[*].scoreTime").value(hasItem(DEFAULT_SCORE_TIME.toString())))
+            .andExpect(jsonPath("$.[*].rankTime").value(hasItem(DEFAULT_RANK_TIME.toString())))
+            .andExpect(jsonPath("$.[*].displayClient").value(hasItem(DEFAULT_DISPLAY_CLIENT)));
     }
 
     @Test
@@ -142,7 +188,13 @@ class PlayerResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(player.getId().intValue()))
-            .andExpect(jsonPath("$.version").value(DEFAULT_VERSION.intValue()));
+            .andExpect(jsonPath("$.version").value(DEFAULT_VERSION.intValue()))
+            .andExpect(jsonPath("$.name").value(DEFAULT_NAME))
+            .andExpect(jsonPath("$.rank").value(DEFAULT_RANK))
+            .andExpect(jsonPath("$.score").value(DEFAULT_SCORE))
+            .andExpect(jsonPath("$.scoreTime").value(DEFAULT_SCORE_TIME.toString()))
+            .andExpect(jsonPath("$.rankTime").value(DEFAULT_RANK_TIME.toString()))
+            .andExpect(jsonPath("$.displayClient").value(DEFAULT_DISPLAY_CLIENT));
     }
 
     @Test
@@ -164,7 +216,14 @@ class PlayerResourceIT {
         Player updatedPlayer = playerRepository.findById(player.getId()).get();
         // Disconnect from session so that the updates on updatedPlayer are not directly saved in db
         em.detach(updatedPlayer);
-        updatedPlayer.version(UPDATED_VERSION);
+        updatedPlayer
+            .version(UPDATED_VERSION)
+            .name(UPDATED_NAME)
+            .rank(UPDATED_RANK)
+            .score(UPDATED_SCORE)
+            .scoreTime(UPDATED_SCORE_TIME)
+            .rankTime(UPDATED_RANK_TIME)
+            .displayClient(UPDATED_DISPLAY_CLIENT);
 
         restPlayerMockMvc
             .perform(
@@ -180,6 +239,12 @@ class PlayerResourceIT {
         assertThat(playerList).hasSize(databaseSizeBeforeUpdate);
         Player testPlayer = playerList.get(playerList.size() - 1);
         assertThat(testPlayer.getVersion()).isEqualTo(UPDATED_VERSION);
+        assertThat(testPlayer.getName()).isEqualTo(UPDATED_NAME);
+        assertThat(testPlayer.getRank()).isEqualTo(UPDATED_RANK);
+        assertThat(testPlayer.getScore()).isEqualTo(UPDATED_SCORE);
+        assertThat(testPlayer.getScoreTime()).isEqualTo(UPDATED_SCORE_TIME);
+        assertThat(testPlayer.getRankTime()).isEqualTo(UPDATED_RANK_TIME);
+        assertThat(testPlayer.getDisplayClient()).isEqualTo(UPDATED_DISPLAY_CLIENT);
     }
 
     @Test
@@ -254,7 +319,13 @@ class PlayerResourceIT {
         Player partialUpdatedPlayer = new Player();
         partialUpdatedPlayer.setId(player.getId());
 
-        partialUpdatedPlayer.version(UPDATED_VERSION);
+        partialUpdatedPlayer
+            .version(UPDATED_VERSION)
+            .name(UPDATED_NAME)
+            .rank(UPDATED_RANK)
+            .scoreTime(UPDATED_SCORE_TIME)
+            .rankTime(UPDATED_RANK_TIME)
+            .displayClient(UPDATED_DISPLAY_CLIENT);
 
         restPlayerMockMvc
             .perform(
@@ -270,6 +341,12 @@ class PlayerResourceIT {
         assertThat(playerList).hasSize(databaseSizeBeforeUpdate);
         Player testPlayer = playerList.get(playerList.size() - 1);
         assertThat(testPlayer.getVersion()).isEqualTo(UPDATED_VERSION);
+        assertThat(testPlayer.getName()).isEqualTo(UPDATED_NAME);
+        assertThat(testPlayer.getRank()).isEqualTo(UPDATED_RANK);
+        assertThat(testPlayer.getScore()).isEqualTo(DEFAULT_SCORE);
+        assertThat(testPlayer.getScoreTime()).isEqualTo(UPDATED_SCORE_TIME);
+        assertThat(testPlayer.getRankTime()).isEqualTo(UPDATED_RANK_TIME);
+        assertThat(testPlayer.getDisplayClient()).isEqualTo(UPDATED_DISPLAY_CLIENT);
     }
 
     @Test
@@ -284,7 +361,14 @@ class PlayerResourceIT {
         Player partialUpdatedPlayer = new Player();
         partialUpdatedPlayer.setId(player.getId());
 
-        partialUpdatedPlayer.version(UPDATED_VERSION);
+        partialUpdatedPlayer
+            .version(UPDATED_VERSION)
+            .name(UPDATED_NAME)
+            .rank(UPDATED_RANK)
+            .score(UPDATED_SCORE)
+            .scoreTime(UPDATED_SCORE_TIME)
+            .rankTime(UPDATED_RANK_TIME)
+            .displayClient(UPDATED_DISPLAY_CLIENT);
 
         restPlayerMockMvc
             .perform(
@@ -300,6 +384,12 @@ class PlayerResourceIT {
         assertThat(playerList).hasSize(databaseSizeBeforeUpdate);
         Player testPlayer = playerList.get(playerList.size() - 1);
         assertThat(testPlayer.getVersion()).isEqualTo(UPDATED_VERSION);
+        assertThat(testPlayer.getName()).isEqualTo(UPDATED_NAME);
+        assertThat(testPlayer.getRank()).isEqualTo(UPDATED_RANK);
+        assertThat(testPlayer.getScore()).isEqualTo(UPDATED_SCORE);
+        assertThat(testPlayer.getScoreTime()).isEqualTo(UPDATED_SCORE_TIME);
+        assertThat(testPlayer.getRankTime()).isEqualTo(UPDATED_RANK_TIME);
+        assertThat(testPlayer.getDisplayClient()).isEqualTo(UPDATED_DISPLAY_CLIENT);
     }
 
     @Test

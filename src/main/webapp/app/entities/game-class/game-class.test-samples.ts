@@ -9,20 +9,20 @@ export const sampleWithRequiredData: IGameClass = {
 export const sampleWithPartialData: IGameClass = {
   id: 41898,
   version: 31524,
-  name: 'Money Zapatos',
-  updateed: dayjs('2022-08-09T14:39'),
+  name: 'Money Shoes',
+  updated: dayjs('2022-08-10T13:16'),
 };
 
 export const sampleWithFullData: IGameClass = {
   id: 30565,
   version: 95687,
   name: 'CSS neutral',
-  revision: 'Interacciones',
-  launcherPath: 'Gorro Lugar Zapatos',
-  gamePath: 'Liberia vía Tunez',
-  docsPath: 'Dinánmico Rampa Naira',
-  propsNames: 'invoice Savings Baleares',
-  updateed: dayjs('2022-08-09T07:19'),
+  revision: 'Interactions',
+  launcherPath: 'Hat Loop Shoes',
+  gamePath: 'Macedonia well-modulated Turkmenistan',
+  docsPath: 'Future Skyway Naira',
+  propsNames: 'invoice Savings Florida',
+  updated: dayjs('2022-08-10T05:56'),
 };
 
 export const sampleWithNewData: NewGameClass = {

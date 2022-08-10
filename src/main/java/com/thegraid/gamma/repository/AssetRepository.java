@@ -1,6 +1,7 @@
 package com.thegraid.gamma.repository;
 
 import com.thegraid.gamma.domain.Asset;
+import java.util.List;
 import org.springframework.data.jpa.repository.*;
 import org.springframework.stereotype.Repository;
 
@@ -9,4 +10,7 @@ import org.springframework.stereotype.Repository;
  */
 @SuppressWarnings("unused")
 @Repository
-public interface AssetRepository extends JpaRepository<Asset, Long> {}
+public interface AssetRepository extends JpaRepository<Asset, Long> {
+    @Query("select asset from Asset asset where asset.user.login = ?#{principal.username}")
+    List<Asset> findByUserIsCurrentUser();
+}

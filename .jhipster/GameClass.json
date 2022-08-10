@@ -1,14 +1,10 @@
 {
-  "applications": "*",
-  "changelogDate": "20220809231007",
+  "applications": ["gammaJH"],
+  "changelogDate": "20220810214704",
   "dto": "no",
   "embedded": false,
   "entityTableName": "game_class",
   "fields": [
-    {
-      "fieldName": "id",
-      "fieldType": "Long"
-    },
     {
       "fieldName": "version",
       "fieldType": "Long"
@@ -38,7 +34,7 @@
       "fieldType": "String"
     },
     {
-      "fieldName": "updateed",
+      "fieldName": "updated",
       "fieldType": "Instant"
     }
   ],
@@ -55,15 +51,15 @@
       "relationshipType": "one-to-many"
     },
     {
-      "otherEntityName": "player",
+      "otherEntityName": "memberGameProps",
       "otherEntityRelationshipName": "gameClass",
-      "relationshipName": "player",
+      "relationshipName": "memberGameProps",
       "relationshipType": "one-to-many"
     },
     {
-      "otherEntityName": "mmemberGameProps",
+      "otherEntityName": "player",
       "otherEntityRelationshipName": "gameClass",
-      "relationshipName": "mmemberGameProps",
+      "relationshipName": "player",
       "relationshipType": "one-to-many"
     }
   ],

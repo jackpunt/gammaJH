@@ -14,12 +14,17 @@ type PartialWithRequiredKeyOf<T extends { id: unknown }> = Partial<Omit<T, 'id'>
  */
 type AssetFormGroupInput = IAsset | PartialWithRequiredKeyOf<NewAsset>;
 
-type AssetFormDefaults = Pick<NewAsset, 'id'>;
+type AssetFormDefaults = Pick<NewAsset, 'id' | 'main' | 'auto'>;
 
 type AssetFormGroupContent = {
   id: FormControl<IAsset['id'] | NewAsset['id']>;
   version: FormControl<IAsset['version']>;
-  mmember: FormControl<IAsset['mmember']>;
+  name: FormControl<IAsset['name']>;
+  main: FormControl<IAsset['main']>;
+  auto: FormControl<IAsset['auto']>;
+  path: FormControl<IAsset['path']>;
+  include: FormControl<IAsset['include']>;
+  user: FormControl<IAsset['user']>;
 };
 
 export type AssetFormGroup = FormGroup<AssetFormGroupContent>;
@@ -40,7 +45,12 @@ export class AssetFormService {
         }
       ),
       version: new FormControl(assetRawValue.version),
-      mmember: new FormControl(assetRawValue.mmember),
+      name: new FormControl(assetRawValue.name),
+      main: new FormControl(assetRawValue.main),
+      auto: new FormControl(assetRawValue.auto),
+      path: new FormControl(assetRawValue.path),
+      include: new FormControl(assetRawValue.include),
+      user: new FormControl(assetRawValue.user),
     });
   }
 
@@ -61,6 +71,8 @@ export class AssetFormService {
   private getFormDefaults(): AssetFormDefaults {
     return {
       id: null,
+      main: false,
+      auto: false,
     };
   }
 }

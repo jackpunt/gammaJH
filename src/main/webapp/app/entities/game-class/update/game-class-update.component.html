@@ -2,14 +2,14 @@
   <div class="col-8">
     <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
       <h2 id="jhi-game-class-heading" data-cy="GameClassCreateUpdateHeading" jhiTranslate="gammaJhApp.gameClass.home.createOrEditLabel">
-        Crear o editar Game Class
+        Create or edit a Game Class
       </h2>
 
       <div>
         <jhi-alert-error></jhi-alert-error>
 
         <div class="row mb-3" *ngIf="editForm.controls.id.value !== null">
-          <label class="form-label" jhiTranslate="gammaJhApp.gameClass.id" for="field_id">Id</label>
+          <label class="form-label" jhiTranslate="global.field.id" for="field_id">ID</label>
           <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
         </div>
 
@@ -63,15 +63,15 @@
         </div>
 
         <div class="row mb-3">
-          <label class="form-label" jhiTranslate="gammaJhApp.gameClass.updateed" for="field_updateed">Updateed</label>
+          <label class="form-label" jhiTranslate="gammaJhApp.gameClass.updated" for="field_updated">Updated</label>
           <div class="d-flex">
             <input
-              id="field_updateed"
-              data-cy="updateed"
+              id="field_updated"
+              data-cy="updated"
               type="datetime-local"
               class="form-control"
-              name="updateed"
-              formControlName="updateed"
+              name="updated"
+              formControlName="updated"
               placeholder="YYYY-MM-DD HH:mm"
             />
           </div>
@@ -80,7 +80,7 @@
 
       <div>
         <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
-          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancelar</span>
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
         </button>
 
         <button
@@ -90,7 +90,7 @@
           [disabled]="editForm.invalid || isSaving"
           class="btn btn-primary"
         >
-          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Guardar</span>
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
         </button>
       </div>
     </form>

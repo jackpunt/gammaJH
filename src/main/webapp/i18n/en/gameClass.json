@@ -17,7 +17,7 @@
       "detail": {
         "title": "Game Class"
       },
-      "id": "Id",
+      "id": "ID",
       "version": "Version",
       "name": "Name",
       "revision": "Revision",
@@ -25,10 +25,10 @@
       "gamePath": "Game Path",
       "docsPath": "Docs Path",
       "propsNames": "Props Names",
-      "updateed": "Updateed",
+      "updated": "Updated",
       "gameInst": "Game Inst",
-      "player": "Player",
-      "mmemberGameProps": "Mmember Game Props"
+      "memberGameProps": "Member Game Props",
+      "player": "Player"
     }
   }
 }

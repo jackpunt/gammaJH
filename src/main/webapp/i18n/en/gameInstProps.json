@@ -17,7 +17,7 @@
       "detail": {
         "title": "Game Inst Props"
       },
-      "id": "Id",
+      "id": "ID",
       "version": "Version",
       "seed": "Seed",
       "mapName": "Map Name",
@@ -25,7 +25,8 @@
       "npcCount": "Npc Count",
       "jsonProps": "Json Props",
       "updated": "Updated",
-      "gameInst": "Game Inst"
+      "gameInst": "Game Inst",
+      "gameInst1": "Game Inst 1"
     }
   }
 }

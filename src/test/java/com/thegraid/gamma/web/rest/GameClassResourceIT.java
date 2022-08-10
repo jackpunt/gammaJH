@@ -53,8 +53,8 @@ class GameClassResourceIT {
     private static final String DEFAULT_PROPS_NAMES = "AAAAAAAAAA";
     private static final String UPDATED_PROPS_NAMES = "BBBBBBBBBB";
 
-    private static final Instant DEFAULT_UPDATEED = Instant.ofEpochMilli(0L);
-    private static final Instant UPDATED_UPDATEED = Instant.now().truncatedTo(ChronoUnit.MILLIS);
+    private static final Instant DEFAULT_UPDATED = Instant.ofEpochMilli(0L);
+    private static final Instant UPDATED_UPDATED = Instant.now().truncatedTo(ChronoUnit.MILLIS);
 
     private static final String ENTITY_API_URL = "/api/game-classes";
     private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{id}";
@@ -88,7 +88,7 @@ class GameClassResourceIT {
             .gamePath(DEFAULT_GAME_PATH)
             .docsPath(DEFAULT_DOCS_PATH)
             .propsNames(DEFAULT_PROPS_NAMES)
-            .updateed(DEFAULT_UPDATEED);
+            .updated(DEFAULT_UPDATED);
         return gameClass;
     }
 
@@ -107,7 +107,7 @@ class GameClassResourceIT {
             .gamePath(UPDATED_GAME_PATH)
             .docsPath(UPDATED_DOCS_PATH)
             .propsNames(UPDATED_PROPS_NAMES)
-            .updateed(UPDATED_UPDATEED);
+            .updated(UPDATED_UPDATED);
         return gameClass;
     }
 
@@ -141,7 +141,7 @@ class GameClassResourceIT {
         assertThat(testGameClass.getGamePath()).isEqualTo(DEFAULT_GAME_PATH);
         assertThat(testGameClass.getDocsPath()).isEqualTo(DEFAULT_DOCS_PATH);
         assertThat(testGameClass.getPropsNames()).isEqualTo(DEFAULT_PROPS_NAMES);
-        assertThat(testGameClass.getUpdateed()).isEqualTo(DEFAULT_UPDATEED);
+        assertThat(testGameClass.getUpdated()).isEqualTo(DEFAULT_UPDATED);
     }
 
     @Test
@@ -186,7 +186,7 @@ class GameClassResourceIT {
             .andExpect(jsonPath("$.[*].gamePath").value(hasItem(DEFAULT_GAME_PATH)))
             .andExpect(jsonPath("$.[*].docsPath").value(hasItem(DEFAULT_DOCS_PATH)))
             .andExpect(jsonPath("$.[*].propsNames").value(hasItem(DEFAULT_PROPS_NAMES)))
-            .andExpect(jsonPath("$.[*].updateed").value(hasItem(DEFAULT_UPDATEED.toString())));
+            .andExpect(jsonPath("$.[*].updated").value(hasItem(DEFAULT_UPDATED.toString())));
     }
 
     @Test
@@ -208,7 +208,7 @@ class GameClassResourceIT {
             .andExpect(jsonPath("$.gamePath").value(DEFAULT_GAME_PATH))
             .andExpect(jsonPath("$.docsPath").value(DEFAULT_DOCS_PATH))
             .andExpect(jsonPath("$.propsNames").value(DEFAULT_PROPS_NAMES))
-            .andExpect(jsonPath("$.updateed").value(DEFAULT_UPDATEED.toString()));
+            .andExpect(jsonPath("$.updated").value(DEFAULT_UPDATED.toString()));
     }
 
     @Test
@@ -238,7 +238,7 @@ class GameClassResourceIT {
             .gamePath(UPDATED_GAME_PATH)
             .docsPath(UPDATED_DOCS_PATH)
             .propsNames(UPDATED_PROPS_NAMES)
-            .updateed(UPDATED_UPDATEED);
+            .updated(UPDATED_UPDATED);
 
         restGameClassMockMvc
             .perform(
@@ -260,7 +260,7 @@ class GameClassResourceIT {
         assertThat(testGameClass.getGamePath()).isEqualTo(UPDATED_GAME_PATH);
         assertThat(testGameClass.getDocsPath()).isEqualTo(UPDATED_DOCS_PATH);
         assertThat(testGameClass.getPropsNames()).isEqualTo(UPDATED_PROPS_NAMES);
-        assertThat(testGameClass.getUpdateed()).isEqualTo(UPDATED_UPDATEED);
+        assertThat(testGameClass.getUpdated()).isEqualTo(UPDATED_UPDATED);
     }
 
     @Test
@@ -360,7 +360,7 @@ class GameClassResourceIT {
         assertThat(testGameClass.getGamePath()).isEqualTo(DEFAULT_GAME_PATH);
         assertThat(testGameClass.getDocsPath()).isEqualTo(DEFAULT_DOCS_PATH);
         assertThat(testGameClass.getPropsNames()).isEqualTo(DEFAULT_PROPS_NAMES);
-        assertThat(testGameClass.getUpdateed()).isEqualTo(DEFAULT_UPDATEED);
+        assertThat(testGameClass.getUpdated()).isEqualTo(DEFAULT_UPDATED);
     }
 
     @Test
@@ -383,7 +383,7 @@ class GameClassResourceIT {
             .gamePath(UPDATED_GAME_PATH)
             .docsPath(UPDATED_DOCS_PATH)
             .propsNames(UPDATED_PROPS_NAMES)
-            .updateed(UPDATED_UPDATEED);
+            .updated(UPDATED_UPDATED);
 
         restGameClassMockMvc
             .perform(
@@ -405,7 +405,7 @@ class GameClassResourceIT {
         assertThat(testGameClass.getGamePath()).isEqualTo(UPDATED_GAME_PATH);
         assertThat(testGameClass.getDocsPath()).isEqualTo(UPDATED_DOCS_PATH);
         assertThat(testGameClass.getPropsNames()).isEqualTo(UPDATED_PROPS_NAMES);
-        assertThat(testGameClass.getUpdateed()).isEqualTo(UPDATED_UPDATEED);
+        assertThat(testGameClass.getUpdated()).isEqualTo(UPDATED_UPDATED);
     }
 
     @Test

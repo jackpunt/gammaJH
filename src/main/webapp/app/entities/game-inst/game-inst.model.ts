@@ -16,8 +16,9 @@ export interface IGameInst {
   scoreB?: number | null;
   ticks?: number | null;
   hostUrl?: string | null;
-  propsId?: Pick<IGameInstProps, 'id'> | null;
+  props?: Pick<IGameInstProps, 'id'> | null;
   gameClass?: Pick<IGameClass, 'id'> | null;
+  playerA?: Pick<IPlayer, 'id'> | null;
   playerB?: Pick<IPlayer, 'id'> | null;
 }
 

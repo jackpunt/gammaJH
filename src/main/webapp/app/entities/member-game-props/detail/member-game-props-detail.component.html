@@ -1,0 +1,66 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="memberGameProps">
+      <h2 data-cy="memberGamePropsDetailsHeading"><span jhiTranslate="gammaJhApp.memberGameProps.detail.title">Member Game Props</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ memberGameProps.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="gammaJhApp.memberGameProps.version">Version</span></dt>
+        <dd>
+          <span>{{ memberGameProps.version }}</span>
+        </dd>
+        <dt><span jhiTranslate="gammaJhApp.memberGameProps.seed">Seed</span></dt>
+        <dd>
+          <span>{{ memberGameProps.seed }}</span>
+        </dd>
+        <dt><span jhiTranslate="gammaJhApp.memberGameProps.mapName">Map Name</span></dt>
+        <dd>
+          <span>{{ memberGameProps.mapName }}</span>
+        </dd>
+        <dt><span jhiTranslate="gammaJhApp.memberGameProps.mapSize">Map Size</span></dt>
+        <dd>
+          <span>{{ memberGameProps.mapSize }}</span>
+        </dd>
+        <dt><span jhiTranslate="gammaJhApp.memberGameProps.npcCount">Npc Count</span></dt>
+        <dd>
+          <span>{{ memberGameProps.npcCount }}</span>
+        </dd>
+        <dt><span jhiTranslate="gammaJhApp.memberGameProps.jsonProps">Json Props</span></dt>
+        <dd>
+          <span>{{ memberGameProps.jsonProps }}</span>
+        </dd>
+        <dt><span jhiTranslate="gammaJhApp.memberGameProps.configName">Config Name</span></dt>
+        <dd>
+          <span>{{ memberGameProps.configName }}</span>
+        </dd>
+        <dt><span jhiTranslate="gammaJhApp.memberGameProps.user">User</span></dt>
+        <dd>
+          <span>{{ memberGameProps.user?.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="gammaJhApp.memberGameProps.gameClass">Game Class</span></dt>
+        <dd>
+          <div *ngIf="memberGameProps.gameClass">
+            <a [routerLink]="['/game-class', memberGameProps.gameClass.id, 'view']">{{ memberGameProps.gameClass?.id }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/member-game-props', memberGameProps.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

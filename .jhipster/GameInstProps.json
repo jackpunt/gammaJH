@@ -1,14 +1,10 @@
 {
-  "applications": "*",
-  "changelogDate": "20220809231004",
+  "applications": ["gammaJH"],
+  "changelogDate": "20220810214701",
   "dto": "no",
   "embedded": false,
   "entityTableName": "game_inst_props",
   "fields": [
-    {
-      "fieldName": "id",
-      "fieldType": "Long"
-    },
     {
       "fieldName": "version",
       "fieldType": "Long"
@@ -46,7 +42,14 @@
   "relationships": [
     {
       "otherEntityName": "gameInst",
+      "otherEntityRelationshipName": "props",
       "relationshipName": "gameInst",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "gameInst",
+      "otherEntityRelationshipName": "gameInstProps",
+      "relationshipName": "gameInst1",
       "relationshipType": "many-to-one"
     }
   ],

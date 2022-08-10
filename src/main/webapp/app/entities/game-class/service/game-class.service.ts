@@ -11,8 +11,8 @@ import { IGameClass, NewGameClass } from '../game-class.model';
 
 export type PartialUpdateGameClass = Partial<IGameClass> & Pick<IGameClass, 'id'>;
 
-type RestOf<T extends IGameClass | NewGameClass> = Omit<T, 'updateed'> & {
-  updateed?: string | null;
+type RestOf<T extends IGameClass | NewGameClass> = Omit<T, 'updated'> & {
+  updated?: string | null;
 };
 
 export type RestGameClass = RestOf<IGameClass>;
@@ -99,14 +99,14 @@ export class GameClassService {
   protected convertDateFromClient<T extends IGameClass | NewGameClass | PartialUpdateGameClass>(gameClass: T): RestOf<T> {
     return {
       ...gameClass,
-      updateed: gameClass.updateed?.toJSON() ?? null,
+      updated: gameClass.updated?.toJSON() ?? null,
     };
   }
 
   protected convertDateFromServer(restGameClass: RestGameClass): IGameClass {
     return {
       ...restGameClass,
-      updateed: restGameClass.updateed ? dayjs(restGameClass.updateed) : undefined,
+      updated: restGameClass.updated ? dayjs(restGameClass.updated) : undefined,
     };
   }
 

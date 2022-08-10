@@ -5,12 +5,19 @@ export const sampleWithRequiredData: IAsset = {
 };
 
 export const sampleWithPartialData: IAsset = {
-  id: 27601,
+  id: 9020,
+  main: false,
+  path: 'Montana deposit',
 };
 
 export const sampleWithFullData: IAsset = {
-  id: 77403,
-  version: 38136,
+  id: 6997,
+  version: 72609,
+  name: 'Hat',
+  main: true,
+  auto: false,
+  path: 'utilize Pass',
+  include: 'multi-state communities Intranet',
 };
 
 export const sampleWithNewData: NewAsset = {

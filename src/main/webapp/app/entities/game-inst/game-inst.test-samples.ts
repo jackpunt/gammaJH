@@ -8,11 +8,11 @@ export const sampleWithRequiredData: IGameInst = {
 
 export const sampleWithPartialData: IGameInst = {
   id: 18754,
-  gameName: 'Algodón Guantes compress',
+  gameName: 'Cotton Gloves compress',
   passcode: 'functionalities',
-  created: dayjs('2022-08-09T09:52'),
-  started: dayjs('2022-08-08T23:20'),
-  finished: dayjs('2022-08-09T19:35'),
+  created: dayjs('2022-08-10T08:29'),
+  started: dayjs('2022-08-09T21:57'),
+  finished: dayjs('2022-08-10T18:12'),
   scoreA: 66970,
   ticks: 79711,
 };
@@ -20,16 +20,16 @@ export const sampleWithPartialData: IGameInst = {
 export const sampleWithFullData: IGameInst = {
   id: 13364,
   version: 33193,
-  gameName: 'Hormigon',
-  passcode: 'Gorro Burundi Gráfica',
-  created: dayjs('2022-08-09T21:06'),
-  started: dayjs('2022-08-09T04:06'),
-  finished: dayjs('2022-08-08T23:44'),
-  updated: dayjs('2022-08-09T06:42'),
+  gameName: 'Frozen',
+  passcode: 'Hat Cameroon hardware',
+  created: dayjs('2022-08-10T19:43'),
+  started: dayjs('2022-08-10T02:43'),
+  finished: dayjs('2022-08-09T22:21'),
+  updated: dayjs('2022-08-10T05:18'),
   scoreA: 7066,
   scoreB: 94670,
   ticks: 40831,
-  hostUrl: 'holística multitarea',
+  hostUrl: 'heuristic multi-state',
 };
 
 export const sampleWithNewData: NewGameInst = {

@@ -17,10 +17,15 @@
       "detail": {
         "title": "Asset"
       },
-      "id": "Id",
+      "id": "ID",
       "version": "Version",
-      "mmember": "Mmember",
-      "player": "Player"
+      "name": "Name",
+      "main": "Main",
+      "auto": "Auto",
+      "path": "Path",
+      "include": "Include",
+      "player": "Player",
+      "user": "User"
     }
   }
 }

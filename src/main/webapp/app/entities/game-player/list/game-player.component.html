@@ -5,7 +5,7 @@
     <div class="d-flex justify-content-end">
       <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
         <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
-        <span jhiTranslate="gammaJhApp.gamePlayer.home.refreshListLabel">Refrescar lista</span>
+        <span jhiTranslate="gammaJhApp.gamePlayer.home.refreshListLabel">Refresh list</span>
       </button>
 
       <button
@@ -15,7 +15,7 @@
         [routerLink]="['/game-player/new']"
       >
         <fa-icon icon="plus"></fa-icon>
-        <span jhiTranslate="gammaJhApp.gamePlayer.home.createLabel"> Crear nuevo Game Player </span>
+        <span jhiTranslate="gammaJhApp.gamePlayer.home.createLabel"> Create a new Game Player </span>
       </button>
     </div>
   </h2>
@@ -25,14 +25,14 @@
   <jhi-alert></jhi-alert>
 
   <div class="alert alert-warning" id="no-result" *ngIf="gamePlayers?.length === 0">
-    <span jhiTranslate="gammaJhApp.gamePlayer.home.notFound">Ningún Game Players encontrado</span>
+    <span jhiTranslate="gammaJhApp.gamePlayer.home.notFound">No Game Players found</span>
   </div>
 
   <div class="table-responsive" id="entities" *ngIf="gamePlayers && gamePlayers.length > 0">
     <table class="table table-striped" aria-describedby="page-heading">
       <thead>
         <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="navigateToWithComponentValues()">
-          <th scope="col" jhiSortBy="id"><span jhiTranslate="gammaJhApp.gamePlayer.id">Id</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon icon="sort"></fa-icon></th>
           <th scope="col" jhiSortBy="version">
             <span jhiTranslate="gammaJhApp.gamePlayer.version">Version</span> <fa-icon icon="sort"></fa-icon>
           </th>
@@ -76,7 +76,7 @@
                 data-cy="entityDetailsButton"
               >
                 <fa-icon icon="eye"></fa-icon>
-                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">Vista</span>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
               </button>
 
               <button
@@ -86,12 +86,12 @@
                 data-cy="entityEditButton"
               >
                 <fa-icon icon="pencil-alt"></fa-icon>
-                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Editar</span>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
               </button>
 
               <button type="submit" (click)="delete(gamePlayer)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
                 <fa-icon icon="times"></fa-icon>
-                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Eliminar</span>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
               </button>
             </div>
           </td>

@@ -1,24 +1,24 @@
 <div>
   <h2 id="session-page-heading" jhiTranslate="sessions.title" [translateValues]="{ username: account.login }" *ngIf="account">
-    Sesiones activas para [<strong>{{ account.login }}</strong
+    Active sessions for [<strong>{{ account.login }}</strong
     >]
   </h2>
 
   <div class="alert alert-success" *ngIf="success" jhiTranslate="sessions.messages.success">
-    <strong>¡Sesión invalidada!</strong>
+    <strong>Session invalidated!</strong>
   </div>
 
   <div class="alert alert-danger" *ngIf="error" jhiTranslate="sessions.messages.error">
-    <strong>¡Ha ocurrido un error!</strong> La sesión no puede ser invalidada.
+    <strong>An error has occurred!</strong> The session could not be invalidated.
   </div>
 
   <div class="table-responsive">
     <table class="table table-striped" aria-describedby="session-page-heading">
       <thead>
         <tr>
-          <th scope="col" jhiTranslate="sessions.table.ipaddress">Dirección IP</th>
-          <th scope="col" jhiTranslate="sessions.table.useragent">Agente de usuario</th>
-          <th scope="col" jhiTranslate="sessions.table.date">Fecha</th>
+          <th scope="col" jhiTranslate="sessions.table.ipaddress">IP address</th>
+          <th scope="col" jhiTranslate="sessions.table.useragent">User Agent</th>
+          <th scope="col" jhiTranslate="sessions.table.date">Date</th>
           <th scope="col"></th>
         </tr>
       </thead>
@@ -29,7 +29,7 @@
           <td>{{ session.tokenDate | date: 'longDate' }}</td>
           <td>
             <button type="submit" class="btn btn-primary" (click)="invalidate(session.series)" jhiTranslate="sessions.table.button">
-              Invalidar
+              Invalidate
             </button>
           </td>
         </tr>

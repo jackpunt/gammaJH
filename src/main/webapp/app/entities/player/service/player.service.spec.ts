@@ -4,10 +4,12 @@ import { HttpClientTestingModule, HttpTestingController } from '@angular/common/
 import { IPlayer } from '../player.model';
 import { sampleWithRequiredData, sampleWithNewData, sampleWithPartialData, sampleWithFullData } from '../player.test-samples';
 
-import { PlayerService } from './player.service';
+import { PlayerService, RestPlayer } from './player.service';
 
-const requireRestSample: IPlayer = {
+const requireRestSample: RestPlayer = {
   ...sampleWithRequiredData,
+  scoreTime: sampleWithRequiredData.scoreTime?.toJSON(),
+  rankTime: sampleWithRequiredData.rankTime?.toJSON(),
 };
 
 describe('Player Service', () => {

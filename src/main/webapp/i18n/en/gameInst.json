@@ -17,7 +17,7 @@
       "detail": {
         "title": "Game Inst"
       },
-      "id": "Id",
+      "id": "ID",
       "version": "Version",
       "gameName": "Game Name",
       "passcode": "Passcode",
@@ -29,10 +29,12 @@
       "scoreB": "Score B",
       "ticks": "Ticks",
       "hostUrl": "Host Url",
-      "propsId": "Props Id",
+      "gameInstProps": "Game Inst Props",
+      "gamePlayer": "Game Player",
+      "props": "Props",
       "gameClass": "Game Class",
-      "playerB": "Player B",
-      "gamePlayer": "Game Player"
+      "playerA": "Player A",
+      "playerB": "Player B"
     }
   }
 }

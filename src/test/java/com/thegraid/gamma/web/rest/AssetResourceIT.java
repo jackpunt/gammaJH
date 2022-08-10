@@ -33,6 +33,21 @@ class AssetResourceIT {
     private static final Long DEFAULT_VERSION = 1L;
     private static final Long UPDATED_VERSION = 2L;
 
+    private static final String DEFAULT_NAME = "AAAAAAAAAA";
+    private static final String UPDATED_NAME = "BBBBBBBBBB";
+
+    private static final Boolean DEFAULT_MAIN = false;
+    private static final Boolean UPDATED_MAIN = true;
+
+    private static final Boolean DEFAULT_AUTO = false;
+    private static final Boolean UPDATED_AUTO = true;
+
+    private static final String DEFAULT_PATH = "AAAAAAAAAA";
+    private static final String UPDATED_PATH = "BBBBBBBBBB";
+
+    private static final String DEFAULT_INCLUDE = "AAAAAAAAAA";
+    private static final String UPDATED_INCLUDE = "BBBBBBBBBB";
+
     private static final String ENTITY_API_URL = "/api/assets";
     private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{id}";
 
@@ -57,7 +72,13 @@ class AssetResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Asset createEntity(EntityManager em) {
-        Asset asset = new Asset().version(DEFAULT_VERSION);
+        Asset asset = new Asset()
+            .version(DEFAULT_VERSION)
+            .name(DEFAULT_NAME)
+            .main(DEFAULT_MAIN)
+            .auto(DEFAULT_AUTO)
+            .path(DEFAULT_PATH)
+            .include(DEFAULT_INCLUDE);
         return asset;
     }
 
@@ -68,7 +89,13 @@ class AssetResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Asset createUpdatedEntity(EntityManager em) {
-        Asset asset = new Asset().version(UPDATED_VERSION);
+        Asset asset = new Asset()
+            .version(UPDATED_VERSION)
+            .name(UPDATED_NAME)
+            .main(UPDATED_MAIN)
+            .auto(UPDATED_AUTO)
+            .path(UPDATED_PATH)
+            .include(UPDATED_INCLUDE);
         return asset;
     }
 
@@ -93,6 +120,11 @@ class AssetResourceIT {
         assertThat(assetList).hasSize(databaseSizeBeforeCreate + 1);
         Asset testAsset = assetList.get(assetList.size() - 1);
         assertThat(testAsset.getVersion()).isEqualTo(DEFAULT_VERSION);
+        assertThat(testAsset.getName()).isEqualTo(DEFAULT_NAME);
+        assertThat(testAsset.getMain()).isEqualTo(DEFAULT_MAIN);
+        assertThat(testAsset.getAuto()).isEqualTo(DEFAULT_AUTO);
+        assertThat(testAsset.getPath()).isEqualTo(DEFAULT_PATH);
+        assertThat(testAsset.getInclude()).isEqualTo(DEFAULT_INCLUDE);
     }
 
     @Test
@@ -127,7 +159,12 @@ class AssetResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(asset.getId().intValue())))
-            .andExpect(jsonPath("$.[*].version").value(hasItem(DEFAULT_VERSION.intValue())));
+            .andExpect(jsonPath("$.[*].version").value(hasItem(DEFAULT_VERSION.intValue())))
+            .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME)))
+            .andExpect(jsonPath("$.[*].main").value(hasItem(DEFAULT_MAIN.booleanValue())))
+            .andExpect(jsonPath("$.[*].auto").value(hasItem(DEFAULT_AUTO.booleanValue())))
+            .andExpect(jsonPath("$.[*].path").value(hasItem(DEFAULT_PATH)))
+            .andExpect(jsonPath("$.[*].include").value(hasItem(DEFAULT_INCLUDE)));
     }
 
     @Test
@@ -142,7 +179,12 @@ class AssetResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(asset.getId().intValue()))
-            .andExpect(jsonPath("$.version").value(DEFAULT_VERSION.intValue()));
+            .andExpect(jsonPath("$.version").value(DEFAULT_VERSION.intValue()))
+            .andExpect(jsonPath("$.name").value(DEFAULT_NAME))
+            .andExpect(jsonPath("$.main").value(DEFAULT_MAIN.booleanValue()))
+            .andExpect(jsonPath("$.auto").value(DEFAULT_AUTO.booleanValue()))
+            .andExpect(jsonPath("$.path").value(DEFAULT_PATH))
+            .andExpect(jsonPath("$.include").value(DEFAULT_INCLUDE));
     }
 
     @Test
@@ -164,7 +206,13 @@ class AssetResourceIT {
         Asset updatedAsset = assetRepository.findById(asset.getId()).get();
         // Disconnect from session so that the updates on updatedAsset are not directly saved in db
         em.detach(updatedAsset);
-        updatedAsset.version(UPDATED_VERSION);
+        updatedAsset
+            .version(UPDATED_VERSION)
+            .name(UPDATED_NAME)
+            .main(UPDATED_MAIN)
+            .auto(UPDATED_AUTO)
+            .path(UPDATED_PATH)
+            .include(UPDATED_INCLUDE);
 
         restAssetMockMvc
             .perform(
@@ -180,6 +228,11 @@ class AssetResourceIT {
         assertThat(assetList).hasSize(databaseSizeBeforeUpdate);
         Asset testAsset = assetList.get(assetList.size() - 1);
         assertThat(testAsset.getVersion()).isEqualTo(UPDATED_VERSION);
+        assertThat(testAsset.getName()).isEqualTo(UPDATED_NAME);
+        assertThat(testAsset.getMain()).isEqualTo(UPDATED_MAIN);
+        assertThat(testAsset.getAuto()).isEqualTo(UPDATED_AUTO);
+        assertThat(testAsset.getPath()).isEqualTo(UPDATED_PATH);
+        assertThat(testAsset.getInclude()).isEqualTo(UPDATED_INCLUDE);
     }
 
     @Test
@@ -254,7 +307,7 @@ class AssetResourceIT {
         Asset partialUpdatedAsset = new Asset();
         partialUpdatedAsset.setId(asset.getId());
 
-        partialUpdatedAsset.version(UPDATED_VERSION);
+        partialUpdatedAsset.version(UPDATED_VERSION).main(UPDATED_MAIN).path(UPDATED_PATH).include(UPDATED_INCLUDE);
 
         restAssetMockMvc
             .perform(
@@ -270,6 +323,11 @@ class AssetResourceIT {
         assertThat(assetList).hasSize(databaseSizeBeforeUpdate);
         Asset testAsset = assetList.get(assetList.size() - 1);
         assertThat(testAsset.getVersion()).isEqualTo(UPDATED_VERSION);
+        assertThat(testAsset.getName()).isEqualTo(DEFAULT_NAME);
+        assertThat(testAsset.getMain()).isEqualTo(UPDATED_MAIN);
+        assertThat(testAsset.getAuto()).isEqualTo(DEFAULT_AUTO);
+        assertThat(testAsset.getPath()).isEqualTo(UPDATED_PATH);
+        assertThat(testAsset.getInclude()).isEqualTo(UPDATED_INCLUDE);
     }
 
     @Test
@@ -284,7 +342,13 @@ class AssetResourceIT {
         Asset partialUpdatedAsset = new Asset();
         partialUpdatedAsset.setId(asset.getId());
 
-        partialUpdatedAsset.version(UPDATED_VERSION);
+        partialUpdatedAsset
+            .version(UPDATED_VERSION)
+            .name(UPDATED_NAME)
+            .main(UPDATED_MAIN)
+            .auto(UPDATED_AUTO)
+            .path(UPDATED_PATH)
+            .include(UPDATED_INCLUDE);
 
         restAssetMockMvc
             .perform(
@@ -300,6 +364,11 @@ class AssetResourceIT {
         assertThat(assetList).hasSize(databaseSizeBeforeUpdate);
         Asset testAsset = assetList.get(assetList.size() - 1);
         assertThat(testAsset.getVersion()).isEqualTo(UPDATED_VERSION);
+        assertThat(testAsset.getName()).isEqualTo(UPDATED_NAME);
+        assertThat(testAsset.getMain()).isEqualTo(UPDATED_MAIN);
+        assertThat(testAsset.getAuto()).isEqualTo(UPDATED_AUTO);
+        assertThat(testAsset.getPath()).isEqualTo(UPDATED_PATH);
+        assertThat(testAsset.getInclude()).isEqualTo(UPDATED_INCLUDE);
     }
 
     @Test

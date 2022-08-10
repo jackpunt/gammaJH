@@ -10,7 +10,7 @@
       <jhi-alert></jhi-alert>
 
       <dl class="row-md jh-entity-details">
-        <dt><span jhiTranslate="gammaJhApp.gameInst.id">Id</span></dt>
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
         <dd>
           <span>{{ gameInst.id }}</span>
         </dd>
@@ -58,16 +58,22 @@
         <dd>
           <span>{{ gameInst.hostUrl }}</span>
         </dd>
-        <dt><span jhiTranslate="gammaJhApp.gameInst.propsId">Props Id</span></dt>
+        <dt><span jhiTranslate="gammaJhApp.gameInst.props">Props</span></dt>
         <dd>
-          <div *ngIf="gameInst.propsId">
-            <a [routerLink]="['/game-inst-props', gameInst.propsId.id, 'view']">{{ gameInst.propsId?.id }}</a>
+          <div *ngIf="gameInst.props">
+            <a [routerLink]="['/game-inst-props', gameInst.props.id, 'view']">{{ gameInst.props?.id }}</a>
           </div>
         </dd>
         <dt><span jhiTranslate="gammaJhApp.gameInst.gameClass">Game Class</span></dt>
         <dd>
           <div *ngIf="gameInst.gameClass">
             <a [routerLink]="['/game-class', gameInst.gameClass.id, 'view']">{{ gameInst.gameClass?.id }}</a>
+          </div>
+        </dd>
+        <dt><span jhiTranslate="gammaJhApp.gameInst.playerA">Player A</span></dt>
+        <dd>
+          <div *ngIf="gameInst.playerA">
+            <a [routerLink]="['/player', gameInst.playerA.id, 'view']">{{ gameInst.playerA?.id }}</a>
           </div>
         </dd>
         <dt><span jhiTranslate="gammaJhApp.gameInst.playerB">Player B</span></dt>
@@ -79,11 +85,11 @@
       </dl>
 
       <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
-        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Volver</span>
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
       </button>
 
       <button type="button" [routerLink]="['/game-inst', gameInst.id, 'edit']" class="btn btn-primary">
-        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Editar</span>
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
       </button>
     </div>
   </div>

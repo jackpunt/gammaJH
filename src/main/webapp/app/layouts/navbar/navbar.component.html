@@ -23,7 +23,7 @@
           <a class="nav-link" routerLink="/" (click)="collapseNavbar()">
             <span>
               <fa-icon icon="home"></fa-icon>
-              <span jhiTranslate="global.menu.home">Inicio</span>
+              <span jhiTranslate="global.menu.home">Home</span>
             </span>
           </a>
         </li>
@@ -39,7 +39,7 @@
           <a class="nav-link dropdown-toggle" ngbDropdownToggle href="javascript:void(0);" id="entity-menu" data-cy="entity">
             <span>
               <fa-icon icon="th-list"></fa-icon>
-              <span jhiTranslate="global.menu.entities.main">Entidades</span>
+              <span jhiTranslate="global.menu.entities.main">Entities</span>
             </span>
           </a>
           <ul class="dropdown-menu" ngbDropdownMenu aria-labelledby="entity-menu">
@@ -106,18 +106,6 @@
             <li>
               <a
                 class="dropdown-item"
-                routerLink="mmember"
-                routerLinkActive="active"
-                [routerLinkActiveOptions]="{ exact: true }"
-                (click)="collapseNavbar()"
-              >
-                <fa-icon icon="asterisk" [fixedWidth]="true"></fa-icon>
-                <span jhiTranslate="global.menu.entities.mmember">Mmember</span>
-              </a>
-            </li>
-            <li>
-              <a
-                class="dropdown-item"
                 routerLink="asset"
                 routerLinkActive="active"
                 [routerLinkActiveOptions]="{ exact: true }"
@@ -130,37 +118,13 @@
             <li>
               <a
                 class="dropdown-item"
-                routerLink="role-group"
+                routerLink="member-game-props"
                 routerLinkActive="active"
                 [routerLinkActiveOptions]="{ exact: true }"
                 (click)="collapseNavbar()"
               >
                 <fa-icon icon="asterisk" [fixedWidth]="true"></fa-icon>
-                <span jhiTranslate="global.menu.entities.roleGroup">Role Group</span>
-              </a>
-            </li>
-            <li>
-              <a
-                class="dropdown-item"
-                routerLink="group-authority"
-                routerLinkActive="active"
-                [routerLinkActiveOptions]="{ exact: true }"
-                (click)="collapseNavbar()"
-              >
-                <fa-icon icon="asterisk" [fixedWidth]="true"></fa-icon>
-                <span jhiTranslate="global.menu.entities.groupAuthority">Group Authority</span>
-              </a>
-            </li>
-            <li>
-              <a
-                class="dropdown-item"
-                routerLink="mmember-game-props"
-                routerLinkActive="active"
-                [routerLinkActiveOptions]="{ exact: true }"
-                (click)="collapseNavbar()"
-              >
-                <fa-icon icon="asterisk" [fixedWidth]="true"></fa-icon>
-                <span jhiTranslate="global.menu.entities.mmemberGameProps">Mmember Game Props</span>
+                <span jhiTranslate="global.menu.entities.memberGameProps">Member Game Props</span>
               </a>
             </li>
             <!-- jhipster-needle-add-entity-to-menu - JHipster will add entities to the menu here -->
@@ -177,38 +141,38 @@
           <a class="nav-link dropdown-toggle" ngbDropdownToggle href="javascript:void(0);" id="admin-menu" data-cy="adminMenu">
             <span>
               <fa-icon icon="users-cog"></fa-icon>
-              <span jhiTranslate="global.menu.admin.main">Administración</span>
+              <span jhiTranslate="global.menu.admin.main">Administration</span>
             </span>
           </a>
           <ul class="dropdown-menu" ngbDropdownMenu aria-labelledby="admin-menu">
             <li>
               <a class="dropdown-item" routerLink="admin/user-management" routerLinkActive="active" (click)="collapseNavbar()">
                 <fa-icon icon="users" [fixedWidth]="true"></fa-icon>
-                <span jhiTranslate="global.menu.admin.userManagement">Gestión de usuarios</span>
+                <span jhiTranslate="global.menu.admin.userManagement">User management</span>
               </a>
             </li>
             <li>
               <a class="dropdown-item" routerLink="admin/tracker" routerLinkActive="active" (click)="collapseNavbar()">
                 <fa-icon icon="eye" [fixedWidth]="true"></fa-icon>
-                <span jhiTranslate="global.menu.admin.tracker">Registro de usuarios</span>
+                <span jhiTranslate="global.menu.admin.tracker">User tracker</span>
               </a>
             </li>
             <li>
               <a class="dropdown-item" routerLink="admin/metrics" routerLinkActive="active" (click)="collapseNavbar()">
                 <fa-icon icon="tachometer-alt" [fixedWidth]="true"></fa-icon>
-                <span jhiTranslate="global.menu.admin.metrics">Métricas</span>
+                <span jhiTranslate="global.menu.admin.metrics">Metrics</span>
               </a>
             </li>
             <li>
               <a class="dropdown-item" routerLink="admin/health" routerLinkActive="active" (click)="collapseNavbar()">
                 <fa-icon icon="heart" [fixedWidth]="true"></fa-icon>
-                <span jhiTranslate="global.menu.admin.health">Salud</span>
+                <span jhiTranslate="global.menu.admin.health">Health</span>
               </a>
             </li>
             <li>
               <a class="dropdown-item" routerLink="admin/configuration" routerLinkActive="active" (click)="collapseNavbar()">
                 <fa-icon icon="cogs" [fixedWidth]="true"></fa-icon>
-                <span jhiTranslate="global.menu.admin.configuration">Configuración</span>
+                <span jhiTranslate="global.menu.admin.configuration">Configuration</span>
               </a>
             </li>
             <li>
@@ -230,7 +194,7 @@
           <a class="nav-link dropdown-toggle" ngbDropdownToggle href="javascript:void(0);" id="languagesnavBarDropdown">
             <span>
               <fa-icon icon="flag"></fa-icon>
-              <span jhiTranslate="global.menu.language">Idioma</span>
+              <span jhiTranslate="global.menu.language">Language</span>
             </span>
           </a>
           <ul class="dropdown-menu" ngbDropdownMenu aria-labelledby="languagesnavBarDropdown">
@@ -255,7 +219,7 @@
           <a class="nav-link dropdown-toggle" ngbDropdownToggle href="javascript:void(0);" id="account-menu" data-cy="accountMenu">
             <span *ngIf="!account?.imageUrl">
               <fa-icon icon="user"></fa-icon>
-              <span jhiTranslate="global.menu.account.main">Cuenta</span>
+              <span jhiTranslate="global.menu.account.main">Account</span>
             </span>
             <span *ngIf="account?.imageUrl">
               <img [src]="account!.imageUrl" class="profile-image rounded-circle" alt="Avatar" />
@@ -271,7 +235,7 @@
                 data-cy="settings"
               >
                 <fa-icon icon="wrench" [fixedWidth]="true"></fa-icon>
-                <span jhiTranslate="global.menu.account.settings">Ajustes</span>
+                <span jhiTranslate="global.menu.account.settings">Settings</span>
               </a>
             </li>
             <li *ngSwitchCase="true">
@@ -283,25 +247,25 @@
                 data-cy="passwordItem"
               >
                 <fa-icon icon="lock" [fixedWidth]="true"></fa-icon>
-                <span jhiTranslate="global.menu.account.password">Contraseña</span>
+                <span jhiTranslate="global.menu.account.password">Password</span>
               </a>
             </li>
             <li *ngSwitchCase="true">
               <a class="dropdown-item" routerLink="account/sessions" routerLinkActive="active" (click)="collapseNavbar()">
                 <fa-icon icon="cloud" [fixedWidth]="true"></fa-icon>
-                <span jhiTranslate="global.menu.account.sessions">Sesiones</span>
+                <span jhiTranslate="global.menu.account.sessions">Sessions</span>
               </a>
             </li>
             <li *ngSwitchCase="true">
               <a class="dropdown-item" (click)="logout()" id="logout" data-cy="logout">
                 <fa-icon icon="sign-out-alt" [fixedWidth]="true"></fa-icon>
-                <span jhiTranslate="global.menu.account.logout">Cerrar la sesión</span>
+                <span jhiTranslate="global.menu.account.logout">Sign out</span>
               </a>
             </li>
             <li *ngSwitchCase="false">
               <a class="dropdown-item" (click)="login()" id="login" data-cy="login">
                 <fa-icon icon="sign-in-alt" [fixedWidth]="true"></fa-icon>
-                <span jhiTranslate="global.menu.account.login">Iniciar sesión</span>
+                <span jhiTranslate="global.menu.account.login">Sign in</span>
               </a>
             </li>
             <li *ngSwitchCase="false">
@@ -313,7 +277,7 @@
                 data-cy="register"
               >
                 <fa-icon icon="user-plus" [fixedWidth]="true"></fa-icon>
-                <span jhiTranslate="global.menu.account.register">Crear una cuenta</span>
+                <span jhiTranslate="global.menu.account.register">Register</span>
               </a>
             </li>
           </ul>
