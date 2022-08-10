@@ -119,18 +119,18 @@ entity Player {
 }
 
 relationship OneToMany {
-  GameClass to GameInst
+  GameClass{player} to Player{gameClass}
+  GameClass{MemberGameProps} to MemberGameProps{gameClass}
+  GameClass{gameInst} to GameInst{gameClass}
+  GameInst{gamePlayer} to GamePlayer{gameInst}
   Player{ida} to GameInst{playerA}
   Player{idb} to GameInst{playerB}
-  GameInst{gamePlayer} to GamePlayer{gameInst}
   Player{gamePlayer} to GamePlayer{player}
-  GameClass{MemberGameProps} to MemberGameProps{gameClass}
-  GameClass{player} to Player{gameClass}
   Asset{player} to Player{asset}
 }
 relationship ManyToOne {
-  Asset to User
-  GameInst{props} to GameInstProps{gameInst}
-  GameInstProps{gameInst} to GameInst{gameInstProps}
-  MemberGameProps to User
+  Asset{user} to User{asset}
+  GameInst{props} to GameInstProps{gameInst1}
+  GameInstProps{gameInst2} to GameInst{gameInstProps}
+  MemberGameProps{user} to User{gameProps}
 }

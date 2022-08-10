@@ -26,7 +26,7 @@
     "jhiPrefix": "jhi",
     "jhipsterVersion": "7.9.2",
     "languages": ["en", "es"],
-    "lastLiquibaseTimestamp": 1660168030000,
+    "lastLiquibaseTimestamp": 1660171994000,
     "messageBroker": false,
     "microfrontend": false,
     "microfrontends": [],
