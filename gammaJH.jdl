@@ -20,11 +20,11 @@ application {
     gradleEnterpriseHost ""
     jhiPrefix jhi
     jhipsterVersion "7.9.2"
-    languages [es, en]
+    languages [en, es]
     messageBroker false
     microfrontend false
     microfrontends []
-    nativeLanguage es
+    nativeLanguage en
     otherModules []
     packageName com.thegraid.gamma
     prodDatabaseType mysql
@@ -38,5 +38,98 @@ application {
     websocket spring-websocket
     withAdminUi true
   }
+
+  entities Asset, GameClass, GameInst, GameInstProps, GamePlayer, GroupAuthority, Mmember, MemberGameProps, Player, RoleGroup
+}
+
+entity Asset {
+  id Long
+  version Long
+}
+entity GameClass {
+  id Long
+  version Long
+  name String
+  revision String
+  launcherPath String
+  gamePath String
+  docsPath String
+  propsNames String
+  updateed Instant
+}
+entity GameInst {
+  id Long
+  version Long
+  gameName String
+  passcode String
+  created Instant
+  started Instant
+  finished Instant
+  updated Instant
+  scoreA Long
+  scoreB Long
+  ticks Long
+  hostUrl String
+}
+entity GameInstProps {
+  id Long
+  version Long
+  seed Long
+  mapName String
+  mapSize Long
+  npcCount Long
+  jsonProps String
+  updated Instant
+}
+entity GamePlayer {
+  id Long
+  version Long
+  role String
+  ready Boolean
+}
+entity GroupAuthority {
+  id Long
+  version Long
+  authority String
+}
+entity Mmember {
+  id Long
+  version Long
+}
+entity MemberGameProps {
+  id Long
+  version Long
+  seed Long
+  mapName String
+  mapSize Long
+  npcCount Long
+  jsonProps String
+  configName String
+}
+entity Player {
+  id Long
+  version Long
+}
+entity RoleGroup {
+  id Long
+  version Long
+  groupName String
+}
+relationship OneToMany {
+  Mmember{asset} to Asset{mmember}
+  GameClass{gameInst} to GameInst{gameClass}
+  Player{idB} to GameInst{playerB}
+  GameInst{gamePlayer} to GamePlayer{gameInst}
+  Player{gamePlayer} to GamePlayer{player}
+  RoleGroup{groupAuthority} to GroupAuthority{roleGroup}
+  RoleGroup{mmember} to Mmember{roleGroup}
+  Mmember{MemberGameProps} to MemberGameProps{mmember}
+  GameClass{MemberGameProps} to MemberGameProps{gameClass}
+  GameClass{player} to Player{gameClass}
+  Asset{player} to Player{asset}
+}
+relationship ManyToOne {
+  GameInst{propsId} to GameInstProps
+  GameInstProps{gameInst} to GameInst
 }
 
