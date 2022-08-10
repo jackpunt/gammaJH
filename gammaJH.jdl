@@ -39,12 +39,17 @@ application {
     withAdminUi true
   }
 
-  entities Asset, GameClass, GameInst, GameInstProps, GamePlayer, GroupAuthority, Member, MemberGameProps, Player, RoleGroup
+  entities Asset, GameClass, GameInst, GameInstProps, GamePlayer, MemberGameProps, Player
 }
 
 entity Asset {
   //id Long
   version Long
+  name String
+  main Boolean
+  auto Boolean
+  path String
+  include String
 }
 entity GameClass {
   //id Long
@@ -87,15 +92,6 @@ entity GamePlayer {
   role String
   ready Boolean
 }
-entity GroupAuthority {
-  //id Long
-  version Long
-  authority String
-}
-entity Member {
-  //id Long
-  version Long
-}
 entity MemberGameProps {
   //id Long
   version Long
@@ -109,28 +105,28 @@ entity MemberGameProps {
 entity Player {
   //id Long
   version Long
+  name String
+  rank Integer
+  score Integer
+  score_time Instant
+  rank_time Instant
+  display_client String
 }
-entity RoleGroup {
-  //id Long
-  version Long
-  groupName String
-}
+
 relationship OneToMany {
-  Member{asset} to Asset{member}
-  GameClass{gameInst} to GameInst{gameClass}
+  user to Asset
+  GameClass to GameInst
   Player{ida} to GameInst{playerA}
   Player{idb} to GameInst{playerB}
   GameInst{gamePlayer} to GamePlayer{gameInst}
   Player{gamePlayer} to GamePlayer{player}
-  RoleGroup{groupAuthority} to GroupAuthority{roleGroup}
-  RoleGroup{member} to Member{roleGroup}
-  Member{MemberGameProps} to MemberGameProps{member}
+  user to MemberGameProps
   GameClass{MemberGameProps} to MemberGameProps{gameClass}
   GameClass{player} to Player{gameClass}
   Asset{player} to Player{asset}
 }
 relationship ManyToOne {
-  GameInst{propsId} to GameInstProps
+  GameInst{props} to GameInstProps{gameInst}
   GameInstProps{gameInst} to GameInst{gameInstProps}
 }
 
