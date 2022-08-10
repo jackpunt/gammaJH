@@ -42,6 +42,11 @@ application {
   entities Asset, GameClass, GameInst, GameInstProps, GamePlayer, MemberGameProps, Player
 }
 
+
+
+
+
+
 entity Asset {
   //id Long
   version Long
@@ -108,19 +113,19 @@ entity Player {
   name String
   rank Integer
   score Integer
-  score_time Instant
-  rank_time Instant
-  display_client String
+  scoreTime Instant
+  rankTime Instant
+  displayClient String
 }
 
 relationship OneToMany {
-  user to Asset
+  User to Asset
   GameClass to GameInst
   Player{ida} to GameInst{playerA}
   Player{idb} to GameInst{playerB}
   GameInst{gamePlayer} to GamePlayer{gameInst}
   Player{gamePlayer} to GamePlayer{player}
-  user to MemberGameProps
+  User to MemberGameProps
   GameClass{MemberGameProps} to MemberGameProps{gameClass}
   GameClass{player} to Player{gameClass}
   Asset{player} to Player{asset}
@@ -129,4 +134,3 @@ relationship ManyToOne {
   GameInst{props} to GameInstProps{gameInst}
   GameInstProps{gameInst} to GameInst{gameInstProps}
 }
-
