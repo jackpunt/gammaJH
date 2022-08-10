@@ -1,5 +1,6 @@
 {
   "generator-jhipster": {
+    "applicationIndex": 0,
     "applicationType": "monolith",
     "authenticationType": "session",
     "baseName": "gammaJH",
@@ -29,18 +30,20 @@
       "Asset",
       "RoleGroup",
       "GroupAuthority",
-      "MmemberGameProps"
+      "MemberGameProps"
     ],
     "entitySuffix": "",
+    "gradleEnterpriseHost": "",
     "jhiPrefix": "jhi",
     "jhipsterVersion": "7.9.2",
     "languages": ["en", "es"],
-    "lastLiquibaseTimestamp": 1660086613000,
+    "lastLiquibaseTimestamp": 1660092360000,
     "messageBroker": false,
     "microfrontend": false,
     "microfrontends": [],
     "nativeLanguage": "en",
     "otherModules": [],
+    "packageFolder": "com/thegraid/gamma",
     "packageName": "com.thegraid.gamma",
     "pages": [],
     "prodDatabaseType": "mysql",

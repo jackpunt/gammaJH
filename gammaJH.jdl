@@ -39,15 +39,15 @@ application {
     withAdminUi true
   }
 
-  entities Asset, GameClass, GameInst, GameInstProps, GamePlayer, GroupAuthority, Mmember, MemberGameProps, Player, RoleGroup
+  entities Asset, GameClass, GameInst, GameInstProps, GamePlayer, GroupAuthority, Member, MemberGameProps, Player, RoleGroup
 }
 
 entity Asset {
-  id Long
+  //id Long
   version Long
 }
 entity GameClass {
-  id Long
+  //id Long
   version Long
   name String
   revision String
@@ -58,7 +58,7 @@ entity GameClass {
   updateed Instant
 }
 entity GameInst {
-  id Long
+  //id Long
   version Long
   gameName String
   passcode String
@@ -72,7 +72,7 @@ entity GameInst {
   hostUrl String
 }
 entity GameInstProps {
-  id Long
+  //id Long
   version Long
   seed Long
   mapName String
@@ -82,22 +82,22 @@ entity GameInstProps {
   updated Instant
 }
 entity GamePlayer {
-  id Long
+  //id Long
   version Long
   role String
   ready Boolean
 }
 entity GroupAuthority {
-  id Long
+  //id Long
   version Long
   authority String
 }
-entity Mmember {
-  id Long
+entity Member {
+  //id Long
   version Long
 }
 entity MemberGameProps {
-  id Long
+  //id Long
   version Long
   seed Long
   mapName String
@@ -107,29 +107,30 @@ entity MemberGameProps {
   configName String
 }
 entity Player {
-  id Long
+  //id Long
   version Long
 }
 entity RoleGroup {
-  id Long
+  //id Long
   version Long
   groupName String
 }
 relationship OneToMany {
-  Mmember{asset} to Asset{mmember}
+  Member{asset} to Asset{member}
   GameClass{gameInst} to GameInst{gameClass}
-  Player{idB} to GameInst{playerB}
+  Player{ida} to GameInst{playerA}
+  Player{idb} to GameInst{playerB}
   GameInst{gamePlayer} to GamePlayer{gameInst}
   Player{gamePlayer} to GamePlayer{player}
   RoleGroup{groupAuthority} to GroupAuthority{roleGroup}
-  RoleGroup{mmember} to Mmember{roleGroup}
-  Mmember{MemberGameProps} to MemberGameProps{mmember}
+  RoleGroup{member} to Member{roleGroup}
+  Member{MemberGameProps} to MemberGameProps{member}
   GameClass{MemberGameProps} to MemberGameProps{gameClass}
   GameClass{player} to Player{gameClass}
   Asset{player} to Player{asset}
 }
 relationship ManyToOne {
   GameInst{propsId} to GameInstProps
-  GameInstProps{gameInst} to GameInst
+  GameInstProps{gameInst} to GameInst{gameInstProps}
 }
 
