@@ -1,0 +1,140 @@
+application {
+  config {
+    applicationType monolith
+    authenticationType session
+    baseName gammaJH
+    blueprints []
+    buildTool maven
+    cacheProvider ehcache
+    clientFramework angularX
+    clientPackageManager npm
+    clientTheme none
+    creationTimestamp 1660081398790
+    databaseType sql
+    devDatabaseType mysql
+    dtoSuffix DTO
+    enableGradleEnterprise false
+    enableHibernateCache false
+    enableSwaggerCodegen false
+    enableTranslation true
+    gradleEnterpriseHost ""
+    jhiPrefix jhi
+    jhipsterVersion "7.9.2"
+    languages [en, es]
+    messageBroker false
+    microfrontend false
+    microfrontends []
+    nativeLanguage en
+    otherModules []
+    packageName com.thegraid.gamma
+    prodDatabaseType mysql
+    reactive false
+    rememberMeKey "2f51cb2b5a56a62718e77f9cac4d420799d6a01a8c4cc2fd50f271a9bdaf7c41c8bb9b10f5b5aa0046ee1f28326be9d4cd36"
+    searchEngine false
+    serverPort 8080
+    serviceDiscoveryType no
+    skipUserManagement false
+    testFrameworks []
+    websocket spring-websocket
+    withAdminUi true
+  }
+
+  entities AccountInfo, Asset, GameClass, GameInst, GameInstProps, GamePlayer, MemberGameProps, Player
+}
+/** extension to User (user is the owner of a stable of horses) 
+ * Account Type indicates the payment properties and the League user is in.
+ * maybe this could fold into User.role ?
+ */
+entity AccountInfo {
+  type String // or index to a table of AccountType tokens... this table is TBD
+}
+/** Assets owned by a member/user; (the horses) a virtual file-system?  */
+entity Asset {
+  version Long
+  name String
+  main Boolean
+  auto Boolean
+  path String
+  include String
+}
+/** Which Game engine/jar to play. */
+entity GameClass {
+  version Long
+  name String
+  revision String
+  launcherPath String
+  gamePath String
+  docsPath String
+  propsNames String
+  updated Instant
+}
+/** Instance of a Game. */
+entity GameInst {
+  version Long
+  gameName String
+  hostUrl String
+  passcode String
+  created Instant
+  started Instant
+  finished Instant
+  updated Instant
+  scoreA Long
+  scoreB Long
+  ticks Long   // how long the GameInst lasted (# of turns)
+}
+/** the final negotiated properties for GameInst */
+entity GameInstProps {
+  version Long
+  seed Long
+  mapName String
+  mapSize Long
+  npcCount Long
+  jsonProps String
+  updated Instant
+}
+/** one of 2 Players (A or B) in a GameInst */
+entity GamePlayer {
+  version Long
+  role String
+  ready Boolean
+}
+/** member/player proposes properties for a new GameInst. */
+entity MemberGameProps {
+  version Long
+  seed Long
+  mapName String
+  mapSize Long
+  npcCount Long
+  jsonProps String
+  configName String
+}
+/** a virtual player (the horse in a horse-race)  */
+entity Player {
+  version Long
+  name String
+  rank Integer
+  score Integer
+  scoreTime Instant
+  rankTime Instant
+  displayClient String
+}
+
+relationship OneToOne {
+  GameInst{props} to GameInstProps{gameInst} with jpaDerivedIdentifier
+  AccountInfo with jpaDerivedIdentifier to user // extension to 'user'
+}
+relationship OneToMany {
+  GameClass{gameInst} to GameInst{gameClass}
+  Player{ida} to GameInst{playerA}
+  Player{idb} to GameInst{playerB}
+  GameInst{gamePlayer} to GamePlayer{gameInst} // gameInst has 2 GamePlayer
+  Player{gamePlayer} to GamePlayer{player}     // GamePlayer is instance of Player
+  GameClass{memberGameProps} to MemberGameProps{gameClass}
+  GameClass{player} to Player{gameClass}
+  Asset{player} to Player{asset}
+}
+relationship ManyToOne {
+  Asset{user} to User
+  MemberGameProps{user} to User
+}
+
