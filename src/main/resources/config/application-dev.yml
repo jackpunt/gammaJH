@@ -45,8 +45,7 @@ spring:
         useServerPrepStmts: true
   jpa:
   liquibase:
-    # Remove 'faker' if you do not want the sample data to be loaded automatically
-    contexts: dev, faker
+    contexts: dev
   mail:
     host: localhost
     port: 25
@@ -99,7 +98,7 @@ jhipster:
   security:
     remember-me:
       # security key (this key should be unique for your application, and kept secret)
-      key: 5c209cb288b4046ab1ad344312a30945fbf5faf452dd54905d41286650a932154091ace97eb5fcb193872a4bc372f4426413
+      key: 2f51cb2b5a56a62718e77f9cac4d420799d6a01a8c4cc2fd50f271a9bdaf7c41c8bb9b10f5b5aa0046ee1f28326be9d4cd36
   mail: # specific JHipster mail property, for standard properties see MailProperties
     base-url: http://127.0.0.1:8080
   logging:

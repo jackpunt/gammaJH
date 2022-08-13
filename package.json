@@ -91,10 +91,13 @@
     "bootstrap": "5.2.0",
     "bootswatch": "5.2.0",
     "dayjs": "1.11.4",
+    "ngx-cookie-service": "14.0.1",
     "ngx-infinite-scroll": "14.0.0",
     "ngx-webstorage": "10.0.1",
     "rxjs": "7.5.6",
+    "sockjs-client": "1.5.0",
     "tslib": "2.4.0",
+    "webstomp-client": "1.2.6",
     "zone.js": "0.11.6"
   },
   "devDependencies": {
@@ -107,6 +110,7 @@
     "@angular/service-worker": "14.1.0",
     "@types/jest": "28.1.6",
     "@types/node": "16.11.47",
+    "@types/sockjs-client": "1.5.0",
     "@typescript-eslint/eslint-plugin": "5.32.0",
     "@typescript-eslint/parser": "5.32.0",
     "browser-sync": "2.27.10",
