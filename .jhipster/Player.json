@@ -1,0 +1,77 @@
+{
+  "name": "Player",
+  "fields": [
+    {
+      "fieldName": "version",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "name",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "rank",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "score",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "scoreTime",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "rankTime",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "displayClient",
+      "fieldType": "String"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "gameInst",
+      "otherEntityRelationshipName": "playerA",
+      "relationshipName": "ida"
+    },
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "gameInst",
+      "otherEntityRelationshipName": "playerB",
+      "relationshipName": "idb"
+    },
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "gamePlayer",
+      "otherEntityRelationshipName": "player",
+      "relationshipName": "gamePlayer"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "gameClass",
+      "otherEntityRelationshipName": "player",
+      "relationshipName": "gameClass"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "asset",
+      "otherEntityRelationshipName": "player",
+      "relationshipName": "asset"
+    }
+  ],
+  "javadoc": "a virtual player (the horse in a horse-race)",
+  "entityTableName": "player",
+  "dto": "no",
+  "pagination": "no",
+  "service": "no",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": [
+    "gammaJH"
+  ]
+}

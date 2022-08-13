@@ -1,0 +1,54 @@
+{
+  "name": "Asset",
+  "fields": [
+    {
+      "fieldName": "version",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "name",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "main",
+      "fieldType": "Boolean"
+    },
+    {
+      "fieldName": "auto",
+      "fieldType": "Boolean"
+    },
+    {
+      "fieldName": "path",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "include",
+      "fieldType": "String"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "player",
+      "otherEntityRelationshipName": "asset",
+      "relationshipName": "player"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "user",
+      "relationshipName": "user"
+    }
+  ],
+  "javadoc": "Assets owned by a member/user; (the horses) a virtual file-system?",
+  "entityTableName": "asset",
+  "dto": "no",
+  "pagination": "no",
+  "service": "no",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": [
+    "gammaJH"
+  ]
+}

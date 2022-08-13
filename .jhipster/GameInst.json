@@ -1,0 +1,95 @@
+{
+  "name": "GameInst",
+  "fields": [
+    {
+      "fieldName": "version",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "gameName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "hostUrl",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "passcode",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "created",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "started",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "finished",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "updated",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "scoreA",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "scoreB",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "ticks",
+      "fieldType": "Long"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "one-to-one",
+      "otherEntityName": "gameInstProps",
+      "otherEntityRelationshipName": "gameInst",
+      "relationshipName": "props",
+      "ownerSide": true,
+      "useJPADerivedIdentifier": true
+    },
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "gamePlayer",
+      "otherEntityRelationshipName": "gameInst",
+      "relationshipName": "gamePlayer"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "gameClass",
+      "otherEntityRelationshipName": "gameInst",
+      "relationshipName": "gameClass"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "player",
+      "otherEntityRelationshipName": "ida",
+      "relationshipName": "playerA"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "player",
+      "otherEntityRelationshipName": "idb",
+      "relationshipName": "playerB"
+    }
+  ],
+  "javadoc": "Instance of a Game.",
+  "entityTableName": "game_inst",
+  "dto": "no",
+  "pagination": "no",
+  "service": "no",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": [
+    "gammaJH"
+  ]
+}

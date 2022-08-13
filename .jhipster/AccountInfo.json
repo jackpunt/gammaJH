@@ -1,0 +1,31 @@
+{
+  "name": "AccountInfo",
+  "fields": [
+    {
+      "fieldName": "type",
+      "fieldType": "String"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "one-to-one",
+      "otherEntityName": "user",
+      "otherEntityRelationshipName": "accountInfo",
+      "relationshipName": "user",
+      "ownerSide": true,
+      "useJPADerivedIdentifier": true
+    }
+  ],
+  "javadoc": "extension to User (user is the owner of a stable of horses)\\nAccount Type indicates the payment properties and the League user is in.\\nmaybe this could fold into User.role ?",
+  "entityTableName": "account_info",
+  "dto": "no",
+  "pagination": "no",
+  "service": "no",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": [
+    "gammaJH"
+  ]
+}

@@ -1,0 +1,54 @@
+{
+  "name": "GameInstProps",
+  "fields": [
+    {
+      "fieldName": "version",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "seed",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "mapName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "mapSize",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "npcCount",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "jsonProps",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "updated",
+      "fieldType": "Instant"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "one-to-one",
+      "otherEntityName": "gameInst",
+      "otherEntityRelationshipName": "props",
+      "relationshipName": "gameInst",
+      "ownerSide": false
+    }
+  ],
+  "javadoc": "the final negotiated properties for GameInst",
+  "entityTableName": "game_inst_props",
+  "dto": "no",
+  "pagination": "no",
+  "service": "no",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": [
+    "gammaJH"
+  ]
+}

@@ -1,0 +1,58 @@
+{
+  "name": "MemberGameProps",
+  "fields": [
+    {
+      "fieldName": "version",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "seed",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "mapName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "mapSize",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "npcCount",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "jsonProps",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "configName",
+      "fieldType": "String"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "user",
+      "relationshipName": "user"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "gameClass",
+      "otherEntityRelationshipName": "memberGameProps",
+      "relationshipName": "gameClass"
+    }
+  ],
+  "javadoc": "member/player proposes properties for a new GameInst.",
+  "entityTableName": "member_game_props",
+  "dto": "no",
+  "pagination": "no",
+  "service": "no",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": [
+    "gammaJH"
+  ]
+}

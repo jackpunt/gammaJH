@@ -1,0 +1,43 @@
+{
+  "name": "GamePlayer",
+  "fields": [
+    {
+      "fieldName": "version",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "role",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "ready",
+      "fieldType": "Boolean"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "gameInst",
+      "otherEntityRelationshipName": "gamePlayer",
+      "relationshipName": "gameInst"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "player",
+      "otherEntityRelationshipName": "gamePlayer",
+      "relationshipName": "player"
+    }
+  ],
+  "javadoc": "one of 2 Players (A or B) in a GameInst",
+  "entityTableName": "game_player",
+  "dto": "no",
+  "pagination": "no",
+  "service": "no",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": [
+    "gammaJH"
+  ]
+}
