@@ -43,7 +43,7 @@
     "serverSideOptions": [],
     "serviceDiscoveryType": "no",
     "skipCheckLengthOfIdentifier": false,
-    "skipFakeData": false,
+    "skipFakeData": true,
     "skipUserManagement": false,
     "testFrameworks": [],
     "websocket": "spring-websocket",

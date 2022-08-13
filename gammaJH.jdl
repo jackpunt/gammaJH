@@ -47,6 +47,8 @@ application {
  */
 entity AccountInfo {
   type String // or index to a table of AccountType tokens... this table is TBD
+  // for ex: some types can create/own Assets
+  // some types get paid...
 }
 /** Assets owned by a member/user; (the horses) a virtual file-system?  */
 entity Asset {
@@ -58,7 +60,7 @@ entity Asset {
   include String
 }
 /** Which Game engine/jar to play. */
-entity GameClass {
+entity GameClass {  // DTO
   version Long
   name String
   revision String
@@ -69,7 +71,7 @@ entity GameClass {
   updated Instant
 }
 /** Instance of a Game. */
-entity GameInst {
+entity GameInst {  // DTO
   version Long
   gameName String
   hostUrl String
@@ -109,7 +111,7 @@ entity MemberGameProps {
   configName String
 }
 /** a virtual player (the horse in a horse-race)  */
-entity Player {
+entity Player { // DTO
   version Long
   name String
   rank Integer
