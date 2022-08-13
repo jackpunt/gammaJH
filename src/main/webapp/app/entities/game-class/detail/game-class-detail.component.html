@@ -1,0 +1,60 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="gameClass">
+      <h2 data-cy="gameClassDetailsHeading"><span jhiTranslate="gammaJhApp.gameClass.detail.title">Game Class</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ gameClass.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="gammaJhApp.gameClass.version">Version</span></dt>
+        <dd>
+          <span>{{ gameClass.version }}</span>
+        </dd>
+        <dt><span jhiTranslate="gammaJhApp.gameClass.name">Name</span></dt>
+        <dd>
+          <span>{{ gameClass.name }}</span>
+        </dd>
+        <dt><span jhiTranslate="gammaJhApp.gameClass.revision">Revision</span></dt>
+        <dd>
+          <span>{{ gameClass.revision }}</span>
+        </dd>
+        <dt><span jhiTranslate="gammaJhApp.gameClass.launcherPath">Launcher Path</span></dt>
+        <dd>
+          <span>{{ gameClass.launcherPath }}</span>
+        </dd>
+        <dt><span jhiTranslate="gammaJhApp.gameClass.gamePath">Game Path</span></dt>
+        <dd>
+          <span>{{ gameClass.gamePath }}</span>
+        </dd>
+        <dt><span jhiTranslate="gammaJhApp.gameClass.docsPath">Docs Path</span></dt>
+        <dd>
+          <span>{{ gameClass.docsPath }}</span>
+        </dd>
+        <dt><span jhiTranslate="gammaJhApp.gameClass.propsNames">Props Names</span></dt>
+        <dd>
+          <span>{{ gameClass.propsNames }}</span>
+        </dd>
+        <dt><span jhiTranslate="gammaJhApp.gameClass.updated">Updated</span></dt>
+        <dd>
+          <span>{{ gameClass.updated | formatMediumDatetime }}</span>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/game-class', gameClass.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

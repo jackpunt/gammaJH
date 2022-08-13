@@ -1,5 +1,9 @@
 {
-  "name": "MemberGameProps",
+  "applications": ["gammaJH"],
+  "changelogDate": "20220813223224",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "member_game_props",
   "fields": [
     {
       "fieldName": "version",
@@ -30,29 +34,24 @@
       "fieldType": "String"
     }
   ],
+  "fluentMethods": true,
+  "javadoc": "member/player proposes properties for a new GameInst.",
+  "jpaMetamodelFiltering": false,
+  "name": "MemberGameProps",
+  "pagination": "no",
+  "readOnly": false,
   "relationships": [
     {
-      "relationshipType": "many-to-one",
       "otherEntityName": "user",
-      "relationshipName": "user"
+      "relationshipName": "user",
+      "relationshipType": "many-to-one"
     },
     {
-      "relationshipType": "many-to-one",
       "otherEntityName": "gameClass",
       "otherEntityRelationshipName": "memberGameProps",
-      "relationshipName": "gameClass"
+      "relationshipName": "gameClass",
+      "relationshipType": "many-to-one"
     }
   ],
-  "javadoc": "member/player proposes properties for a new GameInst.",
-  "entityTableName": "member_game_props",
-  "dto": "no",
-  "pagination": "no",
-  "service": "no",
-  "jpaMetamodelFiltering": false,
-  "fluentMethods": true,
-  "readOnly": false,
-  "embedded": false,
-  "applications": [
-    "gammaJH"
-  ]
+  "service": "no"
 }

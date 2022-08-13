@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd
+                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <!--
+        Added the entity GameInst.
+    -->
+    <changeSet id="20220813223221-1" author="jhipster">
+        <createTable tableName="game_inst" remarks="Instance of a Game.">
+            <column name="id" type="bigint">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="version" type="bigint">
+                <constraints nullable="true" />
+            </column>
+            <column name="game_name" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="host_url" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="passcode" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="created" type="${datetimeType}">
+                <constraints nullable="true" />
+            </column>
+            <column name="started" type="${datetimeType}">
+                <constraints nullable="true" />
+            </column>
+            <column name="finished" type="${datetimeType}">
+                <constraints nullable="true" />
+            </column>
+            <column name="updated" type="${datetimeType}">
+                <constraints nullable="true" />
+            </column>
+            <column name="score_a" type="bigint">
+                <constraints nullable="true" />
+            </column>
+            <column name="score_b" type="bigint">
+                <constraints nullable="true" />
+            </column>
+            <column name="ticks" type="bigint">
+                <constraints nullable="true" />
+            </column>
+            <column name="game_class_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
+            <column name="playera_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
+            <column name="playerb_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
+            <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here -->
+        </createTable>
+        <dropDefaultValue tableName="game_inst" columnName="created" columnDataType="${datetimeType}"/>
+        <dropDefaultValue tableName="game_inst" columnName="started" columnDataType="${datetimeType}"/>
+        <dropDefaultValue tableName="game_inst" columnName="finished" columnDataType="${datetimeType}"/>
+        <dropDefaultValue tableName="game_inst" columnName="updated" columnDataType="${datetimeType}"/>
+    </changeSet>
+
+    <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here -->
+</databaseChangeLog>

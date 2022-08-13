@@ -1,5 +1,9 @@
 {
-  "name": "GameInstProps",
+  "applications": ["gammaJH"],
+  "changelogDate": "20220813223222",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "game_inst_props",
   "fields": [
     {
       "fieldName": "version",
@@ -30,25 +34,20 @@
       "fieldType": "Instant"
     }
   ],
+  "fluentMethods": true,
+  "javadoc": "the final negotiated properties for GameInst",
+  "jpaMetamodelFiltering": false,
+  "name": "GameInstProps",
+  "pagination": "no",
+  "readOnly": false,
   "relationships": [
     {
-      "relationshipType": "one-to-one",
       "otherEntityName": "gameInst",
       "otherEntityRelationshipName": "props",
+      "ownerSide": false,
       "relationshipName": "gameInst",
-      "ownerSide": false
+      "relationshipType": "one-to-one"
     }
   ],
-  "javadoc": "the final negotiated properties for GameInst",
-  "entityTableName": "game_inst_props",
-  "dto": "no",
-  "pagination": "no",
-  "service": "no",
-  "jpaMetamodelFiltering": false,
-  "fluentMethods": true,
-  "readOnly": false,
-  "embedded": false,
-  "applications": [
-    "gammaJH"
-  ]
+  "service": "no"
 }

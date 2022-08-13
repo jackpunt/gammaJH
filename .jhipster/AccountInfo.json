@@ -1,31 +1,31 @@
 {
-  "name": "AccountInfo",
+  "applications": ["gammaJH"],
+  "changelogDate": "20220813223218",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "account_info",
   "fields": [
     {
       "fieldName": "type",
       "fieldType": "String"
     }
   ],
+  "fluentMethods": true,
+  "javadoc": "extension to User (user is the owner of a stable of horses)\\nAccount Type indicates the payment properties and the League user is in.\\nmaybe this could fold into User.role ?",
+  "jpaMetamodelFiltering": false,
+  "name": "AccountInfo",
+  "pagination": "no",
+  "readOnly": false,
   "relationships": [
     {
-      "relationshipType": "one-to-one",
+      "id": true,
       "otherEntityName": "user",
       "otherEntityRelationshipName": "accountInfo",
-      "relationshipName": "user",
       "ownerSide": true,
+      "relationshipName": "user",
+      "relationshipType": "one-to-one",
       "useJPADerivedIdentifier": true
     }
   ],
-  "javadoc": "extension to User (user is the owner of a stable of horses)\\nAccount Type indicates the payment properties and the League user is in.\\nmaybe this could fold into User.role ?",
-  "entityTableName": "account_info",
-  "dto": "no",
-  "pagination": "no",
-  "service": "no",
-  "jpaMetamodelFiltering": false,
-  "fluentMethods": true,
-  "readOnly": false,
-  "embedded": false,
-  "applications": [
-    "gammaJH"
-  ]
+  "service": "no"
 }

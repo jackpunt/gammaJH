@@ -1,5 +1,9 @@
 {
-  "name": "Player",
+  "applications": ["gammaJH"],
+  "changelogDate": "20220813223225",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "player",
   "fields": [
     {
       "fieldName": "version",
@@ -30,48 +34,43 @@
       "fieldType": "String"
     }
   ],
+  "fluentMethods": true,
+  "javadoc": "a virtual player (the horse in a horse-race)",
+  "jpaMetamodelFiltering": false,
+  "name": "Player",
+  "pagination": "no",
+  "readOnly": false,
   "relationships": [
     {
-      "relationshipType": "one-to-many",
       "otherEntityName": "gameInst",
       "otherEntityRelationshipName": "playerA",
-      "relationshipName": "ida"
+      "relationshipName": "ida",
+      "relationshipType": "one-to-many"
     },
     {
-      "relationshipType": "one-to-many",
       "otherEntityName": "gameInst",
       "otherEntityRelationshipName": "playerB",
-      "relationshipName": "idb"
+      "relationshipName": "idb",
+      "relationshipType": "one-to-many"
     },
     {
-      "relationshipType": "one-to-many",
       "otherEntityName": "gamePlayer",
       "otherEntityRelationshipName": "player",
-      "relationshipName": "gamePlayer"
+      "relationshipName": "gamePlayer",
+      "relationshipType": "one-to-many"
     },
     {
-      "relationshipType": "many-to-one",
       "otherEntityName": "gameClass",
       "otherEntityRelationshipName": "player",
-      "relationshipName": "gameClass"
+      "relationshipName": "gameClass",
+      "relationshipType": "many-to-one"
     },
     {
-      "relationshipType": "many-to-one",
       "otherEntityName": "asset",
       "otherEntityRelationshipName": "player",
-      "relationshipName": "asset"
+      "relationshipName": "asset",
+      "relationshipType": "many-to-one"
     }
   ],
-  "javadoc": "a virtual player (the horse in a horse-race)",
-  "entityTableName": "player",
-  "dto": "no",
-  "pagination": "no",
-  "service": "no",
-  "jpaMetamodelFiltering": false,
-  "fluentMethods": true,
-  "readOnly": false,
-  "embedded": false,
-  "applications": [
-    "gammaJH"
-  ]
+  "service": "no"
 }

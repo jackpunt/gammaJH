@@ -1,5 +1,9 @@
 {
-  "name": "GameClass",
+  "applications": ["gammaJH"],
+  "changelogDate": "20220813223220",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "game_class",
   "fields": [
     {
       "fieldName": "version",
@@ -34,36 +38,31 @@
       "fieldType": "Instant"
     }
   ],
+  "fluentMethods": true,
+  "javadoc": "Which Game engine/jar to play.",
+  "jpaMetamodelFiltering": false,
+  "name": "GameClass",
+  "pagination": "no",
+  "readOnly": false,
   "relationships": [
     {
-      "relationshipType": "one-to-many",
       "otherEntityName": "gameInst",
       "otherEntityRelationshipName": "gameClass",
-      "relationshipName": "gameInst"
+      "relationshipName": "gameInst",
+      "relationshipType": "one-to-many"
     },
     {
-      "relationshipType": "one-to-many",
       "otherEntityName": "memberGameProps",
       "otherEntityRelationshipName": "gameClass",
-      "relationshipName": "memberGameProps"
+      "relationshipName": "memberGameProps",
+      "relationshipType": "one-to-many"
     },
     {
-      "relationshipType": "one-to-many",
       "otherEntityName": "player",
       "otherEntityRelationshipName": "gameClass",
-      "relationshipName": "player"
+      "relationshipName": "player",
+      "relationshipType": "one-to-many"
     }
   ],
-  "javadoc": "Which Game engine/jar to play.",
-  "entityTableName": "game_class",
-  "dto": "no",
-  "pagination": "no",
-  "service": "no",
-  "jpaMetamodelFiltering": false,
-  "fluentMethods": true,
-  "readOnly": false,
-  "embedded": false,
-  "applications": [
-    "gammaJH"
-  ]
+  "service": "no"
 }

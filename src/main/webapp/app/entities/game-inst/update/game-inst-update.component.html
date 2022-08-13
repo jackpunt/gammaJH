@@ -1,0 +1,193 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-game-inst-heading" data-cy="GameInstCreateUpdateHeading" jhiTranslate="gammaJhApp.gameInst.home.createOrEditLabel">
+        Create or edit a Game Inst
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="row mb-3" *ngIf="editForm.controls.id.value !== null">
+          <label class="form-label" jhiTranslate="global.field.id" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="gammaJhApp.gameInst.version" for="field_version">Version</label>
+          <input type="number" class="form-control" name="version" id="field_version" data-cy="version" formControlName="version" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="gammaJhApp.gameInst.gameName" for="field_gameName">Game Name</label>
+          <input type="text" class="form-control" name="gameName" id="field_gameName" data-cy="gameName" formControlName="gameName" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="gammaJhApp.gameInst.hostUrl" for="field_hostUrl">Host Url</label>
+          <input type="text" class="form-control" name="hostUrl" id="field_hostUrl" data-cy="hostUrl" formControlName="hostUrl" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="gammaJhApp.gameInst.passcode" for="field_passcode">Passcode</label>
+          <input type="text" class="form-control" name="passcode" id="field_passcode" data-cy="passcode" formControlName="passcode" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="gammaJhApp.gameInst.created" for="field_created">Created</label>
+          <div class="d-flex">
+            <input
+              id="field_created"
+              data-cy="created"
+              type="datetime-local"
+              class="form-control"
+              name="created"
+              formControlName="created"
+              placeholder="YYYY-MM-DD HH:mm"
+            />
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="gammaJhApp.gameInst.started" for="field_started">Started</label>
+          <div class="d-flex">
+            <input
+              id="field_started"
+              data-cy="started"
+              type="datetime-local"
+              class="form-control"
+              name="started"
+              formControlName="started"
+              placeholder="YYYY-MM-DD HH:mm"
+            />
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="gammaJhApp.gameInst.finished" for="field_finished">Finished</label>
+          <div class="d-flex">
+            <input
+              id="field_finished"
+              data-cy="finished"
+              type="datetime-local"
+              class="form-control"
+              name="finished"
+              formControlName="finished"
+              placeholder="YYYY-MM-DD HH:mm"
+            />
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="gammaJhApp.gameInst.updated" for="field_updated">Updated</label>
+          <div class="d-flex">
+            <input
+              id="field_updated"
+              data-cy="updated"
+              type="datetime-local"
+              class="form-control"
+              name="updated"
+              formControlName="updated"
+              placeholder="YYYY-MM-DD HH:mm"
+            />
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="gammaJhApp.gameInst.scoreA" for="field_scoreA">Score A</label>
+          <input type="number" class="form-control" name="scoreA" id="field_scoreA" data-cy="scoreA" formControlName="scoreA" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="gammaJhApp.gameInst.scoreB" for="field_scoreB">Score B</label>
+          <input type="number" class="form-control" name="scoreB" id="field_scoreB" data-cy="scoreB" formControlName="scoreB" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="gammaJhApp.gameInst.ticks" for="field_ticks">Ticks</label>
+          <input type="number" class="form-control" name="ticks" id="field_ticks" data-cy="ticks" formControlName="ticks" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="gammaJhApp.gameInst.props" for="field_props">Props</label>
+          <select
+            class="form-control"
+            id="field_props"
+            data-cy="props"
+            name="props"
+            formControlName="props"
+            [compareWith]="compareGameInstProps"
+          >
+            <option [ngValue]="null"></option>
+            <option [ngValue]="gameInstPropsOption" *ngFor="let gameInstPropsOption of propsCollection">
+              {{ gameInstPropsOption.id }}
+            </option>
+          </select>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="gammaJhApp.gameInst.gameClass" for="field_gameClass">Game Class</label>
+          <select
+            class="form-control"
+            id="field_gameClass"
+            data-cy="gameClass"
+            name="gameClass"
+            formControlName="gameClass"
+            [compareWith]="compareGameClass"
+          >
+            <option [ngValue]="null"></option>
+            <option [ngValue]="gameClassOption" *ngFor="let gameClassOption of gameClassesSharedCollection">
+              {{ gameClassOption.id }}
+            </option>
+          </select>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="gammaJhApp.gameInst.playerA" for="field_playerA">Player A</label>
+          <select
+            class="form-control"
+            id="field_playerA"
+            data-cy="playerA"
+            name="playerA"
+            formControlName="playerA"
+            [compareWith]="comparePlayer"
+          >
+            <option [ngValue]="null"></option>
+            <option [ngValue]="playerOption" *ngFor="let playerOption of playersSharedCollection">{{ playerOption.id }}</option>
+          </select>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="gammaJhApp.gameInst.playerB" for="field_playerB">Player B</label>
+          <select
+            class="form-control"
+            id="field_playerB"
+            data-cy="playerB"
+            name="playerB"
+            formControlName="playerB"
+            [compareWith]="comparePlayer"
+          >
+            <option [ngValue]="null"></option>
+            <option [ngValue]="playerOption" *ngFor="let playerOption of playersSharedCollection">{{ playerOption.id }}</option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

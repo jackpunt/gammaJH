@@ -1,0 +1,68 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="player">
+      <h2 data-cy="playerDetailsHeading"><span jhiTranslate="gammaJhApp.player.detail.title">Player</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ player.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="gammaJhApp.player.version">Version</span></dt>
+        <dd>
+          <span>{{ player.version }}</span>
+        </dd>
+        <dt><span jhiTranslate="gammaJhApp.player.name">Name</span></dt>
+        <dd>
+          <span>{{ player.name }}</span>
+        </dd>
+        <dt><span jhiTranslate="gammaJhApp.player.rank">Rank</span></dt>
+        <dd>
+          <span>{{ player.rank }}</span>
+        </dd>
+        <dt><span jhiTranslate="gammaJhApp.player.score">Score</span></dt>
+        <dd>
+          <span>{{ player.score }}</span>
+        </dd>
+        <dt><span jhiTranslate="gammaJhApp.player.scoreTime">Score Time</span></dt>
+        <dd>
+          <span>{{ player.scoreTime | formatMediumDatetime }}</span>
+        </dd>
+        <dt><span jhiTranslate="gammaJhApp.player.rankTime">Rank Time</span></dt>
+        <dd>
+          <span>{{ player.rankTime | formatMediumDatetime }}</span>
+        </dd>
+        <dt><span jhiTranslate="gammaJhApp.player.displayClient">Display Client</span></dt>
+        <dd>
+          <span>{{ player.displayClient }}</span>
+        </dd>
+        <dt><span jhiTranslate="gammaJhApp.player.gameClass">Game Class</span></dt>
+        <dd>
+          <div *ngIf="player.gameClass">
+            <a [routerLink]="['/game-class', player.gameClass.id, 'view']">{{ player.gameClass?.id }}</a>
+          </div>
+        </dd>
+        <dt><span jhiTranslate="gammaJhApp.player.asset">Asset</span></dt>
+        <dd>
+          <div *ngIf="player.asset">
+            <a [routerLink]="['/asset', player.asset.id, 'view']">{{ player.asset?.id }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/player', player.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

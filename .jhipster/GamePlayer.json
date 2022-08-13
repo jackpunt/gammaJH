@@ -1,5 +1,9 @@
 {
-  "name": "GamePlayer",
+  "applications": ["gammaJH"],
+  "changelogDate": "20220813223223",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "game_player",
   "fields": [
     {
       "fieldName": "version",
@@ -14,30 +18,25 @@
       "fieldType": "Boolean"
     }
   ],
+  "fluentMethods": true,
+  "javadoc": "one of 2 Players (A or B) in a GameInst",
+  "jpaMetamodelFiltering": false,
+  "name": "GamePlayer",
+  "pagination": "no",
+  "readOnly": false,
   "relationships": [
     {
-      "relationshipType": "many-to-one",
       "otherEntityName": "gameInst",
       "otherEntityRelationshipName": "gamePlayer",
-      "relationshipName": "gameInst"
+      "relationshipName": "gameInst",
+      "relationshipType": "many-to-one"
     },
     {
-      "relationshipType": "many-to-one",
       "otherEntityName": "player",
       "otherEntityRelationshipName": "gamePlayer",
-      "relationshipName": "player"
+      "relationshipName": "player",
+      "relationshipType": "many-to-one"
     }
   ],
-  "javadoc": "one of 2 Players (A or B) in a GameInst",
-  "entityTableName": "game_player",
-  "dto": "no",
-  "pagination": "no",
-  "service": "no",
-  "jpaMetamodelFiltering": false,
-  "fluentMethods": true,
-  "readOnly": false,
-  "embedded": false,
-  "applications": [
-    "gammaJH"
-  ]
+  "service": "no"
 }

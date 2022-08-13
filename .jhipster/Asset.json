@@ -1,5 +1,9 @@
 {
-  "name": "Asset",
+  "applications": ["gammaJH"],
+  "changelogDate": "20220813223219",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "asset",
   "fields": [
     {
       "fieldName": "version",
@@ -26,29 +30,24 @@
       "fieldType": "String"
     }
   ],
+  "fluentMethods": true,
+  "javadoc": "Assets owned by a member/user; (the horses) a virtual file-system?",
+  "jpaMetamodelFiltering": false,
+  "name": "Asset",
+  "pagination": "no",
+  "readOnly": false,
   "relationships": [
     {
-      "relationshipType": "one-to-many",
       "otherEntityName": "player",
       "otherEntityRelationshipName": "asset",
-      "relationshipName": "player"
+      "relationshipName": "player",
+      "relationshipType": "one-to-many"
     },
     {
-      "relationshipType": "many-to-one",
       "otherEntityName": "user",
-      "relationshipName": "user"
+      "relationshipName": "user",
+      "relationshipType": "many-to-one"
     }
   ],
-  "javadoc": "Assets owned by a member/user; (the horses) a virtual file-system?",
-  "entityTableName": "asset",
-  "dto": "no",
-  "pagination": "no",
-  "service": "no",
-  "jpaMetamodelFiltering": false,
-  "fluentMethods": true,
-  "readOnly": false,
-  "embedded": false,
-  "applications": [
-    "gammaJH"
-  ]
+  "service": "no"
 }

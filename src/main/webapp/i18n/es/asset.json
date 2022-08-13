@@ -1,0 +1,31 @@
+{
+  "gammaJhApp": {
+    "asset": {
+      "home": {
+        "title": "Assets",
+        "refreshListLabel": "Refrescar lista",
+        "createLabel": "Crear nuevo Asset",
+        "createOrEditLabel": "Crear o editar Asset",
+        "notFound": "Ningún Assets encontrado"
+      },
+      "created": "Un nuevo Asset ha sido creado con el identificador {{ param }}",
+      "updated": "Un Asset ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Un Asset ha sido eliminado con el identificador {{ param }}",
+      "delete": {
+        "question": "¿Seguro que quiere eliminar Asset {{ id }}?"
+      },
+      "detail": {
+        "title": "Asset"
+      },
+      "id": "ID",
+      "version": "Version",
+      "name": "Name",
+      "main": "Main",
+      "auto": "Auto",
+      "path": "Path",
+      "include": "Include",
+      "player": "Player",
+      "user": "User"
+    }
+  }
+}

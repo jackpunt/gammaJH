@@ -1,0 +1,105 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2
+        id="jhi-member-game-props-heading"
+        data-cy="MemberGamePropsCreateUpdateHeading"
+        jhiTranslate="gammaJhApp.memberGameProps.home.createOrEditLabel"
+      >
+        Create or edit a Member Game Props
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="row mb-3" *ngIf="editForm.controls.id.value !== null">
+          <label class="form-label" jhiTranslate="global.field.id" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="gammaJhApp.memberGameProps.version" for="field_version">Version</label>
+          <input type="number" class="form-control" name="version" id="field_version" data-cy="version" formControlName="version" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="gammaJhApp.memberGameProps.seed" for="field_seed">Seed</label>
+          <input type="number" class="form-control" name="seed" id="field_seed" data-cy="seed" formControlName="seed" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="gammaJhApp.memberGameProps.mapName" for="field_mapName">Map Name</label>
+          <input type="text" class="form-control" name="mapName" id="field_mapName" data-cy="mapName" formControlName="mapName" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="gammaJhApp.memberGameProps.mapSize" for="field_mapSize">Map Size</label>
+          <input type="number" class="form-control" name="mapSize" id="field_mapSize" data-cy="mapSize" formControlName="mapSize" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="gammaJhApp.memberGameProps.npcCount" for="field_npcCount">Npc Count</label>
+          <input type="number" class="form-control" name="npcCount" id="field_npcCount" data-cy="npcCount" formControlName="npcCount" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="gammaJhApp.memberGameProps.jsonProps" for="field_jsonProps">Json Props</label>
+          <input type="text" class="form-control" name="jsonProps" id="field_jsonProps" data-cy="jsonProps" formControlName="jsonProps" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="gammaJhApp.memberGameProps.configName" for="field_configName">Config Name</label>
+          <input
+            type="text"
+            class="form-control"
+            name="configName"
+            id="field_configName"
+            data-cy="configName"
+            formControlName="configName"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="gammaJhApp.memberGameProps.user" for="field_user">User</label>
+          <select class="form-control" id="field_user" data-cy="user" name="user" formControlName="user" [compareWith]="compareUser">
+            <option [ngValue]="null"></option>
+            <option [ngValue]="userOption" *ngFor="let userOption of usersSharedCollection">{{ userOption.id }}</option>
+          </select>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="gammaJhApp.memberGameProps.gameClass" for="field_gameClass">Game Class</label>
+          <select
+            class="form-control"
+            id="field_gameClass"
+            data-cy="gameClass"
+            name="gameClass"
+            formControlName="gameClass"
+            [compareWith]="compareGameClass"
+          >
+            <option [ngValue]="null"></option>
+            <option [ngValue]="gameClassOption" *ngFor="let gameClassOption of gameClassesSharedCollection">
+              {{ gameClassOption.id }}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
