@@ -183,7 +183,7 @@ class GameInstResourceIT {
         assertThat(testGameInst.getTicks()).isEqualTo(DEFAULT_TICKS);
 
         // Validate the id for MapsId, the ids must be same
-        assertThat(testGameInst.getId()).isEqualTo(testGameInst.getGameInstProps().getId());
+        assertThat(testGameInst.getId()).isEqualTo(testGameInst.getProps().getId());
     }
 
     @Test
@@ -227,7 +227,7 @@ class GameInstResourceIT {
         em.detach(updatedGameInst);
 
         // Update the GameInstProps with new association value
-        updatedGameInst.setGameInstProps(gameInstProps);
+        updatedGameInst.setProps(gameInstProps);
 
         // Update the entity
         restGameInstMockMvc

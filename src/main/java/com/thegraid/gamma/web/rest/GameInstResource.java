@@ -59,7 +59,7 @@ public class GameInstResource {
             throw new BadRequestAlertException("Invalid association value provided", ENTITY_NAME, "null");
         }
         Long gameInstPropsId = gameInst.getProps().getId();
-        gameInstPropsRepository.findById(gameInstPropsId).ifPresent(gameInst::gameInstProps);
+        gameInstPropsRepository.findById(gameInstPropsId).ifPresent(gameInst::props);
         GameInst result = gameInstRepository.save(gameInst);
         return ResponseEntity
             .created(new URI("/api/game-insts/" + result.getId()))
