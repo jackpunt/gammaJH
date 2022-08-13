@@ -123,7 +123,7 @@ entity Player { // DTO
 
 relationship OneToOne {
   GameInst{props} to GameInstProps{gameInst} with jpaDerivedIdentifier
-  AccountInfo with jpaDerivedIdentifier to user // extension to 'user'
+  AccountInfo to User with jpaDerivedIdentifier // extension to 'user'
 }
 relationship OneToMany {
   GameClass{gameInst} to GameInst{gameClass}
