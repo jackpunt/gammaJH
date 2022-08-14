@@ -122,7 +122,6 @@ entity Player { // DTO
 }
 
 relationship OneToOne {
-  GameInst{props} to @Id GameInstProps{gameInst} // or must it be GameInst(gameInstProps) ??
   AccountInfo to @Id User // extension to 'user'
 }
 relationship OneToMany {
@@ -138,5 +137,6 @@ relationship OneToMany {
 relationship ManyToOne {
   Asset{user} to User
   MemberGameProps{user} to User
+  GameInstProps{gameInst} to GameInst{props}
 }
 
