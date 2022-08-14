@@ -1,5 +1,7 @@
 {
-  "applications": ["gammaJH"],
+  "applications": [
+    "gammaJH"
+  ],
   "changelogDate": "20220813223222",
   "dto": "no",
   "embedded": false,
@@ -42,11 +44,10 @@
   "readOnly": false,
   "relationships": [
     {
+      "relationshipType": "many-to-one",
       "otherEntityName": "gameInst",
       "otherEntityRelationshipName": "props",
-      "ownerSide": false,
-      "relationshipName": "gameInst",
-      "relationshipType": "one-to-one"
+      "relationshipName": "gameInst"
     }
   ],
   "service": "no"

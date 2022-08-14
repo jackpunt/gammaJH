@@ -1,5 +1,7 @@
 {
-  "applications": ["gammaJH"],
+  "applications": [
+    "gammaJH"
+  ],
   "changelogDate": "20220813223218",
   "dto": "no",
   "embedded": false,
@@ -18,13 +20,14 @@
   "readOnly": false,
   "relationships": [
     {
-      "id": true,
+      "relationshipType": "one-to-one",
       "otherEntityName": "user",
       "otherEntityRelationshipName": "accountInfo",
-      "ownerSide": true,
       "relationshipName": "user",
-      "relationshipType": "one-to-one",
-      "useJPADerivedIdentifier": true
+      "ownerSide": true,
+      "options": {
+        "id": true
+      }
     }
   ],
   "service": "no"
