@@ -1,18 +1,20 @@
 package com.thegraid.gamma.web.rest;
 
-import com.thegraid.gamma.domain.GameClass;
 import com.thegraid.gamma.repository.GameClassRepository;
+import com.thegraid.gamma.service.GameClassService;
+import com.thegraid.gamma.service.dto.GameClassDTO;
 import com.thegraid.gamma.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import tech.jhipster.web.util.HeaderUtil;
 import tech.jhipster.web.util.ResponseUtil;
@@ -22,7 +24,6 @@ import tech.jhipster.web.util.ResponseUtil;
  */
 @RestController
 @RequestMapping("/api")
-@Transactional
 public class GameClassResource {
 
     private final Logger log = LoggerFactory.getLogger(GameClassResource.class);
@@ -32,26 +33,29 @@ public class GameClassResource {
     @Value("${jhipster.clientApp.name}")
     private String applicationName;
 
+    private final GameClassService gameClassService;
+
     private final GameClassRepository gameClassRepository;
 
-    public GameClassResource(GameClassRepository gameClassRepository) {
+    public GameClassResource(GameClassService gameClassService, GameClassRepository gameClassRepository) {
+        this.gameClassService = gameClassService;
         this.gameClassRepository = gameClassRepository;
     }
 
     /**
      * {@code POST  /game-classes} : Create a new gameClass.
      *
-     * @param gameClass the gameClass to create.
-     * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new gameClass, or with status {@code 400 (Bad Request)} if the gameClass has already an ID.
+     * @param gameClassDTO the gameClassDTO to create.
+     * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new gameClassDTO, or with status {@code 400 (Bad Request)} if the gameClass has already an ID.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("/game-classes")
-    public ResponseEntity<GameClass> createGameClass(@RequestBody GameClass gameClass) throws URISyntaxException {
-        log.debug("REST request to save GameClass : {}", gameClass);
-        if (gameClass.getId() != null) {
+    public ResponseEntity<GameClassDTO> createGameClass(@Valid @RequestBody GameClassDTO gameClassDTO) throws URISyntaxException {
+        log.debug("REST request to save GameClass : {}", gameClassDTO);
+        if (gameClassDTO.getId() != null) {
             throw new BadRequestAlertException("A new gameClass cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        GameClass result = gameClassRepository.save(gameClass);
+        GameClassDTO result = gameClassService.save(gameClassDTO);
         return ResponseEntity
             .created(new URI("/api/game-classes/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
@@ -61,23 +65,23 @@ public class GameClassResource {
     /**
      * {@code PUT  /game-classes/:id} : Updates an existing gameClass.
      *
-     * @param id the id of the gameClass to save.
-     * @param gameClass the gameClass to update.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated gameClass,
-     * or with status {@code 400 (Bad Request)} if the gameClass is not valid,
-     * or with status {@code 500 (Internal Server Error)} if the gameClass couldn't be updated.
+     * @param id the id of the gameClassDTO to save.
+     * @param gameClassDTO the gameClassDTO to update.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated gameClassDTO,
+     * or with status {@code 400 (Bad Request)} if the gameClassDTO is not valid,
+     * or with status {@code 500 (Internal Server Error)} if the gameClassDTO couldn't be updated.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PutMapping("/game-classes/{id}")
-    public ResponseEntity<GameClass> updateGameClass(
+    public ResponseEntity<GameClassDTO> updateGameClass(
         @PathVariable(value = "id", required = false) final Long id,
-        @RequestBody GameClass gameClass
+        @Valid @RequestBody GameClassDTO gameClassDTO
     ) throws URISyntaxException {
-        log.debug("REST request to update GameClass : {}, {}", id, gameClass);
-        if (gameClass.getId() == null) {
+        log.debug("REST request to update GameClass : {}, {}", id, gameClassDTO);
+        if (gameClassDTO.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
-        if (!Objects.equals(id, gameClass.getId())) {
+        if (!Objects.equals(id, gameClassDTO.getId())) {
             throw new BadRequestAlertException("Invalid ID", ENTITY_NAME, "idinvalid");
         }
 
@@ -85,34 +89,34 @@ public class GameClassResource {
             throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
         }
 
-        GameClass result = gameClassRepository.save(gameClass);
+        GameClassDTO result = gameClassService.update(gameClassDTO);
         return ResponseEntity
             .ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, gameClass.getId().toString()))
+            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, gameClassDTO.getId().toString()))
             .body(result);
     }
 
     /**
      * {@code PATCH  /game-classes/:id} : Partial updates given fields of an existing gameClass, field will ignore if it is null
      *
-     * @param id the id of the gameClass to save.
-     * @param gameClass the gameClass to update.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated gameClass,
-     * or with status {@code 400 (Bad Request)} if the gameClass is not valid,
-     * or with status {@code 404 (Not Found)} if the gameClass is not found,
-     * or with status {@code 500 (Internal Server Error)} if the gameClass couldn't be updated.
+     * @param id the id of the gameClassDTO to save.
+     * @param gameClassDTO the gameClassDTO to update.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated gameClassDTO,
+     * or with status {@code 400 (Bad Request)} if the gameClassDTO is not valid,
+     * or with status {@code 404 (Not Found)} if the gameClassDTO is not found,
+     * or with status {@code 500 (Internal Server Error)} if the gameClassDTO couldn't be updated.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PatchMapping(value = "/game-classes/{id}", consumes = { "application/json", "application/merge-patch+json" })
-    public ResponseEntity<GameClass> partialUpdateGameClass(
+    public ResponseEntity<GameClassDTO> partialUpdateGameClass(
         @PathVariable(value = "id", required = false) final Long id,
-        @RequestBody GameClass gameClass
+        @NotNull @RequestBody GameClassDTO gameClassDTO
     ) throws URISyntaxException {
-        log.debug("REST request to partial update GameClass partially : {}, {}", id, gameClass);
-        if (gameClass.getId() == null) {
+        log.debug("REST request to partial update GameClass partially : {}, {}", id, gameClassDTO);
+        if (gameClassDTO.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
-        if (!Objects.equals(id, gameClass.getId())) {
+        if (!Objects.equals(id, gameClassDTO.getId())) {
             throw new BadRequestAlertException("Invalid ID", ENTITY_NAME, "idinvalid");
         }
 
@@ -120,41 +124,11 @@ public class GameClassResource {
             throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
         }
 
-        Optional<GameClass> result = gameClassRepository
-            .findById(gameClass.getId())
-            .map(existingGameClass -> {
-                if (gameClass.getVersion() != null) {
-                    existingGameClass.setVersion(gameClass.getVersion());
-                }
-                if (gameClass.getName() != null) {
-                    existingGameClass.setName(gameClass.getName());
-                }
-                if (gameClass.getRevision() != null) {
-                    existingGameClass.setRevision(gameClass.getRevision());
-                }
-                if (gameClass.getLauncherPath() != null) {
-                    existingGameClass.setLauncherPath(gameClass.getLauncherPath());
-                }
-                if (gameClass.getGamePath() != null) {
-                    existingGameClass.setGamePath(gameClass.getGamePath());
-                }
-                if (gameClass.getDocsPath() != null) {
-                    existingGameClass.setDocsPath(gameClass.getDocsPath());
-                }
-                if (gameClass.getPropsNames() != null) {
-                    existingGameClass.setPropsNames(gameClass.getPropsNames());
-                }
-                if (gameClass.getUpdated() != null) {
-                    existingGameClass.setUpdated(gameClass.getUpdated());
-                }
-
-                return existingGameClass;
-            })
-            .map(gameClassRepository::save);
+        Optional<GameClassDTO> result = gameClassService.partialUpdate(gameClassDTO);
 
         return ResponseUtil.wrapOrNotFound(
             result,
-            HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, gameClass.getId().toString())
+            HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, gameClassDTO.getId().toString())
         );
     }
 
@@ -164,34 +138,34 @@ public class GameClassResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of gameClasses in body.
      */
     @GetMapping("/game-classes")
-    public List<GameClass> getAllGameClasses() {
+    public List<GameClassDTO> getAllGameClasses() {
         log.debug("REST request to get all GameClasses");
-        return gameClassRepository.findAll();
+        return gameClassService.findAll();
     }
 
     /**
      * {@code GET  /game-classes/:id} : get the "id" gameClass.
      *
-     * @param id the id of the gameClass to retrieve.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the gameClass, or with status {@code 404 (Not Found)}.
+     * @param id the id of the gameClassDTO to retrieve.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the gameClassDTO, or with status {@code 404 (Not Found)}.
      */
     @GetMapping("/game-classes/{id}")
-    public ResponseEntity<GameClass> getGameClass(@PathVariable Long id) {
+    public ResponseEntity<GameClassDTO> getGameClass(@PathVariable Long id) {
         log.debug("REST request to get GameClass : {}", id);
-        Optional<GameClass> gameClass = gameClassRepository.findById(id);
-        return ResponseUtil.wrapOrNotFound(gameClass);
+        Optional<GameClassDTO> gameClassDTO = gameClassService.findOne(id);
+        return ResponseUtil.wrapOrNotFound(gameClassDTO);
     }
 
     /**
      * {@code DELETE  /game-classes/:id} : delete the "id" gameClass.
      *
-     * @param id the id of the gameClass to delete.
+     * @param id the id of the gameClassDTO to delete.
      * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
      */
     @DeleteMapping("/game-classes/{id}")
     public ResponseEntity<Void> deleteGameClass(@PathVariable Long id) {
         log.debug("REST request to delete GameClass : {}", id);
-        gameClassRepository.deleteById(id);
+        gameClassService.delete(id);
         return ResponseEntity
             .noContent()
             .headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString()))

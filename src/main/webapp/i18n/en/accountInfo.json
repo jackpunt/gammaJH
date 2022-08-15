@@ -18,6 +18,7 @@
         "title": "Account Info"
       },
       "id": "ID",
+      "version": "Version",
       "type": "Type",
       "user": "User"
     }

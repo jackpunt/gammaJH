@@ -1,17 +1,16 @@
 package com.thegraid.gamma.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import io.swagger.v3.oas.annotations.media.Schema;
 import java.io.Serializable;
 import java.time.Instant;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.*;
+import javax.validation.constraints.*;
 
 /**
  * Which Game engine/jar to play.
  */
-@Schema(description = "Which Game engine/jar to play.")
 @Entity
 @Table(name = "game_class")
 public class GameClass implements Serializable {
@@ -24,12 +23,14 @@ public class GameClass implements Serializable {
     private Long id;
 
     @Column(name = "version")
-    private Long version;
+    private Integer version;
 
-    @Column(name = "name")
+    @Size(max = 45)
+    @Column(name = "name", length = 45)
     private String name;
 
-    @Column(name = "revision")
+    @Size(max = 45)
+    @Column(name = "revision", length = 45)
     private String revision;
 
     @Column(name = "launcher_path")
@@ -74,16 +75,16 @@ public class GameClass implements Serializable {
         this.id = id;
     }
 
-    public Long getVersion() {
+    public Integer getVersion() {
         return this.version;
     }
 
-    public GameClass version(Long version) {
+    public GameClass version(Integer version) {
         this.setVersion(version);
         return this;
     }
 
-    public void setVersion(Long version) {
+    public void setVersion(Integer version) {
         this.version = version;
     }
 

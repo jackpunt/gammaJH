@@ -1,13 +1,16 @@
 {
   "applications": ["gammaJH"],
   "changelogDate": "20220813223224",
-  "dto": "no",
+  "dto": "mapstruct",
   "embedded": false,
   "entityTableName": "member_game_props",
   "fields": [
     {
       "fieldName": "version",
-      "fieldType": "Long"
+      "fieldType": "Integer",
+      "options": {
+        "version": true
+      }
     },
     {
       "fieldName": "seed",
@@ -15,15 +18,17 @@
     },
     {
       "fieldName": "mapName",
-      "fieldType": "String"
+      "fieldType": "String",
+      "fieldValidateRules": ["maxlength"],
+      "fieldValidateRulesMaxlength": "45"
     },
     {
       "fieldName": "mapSize",
-      "fieldType": "Long"
+      "fieldType": "Integer"
     },
     {
       "fieldName": "npcCount",
-      "fieldType": "Long"
+      "fieldType": "Integer"
     },
     {
       "fieldName": "jsonProps",
@@ -31,7 +36,9 @@
     },
     {
       "fieldName": "configName",
-      "fieldType": "String"
+      "fieldType": "String",
+      "fieldValidateRules": ["maxlength"],
+      "fieldValidateRulesMaxlength": "45"
     }
   ],
   "fluentMethods": true,
@@ -53,5 +60,5 @@
       "relationshipType": "many-to-one"
     }
   ],
-  "service": "no"
+  "service": "serviceClass"
 }

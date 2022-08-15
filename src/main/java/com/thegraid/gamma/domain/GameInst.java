@@ -1,17 +1,16 @@
 package com.thegraid.gamma.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import io.swagger.v3.oas.annotations.media.Schema;
 import java.io.Serializable;
 import java.time.Instant;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.*;
+import javax.validation.constraints.*;
 
 /**
  * Instance of a Game.
  */
-@Schema(description = "Instance of a Game.")
 @Entity
 @Table(name = "game_inst")
 public class GameInst implements Serializable {
@@ -23,9 +22,10 @@ public class GameInst implements Serializable {
     private Long id;
 
     @Column(name = "version")
-    private Long version;
+    private Integer version;
 
-    @Column(name = "game_name")
+    @Size(max = 45)
+    @Column(name = "game_name", length = 45)
     private String gameName;
 
     @Column(name = "host_url")
@@ -47,10 +47,10 @@ public class GameInst implements Serializable {
     private Instant updated;
 
     @Column(name = "score_a")
-    private Long scoreA;
+    private Integer scoreA;
 
     @Column(name = "score_b")
-    private Long scoreB;
+    private Integer scoreB;
 
     @Column(name = "ticks")
     private Long ticks;
@@ -92,16 +92,16 @@ public class GameInst implements Serializable {
         this.id = id;
     }
 
-    public Long getVersion() {
+    public Integer getVersion() {
         return this.version;
     }
 
-    public GameInst version(Long version) {
+    public GameInst version(Integer version) {
         this.setVersion(version);
         return this;
     }
 
-    public void setVersion(Long version) {
+    public void setVersion(Integer version) {
         this.version = version;
     }
 
@@ -196,29 +196,29 @@ public class GameInst implements Serializable {
         this.updated = updated;
     }
 
-    public Long getScoreA() {
+    public Integer getScoreA() {
         return this.scoreA;
     }
 
-    public GameInst scoreA(Long scoreA) {
+    public GameInst scoreA(Integer scoreA) {
         this.setScoreA(scoreA);
         return this;
     }
 
-    public void setScoreA(Long scoreA) {
+    public void setScoreA(Integer scoreA) {
         this.scoreA = scoreA;
     }
 
-    public Long getScoreB() {
+    public Integer getScoreB() {
         return this.scoreB;
     }
 
-    public GameInst scoreB(Long scoreB) {
+    public GameInst scoreB(Integer scoreB) {
         this.setScoreB(scoreB);
         return this;
     }
 
-    public void setScoreB(Long scoreB) {
+    public void setScoreB(Integer scoreB) {
         this.scoreB = scoreB;
     }
 

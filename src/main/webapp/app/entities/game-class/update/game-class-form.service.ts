@@ -59,8 +59,12 @@ export class GameClassFormService {
         }
       ),
       version: new FormControl(gameClassRawValue.version),
-      name: new FormControl(gameClassRawValue.name),
-      revision: new FormControl(gameClassRawValue.revision),
+      name: new FormControl(gameClassRawValue.name, {
+        validators: [Validators.maxLength(45)],
+      }),
+      revision: new FormControl(gameClassRawValue.revision, {
+        validators: [Validators.maxLength(45)],
+      }),
       launcherPath: new FormControl(gameClassRawValue.launcherPath),
       gamePath: new FormControl(gameClassRawValue.gamePath),
       docsPath: new FormControl(gameClassRawValue.docsPath),

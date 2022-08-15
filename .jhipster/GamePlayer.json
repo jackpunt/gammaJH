@@ -1,17 +1,22 @@
 {
   "applications": ["gammaJH"],
   "changelogDate": "20220813223223",
-  "dto": "no",
+  "dto": "mapstruct",
   "embedded": false,
   "entityTableName": "game_player",
   "fields": [
     {
       "fieldName": "version",
-      "fieldType": "Long"
+      "fieldType": "Integer",
+      "options": {
+        "version": true
+      }
     },
     {
       "fieldName": "role",
-      "fieldType": "String"
+      "fieldType": "String",
+      "fieldValidateRules": ["maxlength"],
+      "fieldValidateRulesMaxlength": "2"
     },
     {
       "fieldName": "ready",
@@ -38,5 +43,5 @@
       "relationshipType": "many-to-one"
     }
   ],
-  "service": "no"
+  "service": "serviceClass"
 }

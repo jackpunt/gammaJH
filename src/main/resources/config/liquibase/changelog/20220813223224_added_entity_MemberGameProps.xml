@@ -14,25 +14,25 @@
             <column name="id" type="bigint" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="version" type="bigint">
+            <column name="version" type="integer">
                 <constraints nullable="true" />
             </column>
             <column name="seed" type="bigint">
                 <constraints nullable="true" />
             </column>
-            <column name="map_name" type="varchar(255)">
+            <column name="map_name" type="varchar(45)">
                 <constraints nullable="true" />
             </column>
-            <column name="map_size" type="bigint">
+            <column name="map_size" type="integer">
                 <constraints nullable="true" />
             </column>
-            <column name="npc_count" type="bigint">
+            <column name="npc_count" type="integer">
                 <constraints nullable="true" />
             </column>
             <column name="json_props" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
-            <column name="config_name" type="varchar(255)">
+            <column name="config_name" type="varchar(45)">
                 <constraints nullable="true" />
             </column>
             <column name="user_id" type="bigint">

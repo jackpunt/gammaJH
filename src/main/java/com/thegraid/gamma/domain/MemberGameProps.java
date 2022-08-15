@@ -1,14 +1,13 @@
 package com.thegraid.gamma.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import io.swagger.v3.oas.annotations.media.Schema;
 import java.io.Serializable;
 import javax.persistence.*;
+import javax.validation.constraints.*;
 
 /**
  * member/player proposes properties for a new GameInst.
  */
-@Schema(description = "member/player proposes properties for a new GameInst.")
 @Entity
 @Table(name = "member_game_props")
 public class MemberGameProps implements Serializable {
@@ -21,24 +20,26 @@ public class MemberGameProps implements Serializable {
     private Long id;
 
     @Column(name = "version")
-    private Long version;
+    private Integer version;
 
     @Column(name = "seed")
     private Long seed;
 
-    @Column(name = "map_name")
+    @Size(max = 45)
+    @Column(name = "map_name", length = 45)
     private String mapName;
 
     @Column(name = "map_size")
-    private Long mapSize;
+    private Integer mapSize;
 
     @Column(name = "npc_count")
-    private Long npcCount;
+    private Integer npcCount;
 
     @Column(name = "json_props")
     private String jsonProps;
 
-    @Column(name = "config_name")
+    @Size(max = 45)
+    @Column(name = "config_name", length = 45)
     private String configName;
 
     @ManyToOne
@@ -63,16 +64,16 @@ public class MemberGameProps implements Serializable {
         this.id = id;
     }
 
-    public Long getVersion() {
+    public Integer getVersion() {
         return this.version;
     }
 
-    public MemberGameProps version(Long version) {
+    public MemberGameProps version(Integer version) {
         this.setVersion(version);
         return this;
     }
 
-    public void setVersion(Long version) {
+    public void setVersion(Integer version) {
         this.version = version;
     }
 
@@ -102,29 +103,29 @@ public class MemberGameProps implements Serializable {
         this.mapName = mapName;
     }
 
-    public Long getMapSize() {
+    public Integer getMapSize() {
         return this.mapSize;
     }
 
-    public MemberGameProps mapSize(Long mapSize) {
+    public MemberGameProps mapSize(Integer mapSize) {
         this.setMapSize(mapSize);
         return this;
     }
 
-    public void setMapSize(Long mapSize) {
+    public void setMapSize(Integer mapSize) {
         this.mapSize = mapSize;
     }
 
-    public Long getNpcCount() {
+    public Integer getNpcCount() {
         return this.npcCount;
     }
 
-    public MemberGameProps npcCount(Long npcCount) {
+    public MemberGameProps npcCount(Integer npcCount) {
         this.setNpcCount(npcCount);
         return this;
     }
 
-    public void setNpcCount(Long npcCount) {
+    public void setNpcCount(Integer npcCount) {
         this.npcCount = npcCount;
     }
 

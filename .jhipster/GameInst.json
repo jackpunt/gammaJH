@@ -1,19 +1,22 @@
 {
-  "applications": [
-    "gammaJH"
-  ],
+  "applications": ["gammaJH"],
   "changelogDate": "20220813223221",
-  "dto": "no",
+  "dto": "mapstruct",
   "embedded": false,
   "entityTableName": "game_inst",
   "fields": [
     {
       "fieldName": "version",
-      "fieldType": "Long"
+      "fieldType": "Integer",
+      "options": {
+        "version": true
+      }
     },
     {
       "fieldName": "gameName",
-      "fieldType": "String"
+      "fieldType": "String",
+      "fieldValidateRules": ["maxlength"],
+      "fieldValidateRulesMaxlength": "45"
     },
     {
       "fieldName": "hostUrl",
@@ -41,11 +44,11 @@
     },
     {
       "fieldName": "scoreA",
-      "fieldType": "Long"
+      "fieldType": "Integer"
     },
     {
       "fieldName": "scoreB",
-      "fieldType": "Long"
+      "fieldType": "Integer"
     },
     {
       "fieldName": "ticks",
@@ -60,35 +63,39 @@
   "readOnly": false,
   "relationships": [
     {
-      "relationshipType": "one-to-many",
-      "otherEntityName": "gamePlayer",
-      "otherEntityRelationshipName": "gameInst",
-      "relationshipName": "gamePlayer"
-    },
-    {
-      "relationshipType": "many-to-one",
-      "otherEntityName": "gameClass",
-      "otherEntityRelationshipName": "gameInst",
-      "relationshipName": "gameClass"
-    },
-    {
-      "relationshipType": "many-to-one",
-      "otherEntityName": "player",
-      "otherEntityRelationshipName": "ida",
-      "relationshipName": "playerA"
-    },
-    {
-      "relationshipType": "many-to-one",
-      "otherEntityName": "player",
-      "otherEntityRelationshipName": "idb",
-      "relationshipName": "playerB"
-    },
-    {
-      "relationshipType": "one-to-many",
+      "options": {
+        "id": true
+      },
       "otherEntityName": "gameInstProps",
       "otherEntityRelationshipName": "gameInst",
-      "relationshipName": "props"
+      "ownerSide": true,
+      "relationshipName": "props",
+      "relationshipType": "one-to-one"
+    },
+    {
+      "otherEntityName": "gamePlayer",
+      "otherEntityRelationshipName": "gameInst",
+      "relationshipName": "gamePlayer",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "gameClass",
+      "otherEntityRelationshipName": "gameInst",
+      "relationshipName": "gameClass",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityName": "player",
+      "otherEntityRelationshipName": "ida",
+      "relationshipName": "playerA",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityName": "player",
+      "otherEntityRelationshipName": "idb",
+      "relationshipName": "playerB",
+      "relationshipType": "many-to-one"
     }
   ],
-  "service": "no"
+  "service": "serviceClass"
 }

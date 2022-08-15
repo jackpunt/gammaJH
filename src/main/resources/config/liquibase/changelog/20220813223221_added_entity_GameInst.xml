@@ -14,10 +14,10 @@
             <column name="id" type="bigint">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="version" type="bigint">
+            <column name="version" type="integer">
                 <constraints nullable="true" />
             </column>
-            <column name="game_name" type="varchar(255)">
+            <column name="game_name" type="varchar(45)">
                 <constraints nullable="true" />
             </column>
             <column name="host_url" type="varchar(255)">
@@ -38,10 +38,10 @@
             <column name="updated" type="${datetimeType}">
                 <constraints nullable="true" />
             </column>
-            <column name="score_a" type="bigint">
+            <column name="score_a" type="integer">
                 <constraints nullable="true" />
             </column>
-            <column name="score_b" type="bigint">
+            <column name="score_b" type="integer">
                 <constraints nullable="true" />
             </column>
             <column name="ticks" type="bigint">

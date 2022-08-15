@@ -1,14 +1,13 @@
 package com.thegraid.gamma.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import io.swagger.v3.oas.annotations.media.Schema;
 import java.io.Serializable;
 import javax.persistence.*;
+import javax.validation.constraints.*;
 
 /**
  * one of 2 Players (A or B) in a GameInst
  */
-@Schema(description = "one of 2 Players (A or B) in a GameInst")
 @Entity
 @Table(name = "game_player")
 public class GamePlayer implements Serializable {
@@ -21,9 +20,10 @@ public class GamePlayer implements Serializable {
     private Long id;
 
     @Column(name = "version")
-    private Long version;
+    private Integer version;
 
-    @Column(name = "role")
+    @Size(max = 2)
+    @Column(name = "role", length = 2)
     private String role;
 
     @Column(name = "ready")
@@ -52,16 +52,16 @@ public class GamePlayer implements Serializable {
         this.id = id;
     }
 
-    public Long getVersion() {
+    public Integer getVersion() {
         return this.version;
     }
 
-    public GamePlayer version(Long version) {
+    public GamePlayer version(Integer version) {
         this.setVersion(version);
         return this;
     }
 
-    public void setVersion(Long version) {
+    public void setVersion(Integer version) {
         this.version = version;
     }
 

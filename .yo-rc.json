@@ -5,7 +5,7 @@
     "authenticationType": "session",
     "baseName": "gammaJH",
     "blueprints": [],
-    "buildTool": "maven",
+    "buildTool": "gradle",
     "cacheProvider": "ehcache",
     "clientFramework": "angularX",
     "clientPackageManager": "npm",

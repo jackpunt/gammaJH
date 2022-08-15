@@ -18,6 +18,7 @@ type AccountInfoFormDefaults = Pick<NewAccountInfo, 'id'>;
 
 type AccountInfoFormGroupContent = {
   id: FormControl<IAccountInfo['id'] | NewAccountInfo['id']>;
+  version: FormControl<IAccountInfo['version']>;
   type: FormControl<IAccountInfo['type']>;
   user: FormControl<IAccountInfo['user']>;
 };
@@ -39,6 +40,7 @@ export class AccountInfoFormService {
           validators: [Validators.required],
         }
       ),
+      version: new FormControl(accountInfoRawValue.version),
       type: new FormControl(accountInfoRawValue.type),
       user: new FormControl(accountInfoRawValue.user),
     });

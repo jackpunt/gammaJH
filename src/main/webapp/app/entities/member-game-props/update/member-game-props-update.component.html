@@ -30,6 +30,16 @@
         <div class="row mb-3">
           <label class="form-label" jhiTranslate="gammaJhApp.memberGameProps.mapName" for="field_mapName">Map Name</label>
           <input type="text" class="form-control" name="mapName" id="field_mapName" data-cy="mapName" formControlName="mapName" />
+          <div *ngIf="editForm.get('mapName')!.invalid && (editForm.get('mapName')!.dirty || editForm.get('mapName')!.touched)">
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('mapName')?.errors?.maxlength"
+              jhiTranslate="entity.validation.maxlength"
+              [translateValues]="{ max: 45 }"
+            >
+              This field cannot be longer than 45 characters.
+            </small>
+          </div>
         </div>
 
         <div class="row mb-3">
@@ -57,6 +67,16 @@
             data-cy="configName"
             formControlName="configName"
           />
+          <div *ngIf="editForm.get('configName')!.invalid && (editForm.get('configName')!.dirty || editForm.get('configName')!.touched)">
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('configName')?.errors?.maxlength"
+              jhiTranslate="entity.validation.maxlength"
+              [translateValues]="{ max: 45 }"
+            >
+              This field cannot be longer than 45 characters.
+            </small>
+          </div>
         </div>
 
         <div class="row mb-3">

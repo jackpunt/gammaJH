@@ -9,6 +9,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import com.thegraid.gamma.IntegrationTest;
 import com.thegraid.gamma.domain.Player;
 import com.thegraid.gamma.repository.PlayerRepository;
+import com.thegraid.gamma.service.dto.PlayerDTO;
+import com.thegraid.gamma.service.mapper.PlayerMapper;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
@@ -32,8 +34,8 @@ import org.springframework.transaction.annotation.Transactional;
 @WithMockUser
 class PlayerResourceIT {
 
-    private static final Long DEFAULT_VERSION = 1L;
-    private static final Long UPDATED_VERSION = 2L;
+    private static final Integer DEFAULT_VERSION = 1;
+    private static final Integer UPDATED_VERSION = 2;
 
     private static final String DEFAULT_NAME = "AAAAAAAAAA";
     private static final String UPDATED_NAME = "BBBBBBBBBB";
@@ -61,6 +63,9 @@ class PlayerResourceIT {
 
     @Autowired
     private PlayerRepository playerRepository;
+
+    @Autowired
+    private PlayerMapper playerMapper;
 
     @Autowired
     private EntityManager em;
@@ -116,9 +121,13 @@ class PlayerResourceIT {
     void createPlayer() throws Exception {
         int databaseSizeBeforeCreate = playerRepository.findAll().size();
         // Create the Player
+        PlayerDTO playerDTO = playerMapper.toDto(player);
         restPlayerMockMvc
             .perform(
-                post(ENTITY_API_URL).with(csrf()).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(player))
+                post(ENTITY_API_URL)
+                    .with(csrf())
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(TestUtil.convertObjectToJsonBytes(playerDTO))
             )
             .andExpect(status().isCreated());
 
@@ -140,13 +149,17 @@ class PlayerResourceIT {
     void createPlayerWithExistingId() throws Exception {
         // Create the Player with an existing ID
         player.setId(1L);
+        PlayerDTO playerDTO = playerMapper.toDto(player);
 
         int databaseSizeBeforeCreate = playerRepository.findAll().size();
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restPlayerMockMvc
             .perform(
-                post(ENTITY_API_URL).with(csrf()).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(player))
+                post(ENTITY_API_URL)
+                    .with(csrf())
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(TestUtil.convertObjectToJsonBytes(playerDTO))
             )
             .andExpect(status().isBadRequest());
 
@@ -167,7 +180,7 @@ class PlayerResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(player.getId().intValue())))
-            .andExpect(jsonPath("$.[*].version").value(hasItem(DEFAULT_VERSION.intValue())))
+            .andExpect(jsonPath("$.[*].version").value(hasItem(DEFAULT_VERSION)))
             .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME)))
             .andExpect(jsonPath("$.[*].rank").value(hasItem(DEFAULT_RANK)))
             .andExpect(jsonPath("$.[*].score").value(hasItem(DEFAULT_SCORE)))
@@ -188,7 +201,7 @@ class PlayerResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(player.getId().intValue()))
-            .andExpect(jsonPath("$.version").value(DEFAULT_VERSION.intValue()))
+            .andExpect(jsonPath("$.version").value(DEFAULT_VERSION))
             .andExpect(jsonPath("$.name").value(DEFAULT_NAME))
             .andExpect(jsonPath("$.rank").value(DEFAULT_RANK))
             .andExpect(jsonPath("$.score").value(DEFAULT_SCORE))
@@ -224,13 +237,14 @@ class PlayerResourceIT {
             .scoreTime(UPDATED_SCORE_TIME)
             .rankTime(UPDATED_RANK_TIME)
             .displayClient(UPDATED_DISPLAY_CLIENT);
+        PlayerDTO playerDTO = playerMapper.toDto(updatedPlayer);
 
         restPlayerMockMvc
             .perform(
-                put(ENTITY_API_URL_ID, updatedPlayer.getId())
+                put(ENTITY_API_URL_ID, playerDTO.getId())
                     .with(csrf())
                     .contentType(MediaType.APPLICATION_JSON)
-                    .content(TestUtil.convertObjectToJsonBytes(updatedPlayer))
+                    .content(TestUtil.convertObjectToJsonBytes(playerDTO))
             )
             .andExpect(status().isOk());
 
@@ -253,13 +267,16 @@ class PlayerResourceIT {
         int databaseSizeBeforeUpdate = playerRepository.findAll().size();
         player.setId(count.incrementAndGet());
 
+        // Create the Player
+        PlayerDTO playerDTO = playerMapper.toDto(player);
+
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
         restPlayerMockMvc
             .perform(
-                put(ENTITY_API_URL_ID, player.getId())
+                put(ENTITY_API_URL_ID, playerDTO.getId())
                     .with(csrf())
                     .contentType(MediaType.APPLICATION_JSON)
-                    .content(TestUtil.convertObjectToJsonBytes(player))
+                    .content(TestUtil.convertObjectToJsonBytes(playerDTO))
             )
             .andExpect(status().isBadRequest());
 
@@ -274,13 +291,16 @@ class PlayerResourceIT {
         int databaseSizeBeforeUpdate = playerRepository.findAll().size();
         player.setId(count.incrementAndGet());
 
+        // Create the Player
+        PlayerDTO playerDTO = playerMapper.toDto(player);
+
         // If url ID doesn't match entity ID, it will throw BadRequestAlertException
         restPlayerMockMvc
             .perform(
                 put(ENTITY_API_URL_ID, count.incrementAndGet())
                     .with(csrf())
                     .contentType(MediaType.APPLICATION_JSON)
-                    .content(TestUtil.convertObjectToJsonBytes(player))
+                    .content(TestUtil.convertObjectToJsonBytes(playerDTO))
             )
             .andExpect(status().isBadRequest());
 
@@ -295,10 +315,16 @@ class PlayerResourceIT {
         int databaseSizeBeforeUpdate = playerRepository.findAll().size();
         player.setId(count.incrementAndGet());
 
+        // Create the Player
+        PlayerDTO playerDTO = playerMapper.toDto(player);
+
         // If url ID doesn't match entity ID, it will throw BadRequestAlertException
         restPlayerMockMvc
             .perform(
-                put(ENTITY_API_URL).with(csrf()).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(player))
+                put(ENTITY_API_URL)
+                    .with(csrf())
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(TestUtil.convertObjectToJsonBytes(playerDTO))
             )
             .andExpect(status().isMethodNotAllowed());
 
@@ -398,13 +424,16 @@ class PlayerResourceIT {
         int databaseSizeBeforeUpdate = playerRepository.findAll().size();
         player.setId(count.incrementAndGet());
 
+        // Create the Player
+        PlayerDTO playerDTO = playerMapper.toDto(player);
+
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
         restPlayerMockMvc
             .perform(
-                patch(ENTITY_API_URL_ID, player.getId())
+                patch(ENTITY_API_URL_ID, playerDTO.getId())
                     .with(csrf())
                     .contentType("application/merge-patch+json")
-                    .content(TestUtil.convertObjectToJsonBytes(player))
+                    .content(TestUtil.convertObjectToJsonBytes(playerDTO))
             )
             .andExpect(status().isBadRequest());
 
@@ -419,13 +448,16 @@ class PlayerResourceIT {
         int databaseSizeBeforeUpdate = playerRepository.findAll().size();
         player.setId(count.incrementAndGet());
 
+        // Create the Player
+        PlayerDTO playerDTO = playerMapper.toDto(player);
+
         // If url ID doesn't match entity ID, it will throw BadRequestAlertException
         restPlayerMockMvc
             .perform(
                 patch(ENTITY_API_URL_ID, count.incrementAndGet())
                     .with(csrf())
                     .contentType("application/merge-patch+json")
-                    .content(TestUtil.convertObjectToJsonBytes(player))
+                    .content(TestUtil.convertObjectToJsonBytes(playerDTO))
             )
             .andExpect(status().isBadRequest());
 
@@ -440,13 +472,16 @@ class PlayerResourceIT {
         int databaseSizeBeforeUpdate = playerRepository.findAll().size();
         player.setId(count.incrementAndGet());
 
+        // Create the Player
+        PlayerDTO playerDTO = playerMapper.toDto(player);
+
         // If url ID doesn't match entity ID, it will throw BadRequestAlertException
         restPlayerMockMvc
             .perform(
                 patch(ENTITY_API_URL)
                     .with(csrf())
                     .contentType("application/merge-patch+json")
-                    .content(TestUtil.convertObjectToJsonBytes(player))
+                    .content(TestUtil.convertObjectToJsonBytes(playerDTO))
             )
             .andExpect(status().isMethodNotAllowed());
 

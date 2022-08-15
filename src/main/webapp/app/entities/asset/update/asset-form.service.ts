@@ -45,7 +45,9 @@ export class AssetFormService {
         }
       ),
       version: new FormControl(assetRawValue.version),
-      name: new FormControl(assetRawValue.name),
+      name: new FormControl(assetRawValue.name, {
+        validators: [Validators.maxLength(45)],
+      }),
       main: new FormControl(assetRawValue.main),
       auto: new FormControl(assetRawValue.auto),
       path: new FormControl(assetRawValue.path),

@@ -1,17 +1,16 @@
 package com.thegraid.gamma.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import io.swagger.v3.oas.annotations.media.Schema;
 import java.io.Serializable;
 import java.time.Instant;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.*;
+import javax.validation.constraints.*;
 
 /**
  * a virtual player (the horse in a horse-race)
  */
-@Schema(description = "a virtual player (the horse in a horse-race)")
 @Entity
 @Table(name = "player")
 public class Player implements Serializable {
@@ -24,9 +23,10 @@ public class Player implements Serializable {
     private Long id;
 
     @Column(name = "version")
-    private Long version;
+    private Integer version;
 
-    @Column(name = "name")
+    @Size(max = 45)
+    @Column(name = "name", length = 45)
     private String name;
 
     @Column(name = "jhi_rank")
@@ -41,7 +41,8 @@ public class Player implements Serializable {
     @Column(name = "rank_time")
     private Instant rankTime;
 
-    @Column(name = "display_client")
+    @Size(max = 45)
+    @Column(name = "display_client", length = 45)
     private String displayClient;
 
     @OneToMany(mappedBy = "playerA")
@@ -79,16 +80,16 @@ public class Player implements Serializable {
         this.id = id;
     }
 
-    public Long getVersion() {
+    public Integer getVersion() {
         return this.version;
     }
 
-    public Player version(Long version) {
+    public Player version(Integer version) {
         this.setVersion(version);
         return this;
     }
 
-    public void setVersion(Long version) {
+    public void setVersion(Integer version) {
         this.version = version;
     }
 

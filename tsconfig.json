@@ -2,7 +2,7 @@
   "include": [],
   "compilerOptions": {
     "baseUrl": "src/main/webapp/",
-    "outDir": "./target/classes/static/",
+    "outDir": "./build/resources/main/static/",
     "forceConsistentCasingInFileNames": true,
     "strict": true,
     "strictNullChecks": true,

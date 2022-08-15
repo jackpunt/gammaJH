@@ -1,12 +1,17 @@
 {
-  "applications": [
-    "gammaJH"
-  ],
+  "applications": ["gammaJH"],
   "changelogDate": "20220813223218",
-  "dto": "no",
+  "dto": "mapstruct",
   "embedded": false,
   "entityTableName": "account_info",
   "fields": [
+    {
+      "fieldName": "version",
+      "fieldType": "Integer",
+      "options": {
+        "version": true
+      }
+    },
     {
       "fieldName": "type",
       "fieldType": "String"
@@ -20,15 +25,15 @@
   "readOnly": false,
   "relationships": [
     {
-      "relationshipType": "one-to-one",
-      "otherEntityName": "user",
-      "otherEntityRelationshipName": "accountInfo",
-      "relationshipName": "user",
-      "ownerSide": true,
       "options": {
         "id": true
-      }
+      },
+      "otherEntityName": "user",
+      "otherEntityRelationshipName": "accountInfo",
+      "ownerSide": true,
+      "relationshipName": "user",
+      "relationshipType": "one-to-one"
     }
   ],
-  "service": "no"
+  "service": "serviceClass"
 }

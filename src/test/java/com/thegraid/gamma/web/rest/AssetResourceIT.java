@@ -9,6 +9,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import com.thegraid.gamma.IntegrationTest;
 import com.thegraid.gamma.domain.Asset;
 import com.thegraid.gamma.repository.AssetRepository;
+import com.thegraid.gamma.service.dto.AssetDTO;
+import com.thegraid.gamma.service.mapper.AssetMapper;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicLong;
@@ -30,8 +32,8 @@ import org.springframework.transaction.annotation.Transactional;
 @WithMockUser
 class AssetResourceIT {
 
-    private static final Long DEFAULT_VERSION = 1L;
-    private static final Long UPDATED_VERSION = 2L;
+    private static final Integer DEFAULT_VERSION = 1;
+    private static final Integer UPDATED_VERSION = 2;
 
     private static final String DEFAULT_NAME = "AAAAAAAAAA";
     private static final String UPDATED_NAME = "BBBBBBBBBB";
@@ -56,6 +58,9 @@ class AssetResourceIT {
 
     @Autowired
     private AssetRepository assetRepository;
+
+    @Autowired
+    private AssetMapper assetMapper;
 
     @Autowired
     private EntityManager em;
@@ -109,9 +114,13 @@ class AssetResourceIT {
     void createAsset() throws Exception {
         int databaseSizeBeforeCreate = assetRepository.findAll().size();
         // Create the Asset
+        AssetDTO assetDTO = assetMapper.toDto(asset);
         restAssetMockMvc
             .perform(
-                post(ENTITY_API_URL).with(csrf()).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(asset))
+                post(ENTITY_API_URL)
+                    .with(csrf())
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(TestUtil.convertObjectToJsonBytes(assetDTO))
             )
             .andExpect(status().isCreated());
 
@@ -132,13 +141,17 @@ class AssetResourceIT {
     void createAssetWithExistingId() throws Exception {
         // Create the Asset with an existing ID
         asset.setId(1L);
+        AssetDTO assetDTO = assetMapper.toDto(asset);
 
         int databaseSizeBeforeCreate = assetRepository.findAll().size();
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restAssetMockMvc
             .perform(
-                post(ENTITY_API_URL).with(csrf()).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(asset))
+                post(ENTITY_API_URL)
+                    .with(csrf())
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(TestUtil.convertObjectToJsonBytes(assetDTO))
             )
             .andExpect(status().isBadRequest());
 
@@ -159,7 +172,7 @@ class AssetResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(asset.getId().intValue())))
-            .andExpect(jsonPath("$.[*].version").value(hasItem(DEFAULT_VERSION.intValue())))
+            .andExpect(jsonPath("$.[*].version").value(hasItem(DEFAULT_VERSION)))
             .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME)))
             .andExpect(jsonPath("$.[*].main").value(hasItem(DEFAULT_MAIN.booleanValue())))
             .andExpect(jsonPath("$.[*].auto").value(hasItem(DEFAULT_AUTO.booleanValue())))
@@ -179,7 +192,7 @@ class AssetResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(asset.getId().intValue()))
-            .andExpect(jsonPath("$.version").value(DEFAULT_VERSION.intValue()))
+            .andExpect(jsonPath("$.version").value(DEFAULT_VERSION))
             .andExpect(jsonPath("$.name").value(DEFAULT_NAME))
             .andExpect(jsonPath("$.main").value(DEFAULT_MAIN.booleanValue()))
             .andExpect(jsonPath("$.auto").value(DEFAULT_AUTO.booleanValue()))
@@ -213,13 +226,14 @@ class AssetResourceIT {
             .auto(UPDATED_AUTO)
             .path(UPDATED_PATH)
             .include(UPDATED_INCLUDE);
+        AssetDTO assetDTO = assetMapper.toDto(updatedAsset);
 
         restAssetMockMvc
             .perform(
-                put(ENTITY_API_URL_ID, updatedAsset.getId())
+                put(ENTITY_API_URL_ID, assetDTO.getId())
                     .with(csrf())
                     .contentType(MediaType.APPLICATION_JSON)
-                    .content(TestUtil.convertObjectToJsonBytes(updatedAsset))
+                    .content(TestUtil.convertObjectToJsonBytes(assetDTO))
             )
             .andExpect(status().isOk());
 
@@ -241,13 +255,16 @@ class AssetResourceIT {
         int databaseSizeBeforeUpdate = assetRepository.findAll().size();
         asset.setId(count.incrementAndGet());
 
+        // Create the Asset
+        AssetDTO assetDTO = assetMapper.toDto(asset);
+
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
         restAssetMockMvc
             .perform(
-                put(ENTITY_API_URL_ID, asset.getId())
+                put(ENTITY_API_URL_ID, assetDTO.getId())
                     .with(csrf())
                     .contentType(MediaType.APPLICATION_JSON)
-                    .content(TestUtil.convertObjectToJsonBytes(asset))
+                    .content(TestUtil.convertObjectToJsonBytes(assetDTO))
             )
             .andExpect(status().isBadRequest());
 
@@ -262,13 +279,16 @@ class AssetResourceIT {
         int databaseSizeBeforeUpdate = assetRepository.findAll().size();
         asset.setId(count.incrementAndGet());
 
+        // Create the Asset
+        AssetDTO assetDTO = assetMapper.toDto(asset);
+
         // If url ID doesn't match entity ID, it will throw BadRequestAlertException
         restAssetMockMvc
             .perform(
                 put(ENTITY_API_URL_ID, count.incrementAndGet())
                     .with(csrf())
                     .contentType(MediaType.APPLICATION_JSON)
-                    .content(TestUtil.convertObjectToJsonBytes(asset))
+                    .content(TestUtil.convertObjectToJsonBytes(assetDTO))
             )
             .andExpect(status().isBadRequest());
 
@@ -283,10 +303,16 @@ class AssetResourceIT {
         int databaseSizeBeforeUpdate = assetRepository.findAll().size();
         asset.setId(count.incrementAndGet());
 
+        // Create the Asset
+        AssetDTO assetDTO = assetMapper.toDto(asset);
+
         // If url ID doesn't match entity ID, it will throw BadRequestAlertException
         restAssetMockMvc
             .perform(
-                put(ENTITY_API_URL).with(csrf()).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(asset))
+                put(ENTITY_API_URL)
+                    .with(csrf())
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(TestUtil.convertObjectToJsonBytes(assetDTO))
             )
             .andExpect(status().isMethodNotAllowed());
 
@@ -377,13 +403,16 @@ class AssetResourceIT {
         int databaseSizeBeforeUpdate = assetRepository.findAll().size();
         asset.setId(count.incrementAndGet());
 
+        // Create the Asset
+        AssetDTO assetDTO = assetMapper.toDto(asset);
+
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
         restAssetMockMvc
             .perform(
-                patch(ENTITY_API_URL_ID, asset.getId())
+                patch(ENTITY_API_URL_ID, assetDTO.getId())
                     .with(csrf())
                     .contentType("application/merge-patch+json")
-                    .content(TestUtil.convertObjectToJsonBytes(asset))
+                    .content(TestUtil.convertObjectToJsonBytes(assetDTO))
             )
             .andExpect(status().isBadRequest());
 
@@ -398,13 +427,16 @@ class AssetResourceIT {
         int databaseSizeBeforeUpdate = assetRepository.findAll().size();
         asset.setId(count.incrementAndGet());
 
+        // Create the Asset
+        AssetDTO assetDTO = assetMapper.toDto(asset);
+
         // If url ID doesn't match entity ID, it will throw BadRequestAlertException
         restAssetMockMvc
             .perform(
                 patch(ENTITY_API_URL_ID, count.incrementAndGet())
                     .with(csrf())
                     .contentType("application/merge-patch+json")
-                    .content(TestUtil.convertObjectToJsonBytes(asset))
+                    .content(TestUtil.convertObjectToJsonBytes(assetDTO))
             )
             .andExpect(status().isBadRequest());
 
@@ -419,13 +451,16 @@ class AssetResourceIT {
         int databaseSizeBeforeUpdate = assetRepository.findAll().size();
         asset.setId(count.incrementAndGet());
 
+        // Create the Asset
+        AssetDTO assetDTO = assetMapper.toDto(asset);
+
         // If url ID doesn't match entity ID, it will throw BadRequestAlertException
         restAssetMockMvc
             .perform(
                 patch(ENTITY_API_URL)
                     .with(csrf())
                     .contentType("application/merge-patch+json")
-                    .content(TestUtil.convertObjectToJsonBytes(asset))
+                    .content(TestUtil.convertObjectToJsonBytes(assetDTO))
             )
             .andExpect(status().isMethodNotAllowed());
 

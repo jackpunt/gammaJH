@@ -149,5 +149,5 @@ relationship ManyToOne {
   MemberGameProps{user} to User
 }
 
-dto GameInst, GameInstProps with mapstruct
+dto * with mapstruct
 service GameInst, GameInstProps with serviceClass

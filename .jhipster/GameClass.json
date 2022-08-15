@@ -1,21 +1,28 @@
 {
   "applications": ["gammaJH"],
   "changelogDate": "20220813223220",
-  "dto": "no",
+  "dto": "mapstruct",
   "embedded": false,
   "entityTableName": "game_class",
   "fields": [
     {
       "fieldName": "version",
-      "fieldType": "Long"
+      "fieldType": "Integer",
+      "options": {
+        "version": true
+      }
     },
     {
       "fieldName": "name",
-      "fieldType": "String"
+      "fieldType": "String",
+      "fieldValidateRules": ["maxlength"],
+      "fieldValidateRulesMaxlength": "45"
     },
     {
       "fieldName": "revision",
-      "fieldType": "String"
+      "fieldType": "String",
+      "fieldValidateRules": ["maxlength"],
+      "fieldValidateRulesMaxlength": "45"
     },
     {
       "fieldName": "launcherPath",
@@ -64,5 +71,5 @@
       "relationshipType": "one-to-many"
     }
   ],
-  "service": "no"
+  "service": "serviceClass"
 }

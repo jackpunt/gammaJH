@@ -9,8 +9,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import com.thegraid.gamma.IntegrationTest;
 import com.thegraid.gamma.domain.GameInst;
 import com.thegraid.gamma.domain.GameInstProps;
-import com.thegraid.gamma.repository.GameInstPropsRepository;
 import com.thegraid.gamma.repository.GameInstRepository;
+import com.thegraid.gamma.service.dto.GameInstDTO;
+import com.thegraid.gamma.service.mapper.GameInstMapper;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
@@ -34,8 +35,8 @@ import org.springframework.transaction.annotation.Transactional;
 @WithMockUser
 class GameInstResourceIT {
 
-    private static final Long DEFAULT_VERSION = 1L;
-    private static final Long UPDATED_VERSION = 2L;
+    private static final Integer DEFAULT_VERSION = 1;
+    private static final Integer UPDATED_VERSION = 2;
 
     private static final String DEFAULT_GAME_NAME = "AAAAAAAAAA";
     private static final String UPDATED_GAME_NAME = "BBBBBBBBBB";
@@ -58,11 +59,11 @@ class GameInstResourceIT {
     private static final Instant DEFAULT_UPDATED = Instant.ofEpochMilli(0L);
     private static final Instant UPDATED_UPDATED = Instant.now().truncatedTo(ChronoUnit.MILLIS);
 
-    private static final Long DEFAULT_SCORE_A = 1L;
-    private static final Long UPDATED_SCORE_A = 2L;
+    private static final Integer DEFAULT_SCORE_A = 1;
+    private static final Integer UPDATED_SCORE_A = 2;
 
-    private static final Long DEFAULT_SCORE_B = 1L;
-    private static final Long UPDATED_SCORE_B = 2L;
+    private static final Integer DEFAULT_SCORE_B = 1;
+    private static final Integer UPDATED_SCORE_B = 2;
 
     private static final Long DEFAULT_TICKS = 1L;
     private static final Long UPDATED_TICKS = 2L;
@@ -77,7 +78,7 @@ class GameInstResourceIT {
     private GameInstRepository gameInstRepository;
 
     @Autowired
-    private GameInstPropsRepository gameInstPropsRepository;
+    private GameInstMapper gameInstMapper;
 
     @Autowired
     private EntityManager em;
@@ -157,12 +158,13 @@ class GameInstResourceIT {
     void createGameInst() throws Exception {
         int databaseSizeBeforeCreate = gameInstRepository.findAll().size();
         // Create the GameInst
+        GameInstDTO gameInstDTO = gameInstMapper.toDto(gameInst);
         restGameInstMockMvc
             .perform(
                 post(ENTITY_API_URL)
                     .with(csrf())
                     .contentType(MediaType.APPLICATION_JSON)
-                    .content(TestUtil.convertObjectToJsonBytes(gameInst))
+                    .content(TestUtil.convertObjectToJsonBytes(gameInstDTO))
             )
             .andExpect(status().isCreated());
 
@@ -183,7 +185,7 @@ class GameInstResourceIT {
         assertThat(testGameInst.getTicks()).isEqualTo(DEFAULT_TICKS);
 
         // Validate the id for MapsId, the ids must be same
-        assertThat(testGameInst.getId()).isEqualTo(testGameInst.getProps().getId());
+        assertThat(testGameInst.getId()).isEqualTo(gameInstDTO.getProps().getId());
     }
 
     @Test
@@ -191,6 +193,7 @@ class GameInstResourceIT {
     void createGameInstWithExistingId() throws Exception {
         // Create the GameInst with an existing ID
         gameInst.setId(1L);
+        GameInstDTO gameInstDTO = gameInstMapper.toDto(gameInst);
 
         int databaseSizeBeforeCreate = gameInstRepository.findAll().size();
 
@@ -200,7 +203,7 @@ class GameInstResourceIT {
                 post(ENTITY_API_URL)
                     .with(csrf())
                     .contentType(MediaType.APPLICATION_JSON)
-                    .content(TestUtil.convertObjectToJsonBytes(gameInst))
+                    .content(TestUtil.convertObjectToJsonBytes(gameInstDTO))
             )
             .andExpect(status().isBadRequest());
 
@@ -228,14 +231,16 @@ class GameInstResourceIT {
 
         // Update the GameInstProps with new association value
         updatedGameInst.setProps(gameInstProps);
+        GameInstDTO updatedGameInstDTO = gameInstMapper.toDto(updatedGameInst);
+        assertThat(updatedGameInstDTO).isNotNull();
 
         // Update the entity
         restGameInstMockMvc
             .perform(
-                put(ENTITY_API_URL_ID, updatedGameInst.getId())
+                put(ENTITY_API_URL_ID, updatedGameInstDTO.getId())
                     .with(csrf())
                     .contentType(MediaType.APPLICATION_JSON)
-                    .content(TestUtil.convertObjectToJsonBytes(updatedGameInst))
+                    .content(TestUtil.convertObjectToJsonBytes(updatedGameInstDTO))
             )
             .andExpect(status().isOk());
 
@@ -261,7 +266,7 @@ class GameInstResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(gameInst.getId().intValue())))
-            .andExpect(jsonPath("$.[*].version").value(hasItem(DEFAULT_VERSION.intValue())))
+            .andExpect(jsonPath("$.[*].version").value(hasItem(DEFAULT_VERSION)))
             .andExpect(jsonPath("$.[*].gameName").value(hasItem(DEFAULT_GAME_NAME)))
             .andExpect(jsonPath("$.[*].hostUrl").value(hasItem(DEFAULT_HOST_URL)))
             .andExpect(jsonPath("$.[*].passcode").value(hasItem(DEFAULT_PASSCODE)))
@@ -269,8 +274,8 @@ class GameInstResourceIT {
             .andExpect(jsonPath("$.[*].started").value(hasItem(DEFAULT_STARTED.toString())))
             .andExpect(jsonPath("$.[*].finished").value(hasItem(DEFAULT_FINISHED.toString())))
             .andExpect(jsonPath("$.[*].updated").value(hasItem(DEFAULT_UPDATED.toString())))
-            .andExpect(jsonPath("$.[*].scoreA").value(hasItem(DEFAULT_SCORE_A.intValue())))
-            .andExpect(jsonPath("$.[*].scoreB").value(hasItem(DEFAULT_SCORE_B.intValue())))
+            .andExpect(jsonPath("$.[*].scoreA").value(hasItem(DEFAULT_SCORE_A)))
+            .andExpect(jsonPath("$.[*].scoreB").value(hasItem(DEFAULT_SCORE_B)))
             .andExpect(jsonPath("$.[*].ticks").value(hasItem(DEFAULT_TICKS.intValue())));
     }
 
@@ -286,7 +291,7 @@ class GameInstResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(gameInst.getId().intValue()))
-            .andExpect(jsonPath("$.version").value(DEFAULT_VERSION.intValue()))
+            .andExpect(jsonPath("$.version").value(DEFAULT_VERSION))
             .andExpect(jsonPath("$.gameName").value(DEFAULT_GAME_NAME))
             .andExpect(jsonPath("$.hostUrl").value(DEFAULT_HOST_URL))
             .andExpect(jsonPath("$.passcode").value(DEFAULT_PASSCODE))
@@ -294,8 +299,8 @@ class GameInstResourceIT {
             .andExpect(jsonPath("$.started").value(DEFAULT_STARTED.toString()))
             .andExpect(jsonPath("$.finished").value(DEFAULT_FINISHED.toString()))
             .andExpect(jsonPath("$.updated").value(DEFAULT_UPDATED.toString()))
-            .andExpect(jsonPath("$.scoreA").value(DEFAULT_SCORE_A.intValue()))
-            .andExpect(jsonPath("$.scoreB").value(DEFAULT_SCORE_B.intValue()))
+            .andExpect(jsonPath("$.scoreA").value(DEFAULT_SCORE_A))
+            .andExpect(jsonPath("$.scoreB").value(DEFAULT_SCORE_B))
             .andExpect(jsonPath("$.ticks").value(DEFAULT_TICKS.intValue()));
     }
 
@@ -330,13 +335,14 @@ class GameInstResourceIT {
             .scoreA(UPDATED_SCORE_A)
             .scoreB(UPDATED_SCORE_B)
             .ticks(UPDATED_TICKS);
+        GameInstDTO gameInstDTO = gameInstMapper.toDto(updatedGameInst);
 
         restGameInstMockMvc
             .perform(
-                put(ENTITY_API_URL_ID, updatedGameInst.getId())
+                put(ENTITY_API_URL_ID, gameInstDTO.getId())
                     .with(csrf())
                     .contentType(MediaType.APPLICATION_JSON)
-                    .content(TestUtil.convertObjectToJsonBytes(updatedGameInst))
+                    .content(TestUtil.convertObjectToJsonBytes(gameInstDTO))
             )
             .andExpect(status().isOk());
 
@@ -363,13 +369,16 @@ class GameInstResourceIT {
         int databaseSizeBeforeUpdate = gameInstRepository.findAll().size();
         gameInst.setId(count.incrementAndGet());
 
+        // Create the GameInst
+        GameInstDTO gameInstDTO = gameInstMapper.toDto(gameInst);
+
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
         restGameInstMockMvc
             .perform(
-                put(ENTITY_API_URL_ID, gameInst.getId())
+                put(ENTITY_API_URL_ID, gameInstDTO.getId())
                     .with(csrf())
                     .contentType(MediaType.APPLICATION_JSON)
-                    .content(TestUtil.convertObjectToJsonBytes(gameInst))
+                    .content(TestUtil.convertObjectToJsonBytes(gameInstDTO))
             )
             .andExpect(status().isBadRequest());
 
@@ -384,13 +393,16 @@ class GameInstResourceIT {
         int databaseSizeBeforeUpdate = gameInstRepository.findAll().size();
         gameInst.setId(count.incrementAndGet());
 
+        // Create the GameInst
+        GameInstDTO gameInstDTO = gameInstMapper.toDto(gameInst);
+
         // If url ID doesn't match entity ID, it will throw BadRequestAlertException
         restGameInstMockMvc
             .perform(
                 put(ENTITY_API_URL_ID, count.incrementAndGet())
                     .with(csrf())
                     .contentType(MediaType.APPLICATION_JSON)
-                    .content(TestUtil.convertObjectToJsonBytes(gameInst))
+                    .content(TestUtil.convertObjectToJsonBytes(gameInstDTO))
             )
             .andExpect(status().isBadRequest());
 
@@ -405,13 +417,16 @@ class GameInstResourceIT {
         int databaseSizeBeforeUpdate = gameInstRepository.findAll().size();
         gameInst.setId(count.incrementAndGet());
 
+        // Create the GameInst
+        GameInstDTO gameInstDTO = gameInstMapper.toDto(gameInst);
+
         // If url ID doesn't match entity ID, it will throw BadRequestAlertException
         restGameInstMockMvc
             .perform(
                 put(ENTITY_API_URL)
                     .with(csrf())
                     .contentType(MediaType.APPLICATION_JSON)
-                    .content(TestUtil.convertObjectToJsonBytes(gameInst))
+                    .content(TestUtil.convertObjectToJsonBytes(gameInstDTO))
             )
             .andExpect(status().isMethodNotAllowed());
 
@@ -522,13 +537,16 @@ class GameInstResourceIT {
         int databaseSizeBeforeUpdate = gameInstRepository.findAll().size();
         gameInst.setId(count.incrementAndGet());
 
+        // Create the GameInst
+        GameInstDTO gameInstDTO = gameInstMapper.toDto(gameInst);
+
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
         restGameInstMockMvc
             .perform(
-                patch(ENTITY_API_URL_ID, gameInst.getId())
+                patch(ENTITY_API_URL_ID, gameInstDTO.getId())
                     .with(csrf())
                     .contentType("application/merge-patch+json")
-                    .content(TestUtil.convertObjectToJsonBytes(gameInst))
+                    .content(TestUtil.convertObjectToJsonBytes(gameInstDTO))
             )
             .andExpect(status().isBadRequest());
 
@@ -543,13 +561,16 @@ class GameInstResourceIT {
         int databaseSizeBeforeUpdate = gameInstRepository.findAll().size();
         gameInst.setId(count.incrementAndGet());
 
+        // Create the GameInst
+        GameInstDTO gameInstDTO = gameInstMapper.toDto(gameInst);
+
         // If url ID doesn't match entity ID, it will throw BadRequestAlertException
         restGameInstMockMvc
             .perform(
                 patch(ENTITY_API_URL_ID, count.incrementAndGet())
                     .with(csrf())
                     .contentType("application/merge-patch+json")
-                    .content(TestUtil.convertObjectToJsonBytes(gameInst))
+                    .content(TestUtil.convertObjectToJsonBytes(gameInstDTO))
             )
             .andExpect(status().isBadRequest());
 
@@ -564,13 +585,16 @@ class GameInstResourceIT {
         int databaseSizeBeforeUpdate = gameInstRepository.findAll().size();
         gameInst.setId(count.incrementAndGet());
 
+        // Create the GameInst
+        GameInstDTO gameInstDTO = gameInstMapper.toDto(gameInst);
+
         // If url ID doesn't match entity ID, it will throw BadRequestAlertException
         restGameInstMockMvc
             .perform(
                 patch(ENTITY_API_URL)
                     .with(csrf())
                     .contentType("application/merge-patch+json")
-                    .content(TestUtil.convertObjectToJsonBytes(gameInst))
+                    .content(TestUtil.convertObjectToJsonBytes(gameInstDTO))
             )
             .andExpect(status().isMethodNotAllowed());
 

@@ -10,7 +10,8 @@ import com.thegraid.gamma.IntegrationTest;
 import com.thegraid.gamma.domain.AccountInfo;
 import com.thegraid.gamma.domain.User;
 import com.thegraid.gamma.repository.AccountInfoRepository;
-import com.thegraid.gamma.repository.UserRepository;
+import com.thegraid.gamma.service.dto.AccountInfoDTO;
+import com.thegraid.gamma.service.mapper.AccountInfoMapper;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicLong;
@@ -32,6 +33,9 @@ import org.springframework.transaction.annotation.Transactional;
 @WithMockUser
 class AccountInfoResourceIT {
 
+    private static final Integer DEFAULT_VERSION = 1;
+    private static final Integer UPDATED_VERSION = 2;
+
     private static final String DEFAULT_TYPE = "AAAAAAAAAA";
     private static final String UPDATED_TYPE = "BBBBBBBBBB";
 
@@ -45,7 +49,7 @@ class AccountInfoResourceIT {
     private AccountInfoRepository accountInfoRepository;
 
     @Autowired
-    private UserRepository userRepository;
+    private AccountInfoMapper accountInfoMapper;
 
     @Autowired
     private EntityManager em;
@@ -62,7 +66,7 @@ class AccountInfoResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static AccountInfo createEntity(EntityManager em) {
-        AccountInfo accountInfo = new AccountInfo().type(DEFAULT_TYPE);
+        AccountInfo accountInfo = new AccountInfo().version(DEFAULT_VERSION).type(DEFAULT_TYPE);
         // Add required entity
         User user = UserResourceIT.createEntity(em);
         em.persist(user);
@@ -78,7 +82,7 @@ class AccountInfoResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static AccountInfo createUpdatedEntity(EntityManager em) {
-        AccountInfo accountInfo = new AccountInfo().type(UPDATED_TYPE);
+        AccountInfo accountInfo = new AccountInfo().version(UPDATED_VERSION).type(UPDATED_TYPE);
         // Add required entity
         User user = UserResourceIT.createEntity(em);
         em.persist(user);
@@ -97,12 +101,13 @@ class AccountInfoResourceIT {
     void createAccountInfo() throws Exception {
         int databaseSizeBeforeCreate = accountInfoRepository.findAll().size();
         // Create the AccountInfo
+        AccountInfoDTO accountInfoDTO = accountInfoMapper.toDto(accountInfo);
         restAccountInfoMockMvc
             .perform(
                 post(ENTITY_API_URL)
                     .with(csrf())
                     .contentType(MediaType.APPLICATION_JSON)
-                    .content(TestUtil.convertObjectToJsonBytes(accountInfo))
+                    .content(TestUtil.convertObjectToJsonBytes(accountInfoDTO))
             )
             .andExpect(status().isCreated());
 
@@ -110,10 +115,11 @@ class AccountInfoResourceIT {
         List<AccountInfo> accountInfoList = accountInfoRepository.findAll();
         assertThat(accountInfoList).hasSize(databaseSizeBeforeCreate + 1);
         AccountInfo testAccountInfo = accountInfoList.get(accountInfoList.size() - 1);
+        assertThat(testAccountInfo.getVersion()).isEqualTo(DEFAULT_VERSION);
         assertThat(testAccountInfo.getType()).isEqualTo(DEFAULT_TYPE);
 
         // Validate the id for MapsId, the ids must be same
-        assertThat(testAccountInfo.getId()).isEqualTo(testAccountInfo.getUser().getId());
+        assertThat(testAccountInfo.getId()).isEqualTo(accountInfoDTO.getUser().getId());
     }
 
     @Test
@@ -121,6 +127,7 @@ class AccountInfoResourceIT {
     void createAccountInfoWithExistingId() throws Exception {
         // Create the AccountInfo with an existing ID
         accountInfo.setId(1L);
+        AccountInfoDTO accountInfoDTO = accountInfoMapper.toDto(accountInfo);
 
         int databaseSizeBeforeCreate = accountInfoRepository.findAll().size();
 
@@ -130,7 +137,7 @@ class AccountInfoResourceIT {
                 post(ENTITY_API_URL)
                     .with(csrf())
                     .contentType(MediaType.APPLICATION_JSON)
-                    .content(TestUtil.convertObjectToJsonBytes(accountInfo))
+                    .content(TestUtil.convertObjectToJsonBytes(accountInfoDTO))
             )
             .andExpect(status().isBadRequest());
 
@@ -158,14 +165,16 @@ class AccountInfoResourceIT {
 
         // Update the User with new association value
         updatedAccountInfo.setUser(user);
+        AccountInfoDTO updatedAccountInfoDTO = accountInfoMapper.toDto(updatedAccountInfo);
+        assertThat(updatedAccountInfoDTO).isNotNull();
 
         // Update the entity
         restAccountInfoMockMvc
             .perform(
-                put(ENTITY_API_URL_ID, updatedAccountInfo.getId())
+                put(ENTITY_API_URL_ID, updatedAccountInfoDTO.getId())
                     .with(csrf())
                     .contentType(MediaType.APPLICATION_JSON)
-                    .content(TestUtil.convertObjectToJsonBytes(updatedAccountInfo))
+                    .content(TestUtil.convertObjectToJsonBytes(updatedAccountInfoDTO))
             )
             .andExpect(status().isOk());
 
@@ -191,6 +200,7 @@ class AccountInfoResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(accountInfo.getId().intValue())))
+            .andExpect(jsonPath("$.[*].version").value(hasItem(DEFAULT_VERSION)))
             .andExpect(jsonPath("$.[*].type").value(hasItem(DEFAULT_TYPE)));
     }
 
@@ -206,6 +216,7 @@ class AccountInfoResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(accountInfo.getId().intValue()))
+            .andExpect(jsonPath("$.version").value(DEFAULT_VERSION))
             .andExpect(jsonPath("$.type").value(DEFAULT_TYPE));
     }
 
@@ -228,14 +239,15 @@ class AccountInfoResourceIT {
         AccountInfo updatedAccountInfo = accountInfoRepository.findById(accountInfo.getId()).get();
         // Disconnect from session so that the updates on updatedAccountInfo are not directly saved in db
         em.detach(updatedAccountInfo);
-        updatedAccountInfo.type(UPDATED_TYPE);
+        updatedAccountInfo.version(UPDATED_VERSION).type(UPDATED_TYPE);
+        AccountInfoDTO accountInfoDTO = accountInfoMapper.toDto(updatedAccountInfo);
 
         restAccountInfoMockMvc
             .perform(
-                put(ENTITY_API_URL_ID, updatedAccountInfo.getId())
+                put(ENTITY_API_URL_ID, accountInfoDTO.getId())
                     .with(csrf())
                     .contentType(MediaType.APPLICATION_JSON)
-                    .content(TestUtil.convertObjectToJsonBytes(updatedAccountInfo))
+                    .content(TestUtil.convertObjectToJsonBytes(accountInfoDTO))
             )
             .andExpect(status().isOk());
 
@@ -243,6 +255,7 @@ class AccountInfoResourceIT {
         List<AccountInfo> accountInfoList = accountInfoRepository.findAll();
         assertThat(accountInfoList).hasSize(databaseSizeBeforeUpdate);
         AccountInfo testAccountInfo = accountInfoList.get(accountInfoList.size() - 1);
+        assertThat(testAccountInfo.getVersion()).isEqualTo(UPDATED_VERSION);
         assertThat(testAccountInfo.getType()).isEqualTo(UPDATED_TYPE);
     }
 
@@ -252,13 +265,16 @@ class AccountInfoResourceIT {
         int databaseSizeBeforeUpdate = accountInfoRepository.findAll().size();
         accountInfo.setId(count.incrementAndGet());
 
+        // Create the AccountInfo
+        AccountInfoDTO accountInfoDTO = accountInfoMapper.toDto(accountInfo);
+
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
         restAccountInfoMockMvc
             .perform(
-                put(ENTITY_API_URL_ID, accountInfo.getId())
+                put(ENTITY_API_URL_ID, accountInfoDTO.getId())
                     .with(csrf())
                     .contentType(MediaType.APPLICATION_JSON)
-                    .content(TestUtil.convertObjectToJsonBytes(accountInfo))
+                    .content(TestUtil.convertObjectToJsonBytes(accountInfoDTO))
             )
             .andExpect(status().isBadRequest());
 
@@ -273,13 +289,16 @@ class AccountInfoResourceIT {
         int databaseSizeBeforeUpdate = accountInfoRepository.findAll().size();
         accountInfo.setId(count.incrementAndGet());
 
+        // Create the AccountInfo
+        AccountInfoDTO accountInfoDTO = accountInfoMapper.toDto(accountInfo);
+
         // If url ID doesn't match entity ID, it will throw BadRequestAlertException
         restAccountInfoMockMvc
             .perform(
                 put(ENTITY_API_URL_ID, count.incrementAndGet())
                     .with(csrf())
                     .contentType(MediaType.APPLICATION_JSON)
-                    .content(TestUtil.convertObjectToJsonBytes(accountInfo))
+                    .content(TestUtil.convertObjectToJsonBytes(accountInfoDTO))
             )
             .andExpect(status().isBadRequest());
 
@@ -294,13 +313,16 @@ class AccountInfoResourceIT {
         int databaseSizeBeforeUpdate = accountInfoRepository.findAll().size();
         accountInfo.setId(count.incrementAndGet());
 
+        // Create the AccountInfo
+        AccountInfoDTO accountInfoDTO = accountInfoMapper.toDto(accountInfo);
+
         // If url ID doesn't match entity ID, it will throw BadRequestAlertException
         restAccountInfoMockMvc
             .perform(
                 put(ENTITY_API_URL)
                     .with(csrf())
                     .contentType(MediaType.APPLICATION_JSON)
-                    .content(TestUtil.convertObjectToJsonBytes(accountInfo))
+                    .content(TestUtil.convertObjectToJsonBytes(accountInfoDTO))
             )
             .andExpect(status().isMethodNotAllowed());
 
@@ -334,6 +356,7 @@ class AccountInfoResourceIT {
         List<AccountInfo> accountInfoList = accountInfoRepository.findAll();
         assertThat(accountInfoList).hasSize(databaseSizeBeforeUpdate);
         AccountInfo testAccountInfo = accountInfoList.get(accountInfoList.size() - 1);
+        assertThat(testAccountInfo.getVersion()).isEqualTo(DEFAULT_VERSION);
         assertThat(testAccountInfo.getType()).isEqualTo(DEFAULT_TYPE);
     }
 
@@ -349,7 +372,7 @@ class AccountInfoResourceIT {
         AccountInfo partialUpdatedAccountInfo = new AccountInfo();
         partialUpdatedAccountInfo.setId(accountInfo.getId());
 
-        partialUpdatedAccountInfo.type(UPDATED_TYPE);
+        partialUpdatedAccountInfo.version(UPDATED_VERSION).type(UPDATED_TYPE);
 
         restAccountInfoMockMvc
             .perform(
@@ -364,6 +387,7 @@ class AccountInfoResourceIT {
         List<AccountInfo> accountInfoList = accountInfoRepository.findAll();
         assertThat(accountInfoList).hasSize(databaseSizeBeforeUpdate);
         AccountInfo testAccountInfo = accountInfoList.get(accountInfoList.size() - 1);
+        assertThat(testAccountInfo.getVersion()).isEqualTo(UPDATED_VERSION);
         assertThat(testAccountInfo.getType()).isEqualTo(UPDATED_TYPE);
     }
 
@@ -373,13 +397,16 @@ class AccountInfoResourceIT {
         int databaseSizeBeforeUpdate = accountInfoRepository.findAll().size();
         accountInfo.setId(count.incrementAndGet());
 
+        // Create the AccountInfo
+        AccountInfoDTO accountInfoDTO = accountInfoMapper.toDto(accountInfo);
+
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
         restAccountInfoMockMvc
             .perform(
-                patch(ENTITY_API_URL_ID, accountInfo.getId())
+                patch(ENTITY_API_URL_ID, accountInfoDTO.getId())
                     .with(csrf())
                     .contentType("application/merge-patch+json")
-                    .content(TestUtil.convertObjectToJsonBytes(accountInfo))
+                    .content(TestUtil.convertObjectToJsonBytes(accountInfoDTO))
             )
             .andExpect(status().isBadRequest());
 
@@ -394,13 +421,16 @@ class AccountInfoResourceIT {
         int databaseSizeBeforeUpdate = accountInfoRepository.findAll().size();
         accountInfo.setId(count.incrementAndGet());
 
+        // Create the AccountInfo
+        AccountInfoDTO accountInfoDTO = accountInfoMapper.toDto(accountInfo);
+
         // If url ID doesn't match entity ID, it will throw BadRequestAlertException
         restAccountInfoMockMvc
             .perform(
                 patch(ENTITY_API_URL_ID, count.incrementAndGet())
                     .with(csrf())
                     .contentType("application/merge-patch+json")
-                    .content(TestUtil.convertObjectToJsonBytes(accountInfo))
+                    .content(TestUtil.convertObjectToJsonBytes(accountInfoDTO))
             )
             .andExpect(status().isBadRequest());
 
@@ -415,13 +445,16 @@ class AccountInfoResourceIT {
         int databaseSizeBeforeUpdate = accountInfoRepository.findAll().size();
         accountInfo.setId(count.incrementAndGet());
 
+        // Create the AccountInfo
+        AccountInfoDTO accountInfoDTO = accountInfoMapper.toDto(accountInfo);
+
         // If url ID doesn't match entity ID, it will throw BadRequestAlertException
         restAccountInfoMockMvc
             .perform(
                 patch(ENTITY_API_URL)
                     .with(csrf())
                     .contentType("application/merge-patch+json")
-                    .content(TestUtil.convertObjectToJsonBytes(accountInfo))
+                    .content(TestUtil.convertObjectToJsonBytes(accountInfoDTO))
             )
             .andExpect(status().isMethodNotAllowed());
 

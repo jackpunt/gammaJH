@@ -1,16 +1,15 @@
 package com.thegraid.gamma.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import io.swagger.v3.oas.annotations.media.Schema;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.*;
+import javax.validation.constraints.*;
 
 /**
  * Assets owned by a member/user; (the horses) a virtual file-system?
  */
-@Schema(description = "Assets owned by a member/user; (the horses) a virtual file-system?")
 @Entity
 @Table(name = "asset")
 public class Asset implements Serializable {
@@ -23,9 +22,10 @@ public class Asset implements Serializable {
     private Long id;
 
     @Column(name = "version")
-    private Long version;
+    private Integer version;
 
-    @Column(name = "name")
+    @Size(max = 45)
+    @Column(name = "name", length = 45)
     private String name;
 
     @Column(name = "main")
@@ -62,16 +62,16 @@ public class Asset implements Serializable {
         this.id = id;
     }
 
-    public Long getVersion() {
+    public Integer getVersion() {
         return this.version;
     }
 
-    public Asset version(Long version) {
+    public Asset version(Integer version) {
         this.setVersion(version);
         return this;
     }
 
-    public void setVersion(Long version) {
+    public void setVersion(Integer version) {
         this.version = version;
     }
 

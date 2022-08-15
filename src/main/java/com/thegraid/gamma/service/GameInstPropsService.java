@@ -1,0 +1,127 @@
+package com.thegraid.gamma.service;
+
+import com.thegraid.gamma.domain.GameInstProps;
+import com.thegraid.gamma.repository.GameInstPropsRepository;
+import com.thegraid.gamma.service.dto.GameInstPropsDTO;
+import com.thegraid.gamma.service.mapper.GameInstPropsMapper;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+/**
+ * Service Implementation for managing {@link GameInstProps}.
+ */
+@Service
+@Transactional
+public class GameInstPropsService {
+
+    private final Logger log = LoggerFactory.getLogger(GameInstPropsService.class);
+
+    private final GameInstPropsRepository gameInstPropsRepository;
+
+    private final GameInstPropsMapper gameInstPropsMapper;
+
+    public GameInstPropsService(GameInstPropsRepository gameInstPropsRepository, GameInstPropsMapper gameInstPropsMapper) {
+        this.gameInstPropsRepository = gameInstPropsRepository;
+        this.gameInstPropsMapper = gameInstPropsMapper;
+    }
+
+    /**
+     * Save a gameInstProps.
+     *
+     * @param gameInstPropsDTO the entity to save.
+     * @return the persisted entity.
+     */
+    public GameInstPropsDTO save(GameInstPropsDTO gameInstPropsDTO) {
+        log.debug("Request to save GameInstProps : {}", gameInstPropsDTO);
+        GameInstProps gameInstProps = gameInstPropsMapper.toEntity(gameInstPropsDTO);
+        gameInstProps = gameInstPropsRepository.save(gameInstProps);
+        return gameInstPropsMapper.toDto(gameInstProps);
+    }
+
+    /**
+     * Update a gameInstProps.
+     *
+     * @param gameInstPropsDTO the entity to save.
+     * @return the persisted entity.
+     */
+    public GameInstPropsDTO update(GameInstPropsDTO gameInstPropsDTO) {
+        log.debug("Request to save GameInstProps : {}", gameInstPropsDTO);
+        GameInstProps gameInstProps = gameInstPropsMapper.toEntity(gameInstPropsDTO);
+        gameInstProps = gameInstPropsRepository.save(gameInstProps);
+        return gameInstPropsMapper.toDto(gameInstProps);
+    }
+
+    /**
+     * Partially update a gameInstProps.
+     *
+     * @param gameInstPropsDTO the entity to update partially.
+     * @return the persisted entity.
+     */
+    public Optional<GameInstPropsDTO> partialUpdate(GameInstPropsDTO gameInstPropsDTO) {
+        log.debug("Request to partially update GameInstProps : {}", gameInstPropsDTO);
+
+        return gameInstPropsRepository
+            .findById(gameInstPropsDTO.getId())
+            .map(existingGameInstProps -> {
+                gameInstPropsMapper.partialUpdate(existingGameInstProps, gameInstPropsDTO);
+
+                return existingGameInstProps;
+            })
+            .map(gameInstPropsRepository::save)
+            .map(gameInstPropsMapper::toDto);
+    }
+
+    /**
+     * Get all the gameInstProps.
+     *
+     * @return the list of entities.
+     */
+    @Transactional(readOnly = true)
+    public List<GameInstPropsDTO> findAll() {
+        log.debug("Request to get all GameInstProps");
+        return gameInstPropsRepository.findAll().stream().map(gameInstPropsMapper::toDto).collect(Collectors.toCollection(LinkedList::new));
+    }
+
+    /**
+     *  Get all the gameInstProps where GameInst is {@code null}.
+     *  @return the list of entities.
+     */
+    @Transactional(readOnly = true)
+    public List<GameInstPropsDTO> findAllWhereGameInstIsNull() {
+        log.debug("Request to get all gameInstProps where GameInst is null");
+        return StreamSupport
+            .stream(gameInstPropsRepository.findAll().spliterator(), false)
+            .filter(gameInstProps -> gameInstProps.getGameInst() == null)
+            .map(gameInstPropsMapper::toDto)
+            .collect(Collectors.toCollection(LinkedList::new));
+    }
+
+    /**
+     * Get one gameInstProps by id.
+     *
+     * @param id the id of the entity.
+     * @return the entity.
+     */
+    @Transactional(readOnly = true)
+    public Optional<GameInstPropsDTO> findOne(Long id) {
+        log.debug("Request to get GameInstProps : {}", id);
+        return gameInstPropsRepository.findById(id).map(gameInstPropsMapper::toDto);
+    }
+
+    /**
+     * Delete the gameInstProps by id.
+     *
+     * @param id the id of the entity.
+     */
+    public void delete(Long id) {
+        log.debug("Request to delete GameInstProps : {}", id);
+        gameInstPropsRepository.deleteById(id);
+    }
+}

@@ -21,6 +21,16 @@
         <div class="row mb-3">
           <label class="form-label" jhiTranslate="gammaJhApp.gamePlayer.role" for="field_role">Role</label>
           <input type="text" class="form-control" name="role" id="field_role" data-cy="role" formControlName="role" />
+          <div *ngIf="editForm.get('role')!.invalid && (editForm.get('role')!.dirty || editForm.get('role')!.touched)">
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('role')?.errors?.maxlength"
+              jhiTranslate="entity.validation.maxlength"
+              [translateValues]="{ max: 2 }"
+            >
+              This field cannot be longer than 2 characters.
+            </small>
+          </div>
         </div>
 
         <div class="row mb-3">

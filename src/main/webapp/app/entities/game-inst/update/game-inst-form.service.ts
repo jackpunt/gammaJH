@@ -69,7 +69,9 @@ export class GameInstFormService {
         }
       ),
       version: new FormControl(gameInstRawValue.version),
-      gameName: new FormControl(gameInstRawValue.gameName),
+      gameName: new FormControl(gameInstRawValue.gameName, {
+        validators: [Validators.maxLength(45)],
+      }),
       hostUrl: new FormControl(gameInstRawValue.hostUrl),
       passcode: new FormControl(gameInstRawValue.passcode),
       created: new FormControl(gameInstRawValue.created),

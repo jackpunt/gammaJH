@@ -48,11 +48,15 @@ export class MemberGamePropsFormService {
       ),
       version: new FormControl(memberGamePropsRawValue.version),
       seed: new FormControl(memberGamePropsRawValue.seed),
-      mapName: new FormControl(memberGamePropsRawValue.mapName),
+      mapName: new FormControl(memberGamePropsRawValue.mapName, {
+        validators: [Validators.maxLength(45)],
+      }),
       mapSize: new FormControl(memberGamePropsRawValue.mapSize),
       npcCount: new FormControl(memberGamePropsRawValue.npcCount),
       jsonProps: new FormControl(memberGamePropsRawValue.jsonProps),
-      configName: new FormControl(memberGamePropsRawValue.configName),
+      configName: new FormControl(memberGamePropsRawValue.configName, {
+        validators: [Validators.maxLength(45)],
+      }),
       user: new FormControl(memberGamePropsRawValue.user),
       gameClass: new FormControl(memberGamePropsRawValue.gameClass),
     });

@@ -1,17 +1,22 @@
 {
   "applications": ["gammaJH"],
   "changelogDate": "20220813223219",
-  "dto": "no",
+  "dto": "mapstruct",
   "embedded": false,
   "entityTableName": "asset",
   "fields": [
     {
       "fieldName": "version",
-      "fieldType": "Long"
+      "fieldType": "Integer",
+      "options": {
+        "version": true
+      }
     },
     {
       "fieldName": "name",
-      "fieldType": "String"
+      "fieldType": "String",
+      "fieldValidateRules": ["maxlength"],
+      "fieldValidateRulesMaxlength": "45"
     },
     {
       "fieldName": "main",
@@ -49,5 +54,5 @@
       "relationshipType": "many-to-one"
     }
   ],
-  "service": "no"
+  "service": "serviceClass"
 }

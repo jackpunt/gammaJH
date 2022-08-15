@@ -9,6 +9,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import com.thegraid.gamma.IntegrationTest;
 import com.thegraid.gamma.domain.MemberGameProps;
 import com.thegraid.gamma.repository.MemberGamePropsRepository;
+import com.thegraid.gamma.service.dto.MemberGamePropsDTO;
+import com.thegraid.gamma.service.mapper.MemberGamePropsMapper;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicLong;
@@ -30,8 +32,8 @@ import org.springframework.transaction.annotation.Transactional;
 @WithMockUser
 class MemberGamePropsResourceIT {
 
-    private static final Long DEFAULT_VERSION = 1L;
-    private static final Long UPDATED_VERSION = 2L;
+    private static final Integer DEFAULT_VERSION = 1;
+    private static final Integer UPDATED_VERSION = 2;
 
     private static final Long DEFAULT_SEED = 1L;
     private static final Long UPDATED_SEED = 2L;
@@ -39,11 +41,11 @@ class MemberGamePropsResourceIT {
     private static final String DEFAULT_MAP_NAME = "AAAAAAAAAA";
     private static final String UPDATED_MAP_NAME = "BBBBBBBBBB";
 
-    private static final Long DEFAULT_MAP_SIZE = 1L;
-    private static final Long UPDATED_MAP_SIZE = 2L;
+    private static final Integer DEFAULT_MAP_SIZE = 1;
+    private static final Integer UPDATED_MAP_SIZE = 2;
 
-    private static final Long DEFAULT_NPC_COUNT = 1L;
-    private static final Long UPDATED_NPC_COUNT = 2L;
+    private static final Integer DEFAULT_NPC_COUNT = 1;
+    private static final Integer UPDATED_NPC_COUNT = 2;
 
     private static final String DEFAULT_JSON_PROPS = "AAAAAAAAAA";
     private static final String UPDATED_JSON_PROPS = "BBBBBBBBBB";
@@ -59,6 +61,9 @@ class MemberGamePropsResourceIT {
 
     @Autowired
     private MemberGamePropsRepository memberGamePropsRepository;
+
+    @Autowired
+    private MemberGamePropsMapper memberGamePropsMapper;
 
     @Autowired
     private EntityManager em;
@@ -114,12 +119,13 @@ class MemberGamePropsResourceIT {
     void createMemberGameProps() throws Exception {
         int databaseSizeBeforeCreate = memberGamePropsRepository.findAll().size();
         // Create the MemberGameProps
+        MemberGamePropsDTO memberGamePropsDTO = memberGamePropsMapper.toDto(memberGameProps);
         restMemberGamePropsMockMvc
             .perform(
                 post(ENTITY_API_URL)
                     .with(csrf())
                     .contentType(MediaType.APPLICATION_JSON)
-                    .content(TestUtil.convertObjectToJsonBytes(memberGameProps))
+                    .content(TestUtil.convertObjectToJsonBytes(memberGamePropsDTO))
             )
             .andExpect(status().isCreated());
 
@@ -141,6 +147,7 @@ class MemberGamePropsResourceIT {
     void createMemberGamePropsWithExistingId() throws Exception {
         // Create the MemberGameProps with an existing ID
         memberGameProps.setId(1L);
+        MemberGamePropsDTO memberGamePropsDTO = memberGamePropsMapper.toDto(memberGameProps);
 
         int databaseSizeBeforeCreate = memberGamePropsRepository.findAll().size();
 
@@ -150,7 +157,7 @@ class MemberGamePropsResourceIT {
                 post(ENTITY_API_URL)
                     .with(csrf())
                     .contentType(MediaType.APPLICATION_JSON)
-                    .content(TestUtil.convertObjectToJsonBytes(memberGameProps))
+                    .content(TestUtil.convertObjectToJsonBytes(memberGamePropsDTO))
             )
             .andExpect(status().isBadRequest());
 
@@ -171,11 +178,11 @@ class MemberGamePropsResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(memberGameProps.getId().intValue())))
-            .andExpect(jsonPath("$.[*].version").value(hasItem(DEFAULT_VERSION.intValue())))
+            .andExpect(jsonPath("$.[*].version").value(hasItem(DEFAULT_VERSION)))
             .andExpect(jsonPath("$.[*].seed").value(hasItem(DEFAULT_SEED.intValue())))
             .andExpect(jsonPath("$.[*].mapName").value(hasItem(DEFAULT_MAP_NAME)))
-            .andExpect(jsonPath("$.[*].mapSize").value(hasItem(DEFAULT_MAP_SIZE.intValue())))
-            .andExpect(jsonPath("$.[*].npcCount").value(hasItem(DEFAULT_NPC_COUNT.intValue())))
+            .andExpect(jsonPath("$.[*].mapSize").value(hasItem(DEFAULT_MAP_SIZE)))
+            .andExpect(jsonPath("$.[*].npcCount").value(hasItem(DEFAULT_NPC_COUNT)))
             .andExpect(jsonPath("$.[*].jsonProps").value(hasItem(DEFAULT_JSON_PROPS)))
             .andExpect(jsonPath("$.[*].configName").value(hasItem(DEFAULT_CONFIG_NAME)));
     }
@@ -192,11 +199,11 @@ class MemberGamePropsResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(memberGameProps.getId().intValue()))
-            .andExpect(jsonPath("$.version").value(DEFAULT_VERSION.intValue()))
+            .andExpect(jsonPath("$.version").value(DEFAULT_VERSION))
             .andExpect(jsonPath("$.seed").value(DEFAULT_SEED.intValue()))
             .andExpect(jsonPath("$.mapName").value(DEFAULT_MAP_NAME))
-            .andExpect(jsonPath("$.mapSize").value(DEFAULT_MAP_SIZE.intValue()))
-            .andExpect(jsonPath("$.npcCount").value(DEFAULT_NPC_COUNT.intValue()))
+            .andExpect(jsonPath("$.mapSize").value(DEFAULT_MAP_SIZE))
+            .andExpect(jsonPath("$.npcCount").value(DEFAULT_NPC_COUNT))
             .andExpect(jsonPath("$.jsonProps").value(DEFAULT_JSON_PROPS))
             .andExpect(jsonPath("$.configName").value(DEFAULT_CONFIG_NAME));
     }
@@ -228,13 +235,14 @@ class MemberGamePropsResourceIT {
             .npcCount(UPDATED_NPC_COUNT)
             .jsonProps(UPDATED_JSON_PROPS)
             .configName(UPDATED_CONFIG_NAME);
+        MemberGamePropsDTO memberGamePropsDTO = memberGamePropsMapper.toDto(updatedMemberGameProps);
 
         restMemberGamePropsMockMvc
             .perform(
-                put(ENTITY_API_URL_ID, updatedMemberGameProps.getId())
+                put(ENTITY_API_URL_ID, memberGamePropsDTO.getId())
                     .with(csrf())
                     .contentType(MediaType.APPLICATION_JSON)
-                    .content(TestUtil.convertObjectToJsonBytes(updatedMemberGameProps))
+                    .content(TestUtil.convertObjectToJsonBytes(memberGamePropsDTO))
             )
             .andExpect(status().isOk());
 
@@ -257,13 +265,16 @@ class MemberGamePropsResourceIT {
         int databaseSizeBeforeUpdate = memberGamePropsRepository.findAll().size();
         memberGameProps.setId(count.incrementAndGet());
 
+        // Create the MemberGameProps
+        MemberGamePropsDTO memberGamePropsDTO = memberGamePropsMapper.toDto(memberGameProps);
+
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
         restMemberGamePropsMockMvc
             .perform(
-                put(ENTITY_API_URL_ID, memberGameProps.getId())
+                put(ENTITY_API_URL_ID, memberGamePropsDTO.getId())
                     .with(csrf())
                     .contentType(MediaType.APPLICATION_JSON)
-                    .content(TestUtil.convertObjectToJsonBytes(memberGameProps))
+                    .content(TestUtil.convertObjectToJsonBytes(memberGamePropsDTO))
             )
             .andExpect(status().isBadRequest());
 
@@ -278,13 +289,16 @@ class MemberGamePropsResourceIT {
         int databaseSizeBeforeUpdate = memberGamePropsRepository.findAll().size();
         memberGameProps.setId(count.incrementAndGet());
 
+        // Create the MemberGameProps
+        MemberGamePropsDTO memberGamePropsDTO = memberGamePropsMapper.toDto(memberGameProps);
+
         // If url ID doesn't match entity ID, it will throw BadRequestAlertException
         restMemberGamePropsMockMvc
             .perform(
                 put(ENTITY_API_URL_ID, count.incrementAndGet())
                     .with(csrf())
                     .contentType(MediaType.APPLICATION_JSON)
-                    .content(TestUtil.convertObjectToJsonBytes(memberGameProps))
+                    .content(TestUtil.convertObjectToJsonBytes(memberGamePropsDTO))
             )
             .andExpect(status().isBadRequest());
 
@@ -299,13 +313,16 @@ class MemberGamePropsResourceIT {
         int databaseSizeBeforeUpdate = memberGamePropsRepository.findAll().size();
         memberGameProps.setId(count.incrementAndGet());
 
+        // Create the MemberGameProps
+        MemberGamePropsDTO memberGamePropsDTO = memberGamePropsMapper.toDto(memberGameProps);
+
         // If url ID doesn't match entity ID, it will throw BadRequestAlertException
         restMemberGamePropsMockMvc
             .perform(
                 put(ENTITY_API_URL)
                     .with(csrf())
                     .contentType(MediaType.APPLICATION_JSON)
-                    .content(TestUtil.convertObjectToJsonBytes(memberGameProps))
+                    .content(TestUtil.convertObjectToJsonBytes(memberGamePropsDTO))
             )
             .andExpect(status().isMethodNotAllowed());
 
@@ -399,13 +416,16 @@ class MemberGamePropsResourceIT {
         int databaseSizeBeforeUpdate = memberGamePropsRepository.findAll().size();
         memberGameProps.setId(count.incrementAndGet());
 
+        // Create the MemberGameProps
+        MemberGamePropsDTO memberGamePropsDTO = memberGamePropsMapper.toDto(memberGameProps);
+
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
         restMemberGamePropsMockMvc
             .perform(
-                patch(ENTITY_API_URL_ID, memberGameProps.getId())
+                patch(ENTITY_API_URL_ID, memberGamePropsDTO.getId())
                     .with(csrf())
                     .contentType("application/merge-patch+json")
-                    .content(TestUtil.convertObjectToJsonBytes(memberGameProps))
+                    .content(TestUtil.convertObjectToJsonBytes(memberGamePropsDTO))
             )
             .andExpect(status().isBadRequest());
 
@@ -420,13 +440,16 @@ class MemberGamePropsResourceIT {
         int databaseSizeBeforeUpdate = memberGamePropsRepository.findAll().size();
         memberGameProps.setId(count.incrementAndGet());
 
+        // Create the MemberGameProps
+        MemberGamePropsDTO memberGamePropsDTO = memberGamePropsMapper.toDto(memberGameProps);
+
         // If url ID doesn't match entity ID, it will throw BadRequestAlertException
         restMemberGamePropsMockMvc
             .perform(
                 patch(ENTITY_API_URL_ID, count.incrementAndGet())
                     .with(csrf())
                     .contentType("application/merge-patch+json")
-                    .content(TestUtil.convertObjectToJsonBytes(memberGameProps))
+                    .content(TestUtil.convertObjectToJsonBytes(memberGamePropsDTO))
             )
             .andExpect(status().isBadRequest());
 
@@ -441,13 +464,16 @@ class MemberGamePropsResourceIT {
         int databaseSizeBeforeUpdate = memberGamePropsRepository.findAll().size();
         memberGameProps.setId(count.incrementAndGet());
 
+        // Create the MemberGameProps
+        MemberGamePropsDTO memberGamePropsDTO = memberGamePropsMapper.toDto(memberGameProps);
+
         // If url ID doesn't match entity ID, it will throw BadRequestAlertException
         restMemberGamePropsMockMvc
             .perform(
                 patch(ENTITY_API_URL)
                     .with(csrf())
                     .contentType("application/merge-patch+json")
-                    .content(TestUtil.convertObjectToJsonBytes(memberGameProps))
+                    .content(TestUtil.convertObjectToJsonBytes(memberGamePropsDTO))
             )
             .andExpect(status().isMethodNotAllowed());
 

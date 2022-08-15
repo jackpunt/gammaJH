@@ -1,8 +1,8 @@
 package com.thegraid.gamma.web.rest;
 
-import com.thegraid.gamma.domain.AccountInfo;
 import com.thegraid.gamma.repository.AccountInfoRepository;
-import com.thegraid.gamma.repository.UserRepository;
+import com.thegraid.gamma.service.AccountInfoService;
+import com.thegraid.gamma.service.dto.AccountInfoDTO;
 import com.thegraid.gamma.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -13,7 +13,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import tech.jhipster.web.util.HeaderUtil;
 import tech.jhipster.web.util.ResponseUtil;
@@ -23,7 +22,6 @@ import tech.jhipster.web.util.ResponseUtil;
  */
 @RestController
 @RequestMapping("/api")
-@Transactional
 public class AccountInfoResource {
 
     private final Logger log = LoggerFactory.getLogger(AccountInfoResource.class);
@@ -33,34 +31,32 @@ public class AccountInfoResource {
     @Value("${jhipster.clientApp.name}")
     private String applicationName;
 
+    private final AccountInfoService accountInfoService;
+
     private final AccountInfoRepository accountInfoRepository;
 
-    private final UserRepository userRepository;
-
-    public AccountInfoResource(AccountInfoRepository accountInfoRepository, UserRepository userRepository) {
+    public AccountInfoResource(AccountInfoService accountInfoService, AccountInfoRepository accountInfoRepository) {
+        this.accountInfoService = accountInfoService;
         this.accountInfoRepository = accountInfoRepository;
-        this.userRepository = userRepository;
     }
 
     /**
      * {@code POST  /account-infos} : Create a new accountInfo.
      *
-     * @param accountInfo the accountInfo to create.
-     * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new accountInfo, or with status {@code 400 (Bad Request)} if the accountInfo has already an ID.
+     * @param accountInfoDTO the accountInfoDTO to create.
+     * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new accountInfoDTO, or with status {@code 400 (Bad Request)} if the accountInfo has already an ID.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("/account-infos")
-    public ResponseEntity<AccountInfo> createAccountInfo(@RequestBody AccountInfo accountInfo) throws URISyntaxException {
-        log.debug("REST request to save AccountInfo : {}", accountInfo);
-        if (accountInfo.getId() != null) {
+    public ResponseEntity<AccountInfoDTO> createAccountInfo(@RequestBody AccountInfoDTO accountInfoDTO) throws URISyntaxException {
+        log.debug("REST request to save AccountInfo : {}", accountInfoDTO);
+        if (accountInfoDTO.getId() != null) {
             throw new BadRequestAlertException("A new accountInfo cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        if (Objects.isNull(accountInfo.getUser())) {
+        if (Objects.isNull(accountInfoDTO.getUser())) {
             throw new BadRequestAlertException("Invalid association value provided", ENTITY_NAME, "null");
         }
-        Long userId = accountInfo.getUser().getId();
-        userRepository.findById(userId).ifPresent(accountInfo::user);
-        AccountInfo result = accountInfoRepository.save(accountInfo);
+        AccountInfoDTO result = accountInfoService.save(accountInfoDTO);
         return ResponseEntity
             .created(new URI("/api/account-infos/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
@@ -70,23 +66,23 @@ public class AccountInfoResource {
     /**
      * {@code PUT  /account-infos/:id} : Updates an existing accountInfo.
      *
-     * @param id the id of the accountInfo to save.
-     * @param accountInfo the accountInfo to update.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated accountInfo,
-     * or with status {@code 400 (Bad Request)} if the accountInfo is not valid,
-     * or with status {@code 500 (Internal Server Error)} if the accountInfo couldn't be updated.
+     * @param id the id of the accountInfoDTO to save.
+     * @param accountInfoDTO the accountInfoDTO to update.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated accountInfoDTO,
+     * or with status {@code 400 (Bad Request)} if the accountInfoDTO is not valid,
+     * or with status {@code 500 (Internal Server Error)} if the accountInfoDTO couldn't be updated.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PutMapping("/account-infos/{id}")
-    public ResponseEntity<AccountInfo> updateAccountInfo(
+    public ResponseEntity<AccountInfoDTO> updateAccountInfo(
         @PathVariable(value = "id", required = false) final Long id,
-        @RequestBody AccountInfo accountInfo
+        @RequestBody AccountInfoDTO accountInfoDTO
     ) throws URISyntaxException {
-        log.debug("REST request to update AccountInfo : {}, {}", id, accountInfo);
-        if (accountInfo.getId() == null) {
+        log.debug("REST request to update AccountInfo : {}, {}", id, accountInfoDTO);
+        if (accountInfoDTO.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
-        if (!Objects.equals(id, accountInfo.getId())) {
+        if (!Objects.equals(id, accountInfoDTO.getId())) {
             throw new BadRequestAlertException("Invalid ID", ENTITY_NAME, "idinvalid");
         }
 
@@ -94,34 +90,34 @@ public class AccountInfoResource {
             throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
         }
 
-        AccountInfo result = accountInfoRepository.save(accountInfo);
+        AccountInfoDTO result = accountInfoService.update(accountInfoDTO);
         return ResponseEntity
             .ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, accountInfo.getId().toString()))
+            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, accountInfoDTO.getId().toString()))
             .body(result);
     }
 
     /**
      * {@code PATCH  /account-infos/:id} : Partial updates given fields of an existing accountInfo, field will ignore if it is null
      *
-     * @param id the id of the accountInfo to save.
-     * @param accountInfo the accountInfo to update.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated accountInfo,
-     * or with status {@code 400 (Bad Request)} if the accountInfo is not valid,
-     * or with status {@code 404 (Not Found)} if the accountInfo is not found,
-     * or with status {@code 500 (Internal Server Error)} if the accountInfo couldn't be updated.
+     * @param id the id of the accountInfoDTO to save.
+     * @param accountInfoDTO the accountInfoDTO to update.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated accountInfoDTO,
+     * or with status {@code 400 (Bad Request)} if the accountInfoDTO is not valid,
+     * or with status {@code 404 (Not Found)} if the accountInfoDTO is not found,
+     * or with status {@code 500 (Internal Server Error)} if the accountInfoDTO couldn't be updated.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PatchMapping(value = "/account-infos/{id}", consumes = { "application/json", "application/merge-patch+json" })
-    public ResponseEntity<AccountInfo> partialUpdateAccountInfo(
+    public ResponseEntity<AccountInfoDTO> partialUpdateAccountInfo(
         @PathVariable(value = "id", required = false) final Long id,
-        @RequestBody AccountInfo accountInfo
+        @RequestBody AccountInfoDTO accountInfoDTO
     ) throws URISyntaxException {
-        log.debug("REST request to partial update AccountInfo partially : {}, {}", id, accountInfo);
-        if (accountInfo.getId() == null) {
+        log.debug("REST request to partial update AccountInfo partially : {}, {}", id, accountInfoDTO);
+        if (accountInfoDTO.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
-        if (!Objects.equals(id, accountInfo.getId())) {
+        if (!Objects.equals(id, accountInfoDTO.getId())) {
             throw new BadRequestAlertException("Invalid ID", ENTITY_NAME, "idinvalid");
         }
 
@@ -129,20 +125,11 @@ public class AccountInfoResource {
             throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
         }
 
-        Optional<AccountInfo> result = accountInfoRepository
-            .findById(accountInfo.getId())
-            .map(existingAccountInfo -> {
-                if (accountInfo.getType() != null) {
-                    existingAccountInfo.setType(accountInfo.getType());
-                }
-
-                return existingAccountInfo;
-            })
-            .map(accountInfoRepository::save);
+        Optional<AccountInfoDTO> result = accountInfoService.partialUpdate(accountInfoDTO);
 
         return ResponseUtil.wrapOrNotFound(
             result,
-            HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, accountInfo.getId().toString())
+            HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, accountInfoDTO.getId().toString())
         );
     }
 
@@ -152,36 +139,34 @@ public class AccountInfoResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of accountInfos in body.
      */
     @GetMapping("/account-infos")
-    @Transactional(readOnly = true)
-    public List<AccountInfo> getAllAccountInfos() {
+    public List<AccountInfoDTO> getAllAccountInfos() {
         log.debug("REST request to get all AccountInfos");
-        return accountInfoRepository.findAll();
+        return accountInfoService.findAll();
     }
 
     /**
      * {@code GET  /account-infos/:id} : get the "id" accountInfo.
      *
-     * @param id the id of the accountInfo to retrieve.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the accountInfo, or with status {@code 404 (Not Found)}.
+     * @param id the id of the accountInfoDTO to retrieve.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the accountInfoDTO, or with status {@code 404 (Not Found)}.
      */
     @GetMapping("/account-infos/{id}")
-    @Transactional(readOnly = true)
-    public ResponseEntity<AccountInfo> getAccountInfo(@PathVariable Long id) {
+    public ResponseEntity<AccountInfoDTO> getAccountInfo(@PathVariable Long id) {
         log.debug("REST request to get AccountInfo : {}", id);
-        Optional<AccountInfo> accountInfo = accountInfoRepository.findById(id);
-        return ResponseUtil.wrapOrNotFound(accountInfo);
+        Optional<AccountInfoDTO> accountInfoDTO = accountInfoService.findOne(id);
+        return ResponseUtil.wrapOrNotFound(accountInfoDTO);
     }
 
     /**
      * {@code DELETE  /account-infos/:id} : delete the "id" accountInfo.
      *
-     * @param id the id of the accountInfo to delete.
+     * @param id the id of the accountInfoDTO to delete.
      * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
      */
     @DeleteMapping("/account-infos/{id}")
     public ResponseEntity<Void> deleteAccountInfo(@PathVariable Long id) {
         log.debug("REST request to delete AccountInfo : {}", id);
-        accountInfoRepository.deleteById(id);
+        accountInfoService.delete(id);
         return ResponseEntity
             .noContent()
             .headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString()))

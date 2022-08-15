@@ -14,10 +14,10 @@
             <column name="id" type="bigint" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="version" type="bigint">
+            <column name="version" type="integer">
                 <constraints nullable="true" />
             </column>
-            <column name="role" type="varchar(255)">
+            <column name="role" type="varchar(2)">
                 <constraints nullable="true" />
             </column>
             <column name="ready" type="boolean">

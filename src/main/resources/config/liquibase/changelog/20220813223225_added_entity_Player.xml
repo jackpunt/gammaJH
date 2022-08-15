@@ -14,10 +14,10 @@
             <column name="id" type="bigint" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="version" type="bigint">
+            <column name="version" type="integer">
                 <constraints nullable="true" />
             </column>
-            <column name="name" type="varchar(255)">
+            <column name="name" type="varchar(45)">
                 <constraints nullable="true" />
             </column>
             <column name="jhi_rank" type="integer">
@@ -32,7 +32,7 @@
             <column name="rank_time" type="${datetimeType}">
                 <constraints nullable="true" />
             </column>
-            <column name="display_client" type="varchar(255)">
+            <column name="display_client" type="varchar(45)">
                 <constraints nullable="true" />
             </column>
             <column name="game_class_id" type="bigint">

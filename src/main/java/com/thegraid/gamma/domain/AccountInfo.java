@@ -1,15 +1,11 @@
 package com.thegraid.gamma.domain;
 
-import io.swagger.v3.oas.annotations.media.Schema;
 import java.io.Serializable;
 import javax.persistence.*;
 
 /**
  * extension to User (user is the owner of a stable of horses)\nAccount Type indicates the payment properties and the League user is in.\nmaybe this could fold into User.role ?
  */
-@Schema(
-    description = "extension to User (user is the owner of a stable of horses)\nAccount Type indicates the payment properties and the League user is in.\nmaybe this could fold into User.role ?"
-)
 @Entity
 @Table(name = "account_info")
 public class AccountInfo implements Serializable {
@@ -19,6 +15,9 @@ public class AccountInfo implements Serializable {
     @Id
     @Column(name = "id")
     private Long id;
+
+    @Column(name = "version")
+    private Integer version;
 
     @Column(name = "type")
     private String type;
@@ -41,6 +40,19 @@ public class AccountInfo implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Integer getVersion() {
+        return this.version;
+    }
+
+    public AccountInfo version(Integer version) {
+        this.setVersion(version);
+        return this;
+    }
+
+    public void setVersion(Integer version) {
+        this.version = version;
     }
 
     public String getType() {
@@ -93,6 +105,7 @@ public class AccountInfo implements Serializable {
     public String toString() {
         return "AccountInfo{" +
             "id=" + getId() +
+            ", version=" + getVersion() +
             ", type='" + getType() + "'" +
             "}";
     }

@@ -61,12 +61,16 @@ export class PlayerFormService {
         }
       ),
       version: new FormControl(playerRawValue.version),
-      name: new FormControl(playerRawValue.name),
+      name: new FormControl(playerRawValue.name, {
+        validators: [Validators.maxLength(45)],
+      }),
       rank: new FormControl(playerRawValue.rank),
       score: new FormControl(playerRawValue.score),
       scoreTime: new FormControl(playerRawValue.scoreTime),
       rankTime: new FormControl(playerRawValue.rankTime),
-      displayClient: new FormControl(playerRawValue.displayClient),
+      displayClient: new FormControl(playerRawValue.displayClient, {
+        validators: [Validators.maxLength(45)],
+      }),
       gameClass: new FormControl(playerRawValue.gameClass),
       asset: new FormControl(playerRawValue.asset),
     });

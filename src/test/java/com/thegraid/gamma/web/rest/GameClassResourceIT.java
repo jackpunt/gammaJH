@@ -9,6 +9,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import com.thegraid.gamma.IntegrationTest;
 import com.thegraid.gamma.domain.GameClass;
 import com.thegraid.gamma.repository.GameClassRepository;
+import com.thegraid.gamma.service.dto.GameClassDTO;
+import com.thegraid.gamma.service.mapper.GameClassMapper;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
@@ -32,8 +34,8 @@ import org.springframework.transaction.annotation.Transactional;
 @WithMockUser
 class GameClassResourceIT {
 
-    private static final Long DEFAULT_VERSION = 1L;
-    private static final Long UPDATED_VERSION = 2L;
+    private static final Integer DEFAULT_VERSION = 1;
+    private static final Integer UPDATED_VERSION = 2;
 
     private static final String DEFAULT_NAME = "AAAAAAAAAA";
     private static final String UPDATED_NAME = "BBBBBBBBBB";
@@ -64,6 +66,9 @@ class GameClassResourceIT {
 
     @Autowired
     private GameClassRepository gameClassRepository;
+
+    @Autowired
+    private GameClassMapper gameClassMapper;
 
     @Autowired
     private EntityManager em;
@@ -121,12 +126,13 @@ class GameClassResourceIT {
     void createGameClass() throws Exception {
         int databaseSizeBeforeCreate = gameClassRepository.findAll().size();
         // Create the GameClass
+        GameClassDTO gameClassDTO = gameClassMapper.toDto(gameClass);
         restGameClassMockMvc
             .perform(
                 post(ENTITY_API_URL)
                     .with(csrf())
                     .contentType(MediaType.APPLICATION_JSON)
-                    .content(TestUtil.convertObjectToJsonBytes(gameClass))
+                    .content(TestUtil.convertObjectToJsonBytes(gameClassDTO))
             )
             .andExpect(status().isCreated());
 
@@ -149,6 +155,7 @@ class GameClassResourceIT {
     void createGameClassWithExistingId() throws Exception {
         // Create the GameClass with an existing ID
         gameClass.setId(1L);
+        GameClassDTO gameClassDTO = gameClassMapper.toDto(gameClass);
 
         int databaseSizeBeforeCreate = gameClassRepository.findAll().size();
 
@@ -158,7 +165,7 @@ class GameClassResourceIT {
                 post(ENTITY_API_URL)
                     .with(csrf())
                     .contentType(MediaType.APPLICATION_JSON)
-                    .content(TestUtil.convertObjectToJsonBytes(gameClass))
+                    .content(TestUtil.convertObjectToJsonBytes(gameClassDTO))
             )
             .andExpect(status().isBadRequest());
 
@@ -179,7 +186,7 @@ class GameClassResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(gameClass.getId().intValue())))
-            .andExpect(jsonPath("$.[*].version").value(hasItem(DEFAULT_VERSION.intValue())))
+            .andExpect(jsonPath("$.[*].version").value(hasItem(DEFAULT_VERSION)))
             .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME)))
             .andExpect(jsonPath("$.[*].revision").value(hasItem(DEFAULT_REVISION)))
             .andExpect(jsonPath("$.[*].launcherPath").value(hasItem(DEFAULT_LAUNCHER_PATH)))
@@ -201,7 +208,7 @@ class GameClassResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(gameClass.getId().intValue()))
-            .andExpect(jsonPath("$.version").value(DEFAULT_VERSION.intValue()))
+            .andExpect(jsonPath("$.version").value(DEFAULT_VERSION))
             .andExpect(jsonPath("$.name").value(DEFAULT_NAME))
             .andExpect(jsonPath("$.revision").value(DEFAULT_REVISION))
             .andExpect(jsonPath("$.launcherPath").value(DEFAULT_LAUNCHER_PATH))
@@ -239,13 +246,14 @@ class GameClassResourceIT {
             .docsPath(UPDATED_DOCS_PATH)
             .propsNames(UPDATED_PROPS_NAMES)
             .updated(UPDATED_UPDATED);
+        GameClassDTO gameClassDTO = gameClassMapper.toDto(updatedGameClass);
 
         restGameClassMockMvc
             .perform(
-                put(ENTITY_API_URL_ID, updatedGameClass.getId())
+                put(ENTITY_API_URL_ID, gameClassDTO.getId())
                     .with(csrf())
                     .contentType(MediaType.APPLICATION_JSON)
-                    .content(TestUtil.convertObjectToJsonBytes(updatedGameClass))
+                    .content(TestUtil.convertObjectToJsonBytes(gameClassDTO))
             )
             .andExpect(status().isOk());
 
@@ -269,13 +277,16 @@ class GameClassResourceIT {
         int databaseSizeBeforeUpdate = gameClassRepository.findAll().size();
         gameClass.setId(count.incrementAndGet());
 
+        // Create the GameClass
+        GameClassDTO gameClassDTO = gameClassMapper.toDto(gameClass);
+
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
         restGameClassMockMvc
             .perform(
-                put(ENTITY_API_URL_ID, gameClass.getId())
+                put(ENTITY_API_URL_ID, gameClassDTO.getId())
                     .with(csrf())
                     .contentType(MediaType.APPLICATION_JSON)
-                    .content(TestUtil.convertObjectToJsonBytes(gameClass))
+                    .content(TestUtil.convertObjectToJsonBytes(gameClassDTO))
             )
             .andExpect(status().isBadRequest());
 
@@ -290,13 +301,16 @@ class GameClassResourceIT {
         int databaseSizeBeforeUpdate = gameClassRepository.findAll().size();
         gameClass.setId(count.incrementAndGet());
 
+        // Create the GameClass
+        GameClassDTO gameClassDTO = gameClassMapper.toDto(gameClass);
+
         // If url ID doesn't match entity ID, it will throw BadRequestAlertException
         restGameClassMockMvc
             .perform(
                 put(ENTITY_API_URL_ID, count.incrementAndGet())
                     .with(csrf())
                     .contentType(MediaType.APPLICATION_JSON)
-                    .content(TestUtil.convertObjectToJsonBytes(gameClass))
+                    .content(TestUtil.convertObjectToJsonBytes(gameClassDTO))
             )
             .andExpect(status().isBadRequest());
 
@@ -311,13 +325,16 @@ class GameClassResourceIT {
         int databaseSizeBeforeUpdate = gameClassRepository.findAll().size();
         gameClass.setId(count.incrementAndGet());
 
+        // Create the GameClass
+        GameClassDTO gameClassDTO = gameClassMapper.toDto(gameClass);
+
         // If url ID doesn't match entity ID, it will throw BadRequestAlertException
         restGameClassMockMvc
             .perform(
                 put(ENTITY_API_URL)
                     .with(csrf())
                     .contentType(MediaType.APPLICATION_JSON)
-                    .content(TestUtil.convertObjectToJsonBytes(gameClass))
+                    .content(TestUtil.convertObjectToJsonBytes(gameClassDTO))
             )
             .andExpect(status().isMethodNotAllowed());
 
@@ -414,13 +431,16 @@ class GameClassResourceIT {
         int databaseSizeBeforeUpdate = gameClassRepository.findAll().size();
         gameClass.setId(count.incrementAndGet());
 
+        // Create the GameClass
+        GameClassDTO gameClassDTO = gameClassMapper.toDto(gameClass);
+
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
         restGameClassMockMvc
             .perform(
-                patch(ENTITY_API_URL_ID, gameClass.getId())
+                patch(ENTITY_API_URL_ID, gameClassDTO.getId())
                     .with(csrf())
                     .contentType("application/merge-patch+json")
-                    .content(TestUtil.convertObjectToJsonBytes(gameClass))
+                    .content(TestUtil.convertObjectToJsonBytes(gameClassDTO))
             )
             .andExpect(status().isBadRequest());
 
@@ -435,13 +455,16 @@ class GameClassResourceIT {
         int databaseSizeBeforeUpdate = gameClassRepository.findAll().size();
         gameClass.setId(count.incrementAndGet());
 
+        // Create the GameClass
+        GameClassDTO gameClassDTO = gameClassMapper.toDto(gameClass);
+
         // If url ID doesn't match entity ID, it will throw BadRequestAlertException
         restGameClassMockMvc
             .perform(
                 patch(ENTITY_API_URL_ID, count.incrementAndGet())
                     .with(csrf())
                     .contentType("application/merge-patch+json")
-                    .content(TestUtil.convertObjectToJsonBytes(gameClass))
+                    .content(TestUtil.convertObjectToJsonBytes(gameClassDTO))
             )
             .andExpect(status().isBadRequest());
 
@@ -456,13 +479,16 @@ class GameClassResourceIT {
         int databaseSizeBeforeUpdate = gameClassRepository.findAll().size();
         gameClass.setId(count.incrementAndGet());
 
+        // Create the GameClass
+        GameClassDTO gameClassDTO = gameClassMapper.toDto(gameClass);
+
         // If url ID doesn't match entity ID, it will throw BadRequestAlertException
         restGameClassMockMvc
             .perform(
                 patch(ENTITY_API_URL)
                     .with(csrf())
                     .contentType("application/merge-patch+json")
-                    .content(TestUtil.convertObjectToJsonBytes(gameClass))
+                    .content(TestUtil.convertObjectToJsonBytes(gameClassDTO))
             )
             .andExpect(status().isMethodNotAllowed());
 
