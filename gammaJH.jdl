@@ -4,11 +4,11 @@ application {
     authenticationType session
     baseName gammaJH
     blueprints []
-    buildTool maven
+    buildTool gradle
     cacheProvider ehcache
     clientFramework angularX
     clientPackageManager npm
-    clientTheme none
+    clientTheme lumen
     creationTimestamp 1660081398790
     databaseType sql
     devDatabaseType mysql
@@ -46,14 +46,17 @@ application {
  * maybe this could fold into User.role ?
  */
 entity AccountInfo {
+  @Version
+  version Integer
   type String // or index to a table of AccountType tokens... this table is TBD
   // for ex: some types can create/own Assets
   // some types get paid...
 }
 /** Assets owned by a member/user; (the horses) a virtual file-system?  */
 entity Asset {
-  version Long
-  name String
+  @Version
+  version Integer
+  name String maxlength(45)
   main Boolean
   auto Boolean
   path String
@@ -61,9 +64,10 @@ entity Asset {
 }
 /** Which Game engine/jar to play. */
 entity GameClass {  // DTO
-  version Long
-  name String
-  revision String
+  @Version
+  version Integer
+  name String maxlength(45)
+  revision String maxlength(45)
   launcherPath String
   gamePath String
   docsPath String
@@ -72,57 +76,63 @@ entity GameClass {  // DTO
 }
 /** Instance of a Game. */
 entity GameInst {  // DTO
-  version Long
-  gameName String
+  @Version
+  version Integer
+  gameName String maxlength(45)
   hostUrl String
   passcode String
   created Instant
   started Instant
   finished Instant
   updated Instant
-  scoreA Long
-  scoreB Long
+  scoreA Integer
+  scoreB Integer
   ticks Long   // how long the GameInst lasted (# of turns)
 }
 /** the final negotiated properties for GameInst */
 entity GameInstProps {
-  version Long
+  @Version
+  version Integer
   seed Long
   mapName String
-  mapSize Long
-  npcCount Long
+  mapSize Integer
+  npcCount Integer
   jsonProps String
   updated Instant
 }
 /** one of 2 Players (A or B) in a GameInst */
 entity GamePlayer {
-  version Long
-  role String
+  @Version
+  version Integer
+  role String maxlength(2) // 'A' or 'B'
   ready Boolean
 }
 /** member/player proposes properties for a new GameInst. */
 entity MemberGameProps {
-  version Long
-  seed Long
-  mapName String
-  mapSize Long
-  npcCount Long
+  @Version
+  version Integer
+  seed Long // set random generator
+  mapName String maxlength(45)
+  mapSize Integer
+  npcCount Integer
   jsonProps String
-  configName String
+  configName String maxlength(45)
 }
 /** a virtual player (the horse in a horse-race)  */
 entity Player { // DTO
-  version Long
-  name String
+  @Version
+  version Integer
+  name String maxlength(45)
   rank Integer
   score Integer
   scoreTime Instant
   rankTime Instant
-  displayClient String
+  displayClient String maxlength(45)
 }
 
 relationship OneToOne {
   AccountInfo to @Id User // extension to 'user'
+  GameInst{props} to @Id GameInstProps{gameInst} // GameProps as negotiated
 }
 relationship OneToMany {
   GameClass{gameInst} to GameInst{gameClass}
@@ -137,6 +147,7 @@ relationship OneToMany {
 relationship ManyToOne {
   Asset{user} to User
   MemberGameProps{user} to User
-  GameInstProps{gameInst} to GameInst{props}
 }
 
+dto GameInst, GameInstProps with mapstruct
+service GameInst, GameInstProps with serviceClass
