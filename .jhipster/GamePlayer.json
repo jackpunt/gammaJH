@@ -32,13 +32,11 @@
   "relationships": [
     {
       "otherEntityName": "gameInst",
-      "otherEntityRelationshipName": "gamePlayer",
       "relationshipName": "gameInst",
       "relationshipType": "many-to-one"
     },
     {
       "otherEntityName": "player",
-      "otherEntityRelationshipName": "gamePlayer",
       "relationshipName": "player",
       "relationshipType": "many-to-one"
     }

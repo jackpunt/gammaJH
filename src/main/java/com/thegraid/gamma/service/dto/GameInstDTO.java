@@ -39,11 +39,11 @@ public class GameInstDTO implements Serializable {
 
     private GameInstPropsDTO props;
 
-    private GameClassDTO gameClass;
-
     private PlayerDTO playerA;
 
     private PlayerDTO playerB;
+
+    private GameClassDTO gameClass;
 
     public Long getId() {
         return id;
@@ -149,14 +149,6 @@ public class GameInstDTO implements Serializable {
         this.props = props;
     }
 
-    public GameClassDTO getGameClass() {
-        return gameClass;
-    }
-
-    public void setGameClass(GameClassDTO gameClass) {
-        this.gameClass = gameClass;
-    }
-
     public PlayerDTO getPlayerA() {
         return playerA;
     }
@@ -171,6 +163,14 @@ public class GameInstDTO implements Serializable {
 
     public void setPlayerB(PlayerDTO playerB) {
         this.playerB = playerB;
+    }
+
+    public GameClassDTO getGameClass() {
+        return gameClass;
+    }
+
+    public void setGameClass(GameClassDTO gameClass) {
+        this.gameClass = gameClass;
     }
 
     @Override
@@ -211,9 +211,9 @@ public class GameInstDTO implements Serializable {
             ", scoreB=" + getScoreB() +
             ", ticks=" + getTicks() +
             ", props=" + getProps() +
-            ", gameClass=" + getGameClass() +
             ", playerA=" + getPlayerA() +
             ", playerB=" + getPlayerB() +
+            ", gameClass=" + getGameClass() +
             "}";
     }
 }

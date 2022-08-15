@@ -14,12 +14,6 @@
                                  referencedColumnNames="id"
                                  referencedTableName="game_inst_props"/>
 
-        <addForeignKeyConstraint baseColumnNames="game_class_id"
-                                 baseTableName="game_inst"
-                                 constraintName="fk_game_inst__game_class_id"
-                                 referencedColumnNames="id"
-                                 referencedTableName="game_class"/>
-
         <addForeignKeyConstraint baseColumnNames="playera_id"
                                  baseTableName="game_inst"
                                  constraintName="fk_game_inst__playera_id"
@@ -31,5 +25,11 @@
                                  constraintName="fk_game_inst__playerb_id"
                                  referencedColumnNames="id"
                                  referencedTableName="player"/>
+
+        <addForeignKeyConstraint baseColumnNames="game_class_id"
+                                 baseTableName="game_inst"
+                                 constraintName="fk_game_inst__game_class_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="game_class"/>
     </changeSet>
 </databaseChangeLog>

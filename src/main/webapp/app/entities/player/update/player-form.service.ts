@@ -40,7 +40,7 @@ type PlayerFormGroupContent = {
   rankTime: FormControl<PlayerFormRawValue['rankTime']>;
   displayClient: FormControl<PlayerFormRawValue['displayClient']>;
   gameClass: FormControl<PlayerFormRawValue['gameClass']>;
-  asset: FormControl<PlayerFormRawValue['asset']>;
+  mainJar: FormControl<PlayerFormRawValue['mainJar']>;
 };
 
 export type PlayerFormGroup = FormGroup<PlayerFormGroupContent>;
@@ -72,7 +72,7 @@ export class PlayerFormService {
         validators: [Validators.maxLength(45)],
       }),
       gameClass: new FormControl(playerRawValue.gameClass),
-      asset: new FormControl(playerRawValue.asset),
+      mainJar: new FormControl(playerRawValue.mainJar),
     });
   }
 

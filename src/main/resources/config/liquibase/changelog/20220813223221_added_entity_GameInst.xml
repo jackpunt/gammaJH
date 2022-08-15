@@ -47,13 +47,13 @@
             <column name="ticks" type="bigint">
                 <constraints nullable="true" />
             </column>
-            <column name="game_class_id" type="bigint">
-                <constraints nullable="true" />
-            </column>
             <column name="playera_id" type="bigint">
                 <constraints nullable="true" />
             </column>
             <column name="playerb_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
+            <column name="game_class_id" type="bigint">
                 <constraints nullable="true" />
             </column>
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here -->

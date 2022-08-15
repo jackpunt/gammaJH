@@ -49,33 +49,13 @@
   "readOnly": false,
   "relationships": [
     {
-      "otherEntityName": "gameInst",
-      "otherEntityRelationshipName": "playerA",
-      "relationshipName": "ida",
-      "relationshipType": "one-to-many"
-    },
-    {
-      "otherEntityName": "gameInst",
-      "otherEntityRelationshipName": "playerB",
-      "relationshipName": "idb",
-      "relationshipType": "one-to-many"
-    },
-    {
-      "otherEntityName": "gamePlayer",
-      "otherEntityRelationshipName": "player",
-      "relationshipName": "gamePlayer",
-      "relationshipType": "one-to-many"
-    },
-    {
       "otherEntityName": "gameClass",
-      "otherEntityRelationshipName": "player",
       "relationshipName": "gameClass",
       "relationshipType": "many-to-one"
     },
     {
       "otherEntityName": "asset",
-      "otherEntityRelationshipName": "player",
-      "relationshipName": "asset",
+      "relationshipName": "mainJar",
       "relationshipType": "many-to-one"
     }
   ],

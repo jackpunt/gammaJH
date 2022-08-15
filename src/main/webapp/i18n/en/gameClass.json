@@ -25,10 +25,7 @@
       "gamePath": "Game Path",
       "docsPath": "Docs Path",
       "propsNames": "Props Names",
-      "updated": "Updated",
-      "gameInst": "Game Inst",
-      "memberGameProps": "Member Game Props",
-      "player": "Player"
+      "updated": "Updated"
     }
   }
 }

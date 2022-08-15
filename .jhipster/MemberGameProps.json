@@ -55,7 +55,6 @@
     },
     {
       "otherEntityName": "gameClass",
-      "otherEntityRelationshipName": "memberGameProps",
       "relationshipName": "gameClass",
       "relationshipType": "many-to-one"
     }

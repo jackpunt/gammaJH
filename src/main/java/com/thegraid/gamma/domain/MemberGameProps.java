@@ -1,6 +1,5 @@
 package com.thegraid.gamma.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -46,7 +45,6 @@ public class MemberGameProps implements Serializable {
     private User user;
 
     @ManyToOne
-    @JsonIgnoreProperties(value = { "gameInsts", "memberGameProps", "players" }, allowSetters = true)
     private GameClass gameClass;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here

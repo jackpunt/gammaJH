@@ -64,12 +64,6 @@
             <a [routerLink]="['/game-inst-props', gameInst.props.id, 'view']">{{ gameInst.props?.id }}</a>
           </div>
         </dd>
-        <dt><span jhiTranslate="gammaJhApp.gameInst.gameClass">Game Class</span></dt>
-        <dd>
-          <div *ngIf="gameInst.gameClass">
-            <a [routerLink]="['/game-class', gameInst.gameClass.id, 'view']">{{ gameInst.gameClass?.id }}</a>
-          </div>
-        </dd>
         <dt><span jhiTranslate="gammaJhApp.gameInst.playerA">Player A</span></dt>
         <dd>
           <div *ngIf="gameInst.playerA">
@@ -80,6 +74,12 @@
         <dd>
           <div *ngIf="gameInst.playerB">
             <a [routerLink]="['/player', gameInst.playerB.id, 'view']">{{ gameInst.playerB?.id }}</a>
+          </div>
+        </dd>
+        <dt><span jhiTranslate="gammaJhApp.gameInst.gameClass">Game Class</span></dt>
+        <dd>
+          <div *ngIf="gameInst.gameClass">
+            <a [routerLink]="['/game-class', gameInst.gameClass.id, 'view']">{{ gameInst.gameClass?.id }}</a>
           </div>
         </dd>
       </dl>

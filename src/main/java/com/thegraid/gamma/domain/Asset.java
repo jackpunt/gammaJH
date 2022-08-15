@@ -1,9 +1,6 @@
 package com.thegraid.gamma.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 
@@ -39,10 +36,6 @@ public class Asset implements Serializable {
 
     @Column(name = "include")
     private String include;
-
-    @OneToMany(mappedBy = "asset")
-    @JsonIgnoreProperties(value = { "idas", "idbs", "gamePlayers", "gameClass", "asset" }, allowSetters = true)
-    private Set<Player> players = new HashSet<>();
 
     @ManyToOne
     private User user;
@@ -138,37 +131,6 @@ public class Asset implements Serializable {
 
     public void setInclude(String include) {
         this.include = include;
-    }
-
-    public Set<Player> getPlayers() {
-        return this.players;
-    }
-
-    public void setPlayers(Set<Player> players) {
-        if (this.players != null) {
-            this.players.forEach(i -> i.setAsset(null));
-        }
-        if (players != null) {
-            players.forEach(i -> i.setAsset(this));
-        }
-        this.players = players;
-    }
-
-    public Asset players(Set<Player> players) {
-        this.setPlayers(players);
-        return this;
-    }
-
-    public Asset addPlayer(Player player) {
-        this.players.add(player);
-        player.setAsset(this);
-        return this;
-    }
-
-    public Asset removePlayer(Player player) {
-        this.players.remove(player);
-        player.setAsset(null);
-        return this;
     }
 
     public User getUser() {

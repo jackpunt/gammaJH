@@ -3,8 +3,6 @@ package com.thegraid.gamma.domain;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
 import java.time.Instant;
-import java.util.HashSet;
-import java.util.Set;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 
@@ -45,25 +43,12 @@ public class Player implements Serializable {
     @Column(name = "display_client", length = 45)
     private String displayClient;
 
-    @OneToMany(mappedBy = "playerA")
-    @JsonIgnoreProperties(value = { "props", "gamePlayers", "gameClass", "playerA", "playerB" }, allowSetters = true)
-    private Set<GameInst> idas = new HashSet<>();
-
-    @OneToMany(mappedBy = "playerB")
-    @JsonIgnoreProperties(value = { "props", "gamePlayers", "gameClass", "playerA", "playerB" }, allowSetters = true)
-    private Set<GameInst> idbs = new HashSet<>();
-
-    @OneToMany(mappedBy = "player")
-    @JsonIgnoreProperties(value = { "gameInst", "player" }, allowSetters = true)
-    private Set<GamePlayer> gamePlayers = new HashSet<>();
-
     @ManyToOne
-    @JsonIgnoreProperties(value = { "gameInsts", "memberGameProps", "players" }, allowSetters = true)
     private GameClass gameClass;
 
     @ManyToOne
-    @JsonIgnoreProperties(value = { "players", "user" }, allowSetters = true)
-    private Asset asset;
+    @JsonIgnoreProperties(value = { "user" }, allowSetters = true)
+    private Asset mainJar;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -171,99 +156,6 @@ public class Player implements Serializable {
         this.displayClient = displayClient;
     }
 
-    public Set<GameInst> getIdas() {
-        return this.idas;
-    }
-
-    public void setIdas(Set<GameInst> gameInsts) {
-        if (this.idas != null) {
-            this.idas.forEach(i -> i.setPlayerA(null));
-        }
-        if (gameInsts != null) {
-            gameInsts.forEach(i -> i.setPlayerA(this));
-        }
-        this.idas = gameInsts;
-    }
-
-    public Player idas(Set<GameInst> gameInsts) {
-        this.setIdas(gameInsts);
-        return this;
-    }
-
-    public Player addIda(GameInst gameInst) {
-        this.idas.add(gameInst);
-        gameInst.setPlayerA(this);
-        return this;
-    }
-
-    public Player removeIda(GameInst gameInst) {
-        this.idas.remove(gameInst);
-        gameInst.setPlayerA(null);
-        return this;
-    }
-
-    public Set<GameInst> getIdbs() {
-        return this.idbs;
-    }
-
-    public void setIdbs(Set<GameInst> gameInsts) {
-        if (this.idbs != null) {
-            this.idbs.forEach(i -> i.setPlayerB(null));
-        }
-        if (gameInsts != null) {
-            gameInsts.forEach(i -> i.setPlayerB(this));
-        }
-        this.idbs = gameInsts;
-    }
-
-    public Player idbs(Set<GameInst> gameInsts) {
-        this.setIdbs(gameInsts);
-        return this;
-    }
-
-    public Player addIdb(GameInst gameInst) {
-        this.idbs.add(gameInst);
-        gameInst.setPlayerB(this);
-        return this;
-    }
-
-    public Player removeIdb(GameInst gameInst) {
-        this.idbs.remove(gameInst);
-        gameInst.setPlayerB(null);
-        return this;
-    }
-
-    public Set<GamePlayer> getGamePlayers() {
-        return this.gamePlayers;
-    }
-
-    public void setGamePlayers(Set<GamePlayer> gamePlayers) {
-        if (this.gamePlayers != null) {
-            this.gamePlayers.forEach(i -> i.setPlayer(null));
-        }
-        if (gamePlayers != null) {
-            gamePlayers.forEach(i -> i.setPlayer(this));
-        }
-        this.gamePlayers = gamePlayers;
-    }
-
-    public Player gamePlayers(Set<GamePlayer> gamePlayers) {
-        this.setGamePlayers(gamePlayers);
-        return this;
-    }
-
-    public Player addGamePlayer(GamePlayer gamePlayer) {
-        this.gamePlayers.add(gamePlayer);
-        gamePlayer.setPlayer(this);
-        return this;
-    }
-
-    public Player removeGamePlayer(GamePlayer gamePlayer) {
-        this.gamePlayers.remove(gamePlayer);
-        gamePlayer.setPlayer(null);
-        return this;
-    }
-
     public GameClass getGameClass() {
         return this.gameClass;
     }
@@ -277,16 +169,16 @@ public class Player implements Serializable {
         return this;
     }
 
-    public Asset getAsset() {
-        return this.asset;
+    public Asset getMainJar() {
+        return this.mainJar;
     }
 
-    public void setAsset(Asset asset) {
-        this.asset = asset;
+    public void setMainJar(Asset asset) {
+        this.mainJar = asset;
     }
 
-    public Player asset(Asset asset) {
-        this.setAsset(asset);
+    public Player mainJar(Asset asset) {
+        this.setMainJar(asset);
         return this;
     }
 

@@ -51,8 +51,8 @@
           <th scope="col" jhiSortBy="gameClass.id">
             <span jhiTranslate="gammaJhApp.player.gameClass">Game Class</span> <fa-icon icon="sort"></fa-icon>
           </th>
-          <th scope="col" jhiSortBy="asset.id">
-            <span jhiTranslate="gammaJhApp.player.asset">Asset</span> <fa-icon icon="sort"></fa-icon>
+          <th scope="col" jhiSortBy="mainJar.id">
+            <span jhiTranslate="gammaJhApp.player.mainJar">Main Jar</span> <fa-icon icon="sort"></fa-icon>
           </th>
           <th scope="col"></th>
         </tr>
@@ -75,8 +75,8 @@
             </div>
           </td>
           <td>
-            <div *ngIf="player.asset">
-              <a [routerLink]="['/asset', player.asset.id, 'view']">{{ player.asset?.id }}</a>
+            <div *ngIf="player.mainJar">
+              <a [routerLink]="['/asset', player.mainJar.id, 'view']">{{ player.mainJar?.id }}</a>
             </div>
           </td>
           <td class="text-end">

@@ -9,10 +9,10 @@ import { IGameInst } from '../game-inst.model';
 import { GameInstService } from '../service/game-inst.service';
 import { IGameInstProps } from 'app/entities/game-inst-props/game-inst-props.model';
 import { GameInstPropsService } from 'app/entities/game-inst-props/service/game-inst-props.service';
-import { IGameClass } from 'app/entities/game-class/game-class.model';
-import { GameClassService } from 'app/entities/game-class/service/game-class.service';
 import { IPlayer } from 'app/entities/player/player.model';
 import { PlayerService } from 'app/entities/player/service/player.service';
+import { IGameClass } from 'app/entities/game-class/game-class.model';
+import { GameClassService } from 'app/entities/game-class/service/game-class.service';
 
 @Component({
   selector: 'jhi-game-inst-update',
@@ -23,8 +23,8 @@ export class GameInstUpdateComponent implements OnInit {
   gameInst: IGameInst | null = null;
 
   propsCollection: IGameInstProps[] = [];
-  gameClassesSharedCollection: IGameClass[] = [];
   playersSharedCollection: IPlayer[] = [];
+  gameClassesSharedCollection: IGameClass[] = [];
 
   editForm: GameInstFormGroup = this.gameInstFormService.createGameInstFormGroup();
 
@@ -32,17 +32,17 @@ export class GameInstUpdateComponent implements OnInit {
     protected gameInstService: GameInstService,
     protected gameInstFormService: GameInstFormService,
     protected gameInstPropsService: GameInstPropsService,
-    protected gameClassService: GameClassService,
     protected playerService: PlayerService,
+    protected gameClassService: GameClassService,
     protected activatedRoute: ActivatedRoute
   ) {}
 
   compareGameInstProps = (o1: IGameInstProps | null, o2: IGameInstProps | null): boolean =>
     this.gameInstPropsService.compareGameInstProps(o1, o2);
 
-  compareGameClass = (o1: IGameClass | null, o2: IGameClass | null): boolean => this.gameClassService.compareGameClass(o1, o2);
-
   comparePlayer = (o1: IPlayer | null, o2: IPlayer | null): boolean => this.playerService.comparePlayer(o1, o2);
+
+  compareGameClass = (o1: IGameClass | null, o2: IGameClass | null): boolean => this.gameClassService.compareGameClass(o1, o2);
 
   ngOnInit(): void {
     this.activatedRoute.data.subscribe(({ gameInst }) => {
@@ -96,14 +96,14 @@ export class GameInstUpdateComponent implements OnInit {
       this.propsCollection,
       gameInst.props
     );
-    this.gameClassesSharedCollection = this.gameClassService.addGameClassToCollectionIfMissing<IGameClass>(
-      this.gameClassesSharedCollection,
-      gameInst.gameClass
-    );
     this.playersSharedCollection = this.playerService.addPlayerToCollectionIfMissing<IPlayer>(
       this.playersSharedCollection,
       gameInst.playerA,
       gameInst.playerB
+    );
+    this.gameClassesSharedCollection = this.gameClassService.addGameClassToCollectionIfMissing<IGameClass>(
+      this.gameClassesSharedCollection,
+      gameInst.gameClass
     );
   }
 
@@ -118,16 +118,6 @@ export class GameInstUpdateComponent implements OnInit {
       )
       .subscribe((gameInstProps: IGameInstProps[]) => (this.propsCollection = gameInstProps));
 
-    this.gameClassService
-      .query()
-      .pipe(map((res: HttpResponse<IGameClass[]>) => res.body ?? []))
-      .pipe(
-        map((gameClasses: IGameClass[]) =>
-          this.gameClassService.addGameClassToCollectionIfMissing<IGameClass>(gameClasses, this.gameInst?.gameClass)
-        )
-      )
-      .subscribe((gameClasses: IGameClass[]) => (this.gameClassesSharedCollection = gameClasses));
-
     this.playerService
       .query()
       .pipe(map((res: HttpResponse<IPlayer[]>) => res.body ?? []))
@@ -137,5 +127,15 @@ export class GameInstUpdateComponent implements OnInit {
         )
       )
       .subscribe((players: IPlayer[]) => (this.playersSharedCollection = players));
+
+    this.gameClassService
+      .query()
+      .pipe(map((res: HttpResponse<IGameClass[]>) => res.body ?? []))
+      .pipe(
+        map((gameClasses: IGameClass[]) =>
+          this.gameClassService.addGameClassToCollectionIfMissing<IGameClass>(gameClasses, this.gameInst?.gameClass)
+        )
+      )
+      .subscribe((gameClasses: IGameClass[]) => (this.gameClassesSharedCollection = gameClasses));
   }
 }

@@ -48,10 +48,10 @@
             <a [routerLink]="['/game-class', player.gameClass.id, 'view']">{{ player.gameClass?.id }}</a>
           </div>
         </dd>
-        <dt><span jhiTranslate="gammaJhApp.player.asset">Asset</span></dt>
+        <dt><span jhiTranslate="gammaJhApp.player.mainJar">Main Jar</span></dt>
         <dd>
-          <div *ngIf="player.asset">
-            <a [routerLink]="['/asset', player.asset.id, 'view']">{{ player.asset?.id }}</a>
+          <div *ngIf="player.mainJar">
+            <a [routerLink]="['/asset', player.mainJar.id, 'view']">{{ player.mainJar?.id }}</a>
           </div>
         </dd>
       </dl>

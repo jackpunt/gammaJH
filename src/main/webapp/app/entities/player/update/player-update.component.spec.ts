@@ -77,12 +77,12 @@ describe('Player Management Update Component', () => {
 
     it('Should call Asset query and add missing value', () => {
       const player: IPlayer = { id: 456 };
-      const asset: IAsset = { id: 31639 };
-      player.asset = asset;
+      const mainJar: IAsset = { id: 31639 };
+      player.mainJar = mainJar;
 
       const assetCollection: IAsset[] = [{ id: 55811 }];
       jest.spyOn(assetService, 'query').mockReturnValue(of(new HttpResponse({ body: assetCollection })));
-      const additionalAssets = [asset];
+      const additionalAssets = [mainJar];
       const expectedCollection: IAsset[] = [...additionalAssets, ...assetCollection];
       jest.spyOn(assetService, 'addAssetToCollectionIfMissing').mockReturnValue(expectedCollection);
 
@@ -101,14 +101,14 @@ describe('Player Management Update Component', () => {
       const player: IPlayer = { id: 456 };
       const gameClass: IGameClass = { id: 85527 };
       player.gameClass = gameClass;
-      const asset: IAsset = { id: 92190 };
-      player.asset = asset;
+      const mainJar: IAsset = { id: 92190 };
+      player.mainJar = mainJar;
 
       activatedRoute.data = of({ player });
       comp.ngOnInit();
 
       expect(comp.gameClassesSharedCollection).toContain(gameClass);
-      expect(comp.assetsSharedCollection).toContain(asset);
+      expect(comp.assetsSharedCollection).toContain(mainJar);
       expect(comp.player).toEqual(player);
     });
   });

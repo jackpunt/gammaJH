@@ -1,10 +1,7 @@
 package com.thegraid.gamma.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
 import java.time.Instant;
-import java.util.HashSet;
-import java.util.Set;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 
@@ -47,18 +44,6 @@ public class GameClass implements Serializable {
 
     @Column(name = "updated")
     private Instant updated;
-
-    @OneToMany(mappedBy = "gameClass")
-    @JsonIgnoreProperties(value = { "props", "gamePlayers", "gameClass", "playerA", "playerB" }, allowSetters = true)
-    private Set<GameInst> gameInsts = new HashSet<>();
-
-    @OneToMany(mappedBy = "gameClass")
-    @JsonIgnoreProperties(value = { "user", "gameClass" }, allowSetters = true)
-    private Set<MemberGameProps> memberGameProps = new HashSet<>();
-
-    @OneToMany(mappedBy = "gameClass")
-    @JsonIgnoreProperties(value = { "idas", "idbs", "gamePlayers", "gameClass", "asset" }, allowSetters = true)
-    private Set<Player> players = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -177,99 +162,6 @@ public class GameClass implements Serializable {
 
     public void setUpdated(Instant updated) {
         this.updated = updated;
-    }
-
-    public Set<GameInst> getGameInsts() {
-        return this.gameInsts;
-    }
-
-    public void setGameInsts(Set<GameInst> gameInsts) {
-        if (this.gameInsts != null) {
-            this.gameInsts.forEach(i -> i.setGameClass(null));
-        }
-        if (gameInsts != null) {
-            gameInsts.forEach(i -> i.setGameClass(this));
-        }
-        this.gameInsts = gameInsts;
-    }
-
-    public GameClass gameInsts(Set<GameInst> gameInsts) {
-        this.setGameInsts(gameInsts);
-        return this;
-    }
-
-    public GameClass addGameInst(GameInst gameInst) {
-        this.gameInsts.add(gameInst);
-        gameInst.setGameClass(this);
-        return this;
-    }
-
-    public GameClass removeGameInst(GameInst gameInst) {
-        this.gameInsts.remove(gameInst);
-        gameInst.setGameClass(null);
-        return this;
-    }
-
-    public Set<MemberGameProps> getMemberGameProps() {
-        return this.memberGameProps;
-    }
-
-    public void setMemberGameProps(Set<MemberGameProps> memberGameProps) {
-        if (this.memberGameProps != null) {
-            this.memberGameProps.forEach(i -> i.setGameClass(null));
-        }
-        if (memberGameProps != null) {
-            memberGameProps.forEach(i -> i.setGameClass(this));
-        }
-        this.memberGameProps = memberGameProps;
-    }
-
-    public GameClass memberGameProps(Set<MemberGameProps> memberGameProps) {
-        this.setMemberGameProps(memberGameProps);
-        return this;
-    }
-
-    public GameClass addMemberGameProps(MemberGameProps memberGameProps) {
-        this.memberGameProps.add(memberGameProps);
-        memberGameProps.setGameClass(this);
-        return this;
-    }
-
-    public GameClass removeMemberGameProps(MemberGameProps memberGameProps) {
-        this.memberGameProps.remove(memberGameProps);
-        memberGameProps.setGameClass(null);
-        return this;
-    }
-
-    public Set<Player> getPlayers() {
-        return this.players;
-    }
-
-    public void setPlayers(Set<Player> players) {
-        if (this.players != null) {
-            this.players.forEach(i -> i.setGameClass(null));
-        }
-        if (players != null) {
-            players.forEach(i -> i.setGameClass(this));
-        }
-        this.players = players;
-    }
-
-    public GameClass players(Set<Player> players) {
-        this.setPlayers(players);
-        return this;
-    }
-
-    public GameClass addPlayer(Player player) {
-        this.players.add(player);
-        player.setGameClass(this);
-        return this;
-    }
-
-    public GameClass removePlayer(Player player) {
-        this.players.remove(player);
-        player.setGameClass(null);
-        return this;
     }
 
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here

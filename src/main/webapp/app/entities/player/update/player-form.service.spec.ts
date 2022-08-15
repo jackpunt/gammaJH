@@ -28,7 +28,7 @@ describe('Player Form Service', () => {
             rankTime: expect.any(Object),
             displayClient: expect.any(Object),
             gameClass: expect.any(Object),
-            asset: expect.any(Object),
+            mainJar: expect.any(Object),
           })
         );
       });
@@ -47,7 +47,7 @@ describe('Player Form Service', () => {
             rankTime: expect.any(Object),
             displayClient: expect.any(Object),
             gameClass: expect.any(Object),
-            asset: expect.any(Object),
+            mainJar: expect.any(Object),
           })
         );
       });

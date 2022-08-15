@@ -11,10 +11,10 @@ import { GameInstService } from '../service/game-inst.service';
 import { IGameInst } from '../game-inst.model';
 import { IGameInstProps } from 'app/entities/game-inst-props/game-inst-props.model';
 import { GameInstPropsService } from 'app/entities/game-inst-props/service/game-inst-props.service';
-import { IGameClass } from 'app/entities/game-class/game-class.model';
-import { GameClassService } from 'app/entities/game-class/service/game-class.service';
 import { IPlayer } from 'app/entities/player/player.model';
 import { PlayerService } from 'app/entities/player/service/player.service';
+import { IGameClass } from 'app/entities/game-class/game-class.model';
+import { GameClassService } from 'app/entities/game-class/service/game-class.service';
 
 import { GameInstUpdateComponent } from './game-inst-update.component';
 
@@ -25,8 +25,8 @@ describe('GameInst Management Update Component', () => {
   let gameInstFormService: GameInstFormService;
   let gameInstService: GameInstService;
   let gameInstPropsService: GameInstPropsService;
-  let gameClassService: GameClassService;
   let playerService: PlayerService;
+  let gameClassService: GameClassService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -50,8 +50,8 @@ describe('GameInst Management Update Component', () => {
     gameInstFormService = TestBed.inject(GameInstFormService);
     gameInstService = TestBed.inject(GameInstService);
     gameInstPropsService = TestBed.inject(GameInstPropsService);
-    gameClassService = TestBed.inject(GameClassService);
     playerService = TestBed.inject(PlayerService);
+    gameClassService = TestBed.inject(GameClassService);
 
     comp = fixture.componentInstance;
   });
@@ -73,28 +73,6 @@ describe('GameInst Management Update Component', () => {
       expect(gameInstPropsService.query).toHaveBeenCalled();
       expect(gameInstPropsService.addGameInstPropsToCollectionIfMissing).toHaveBeenCalledWith(propsCollection, props);
       expect(comp.propsCollection).toEqual(expectedCollection);
-    });
-
-    it('Should call GameClass query and add missing value', () => {
-      const gameInst: IGameInst = { id: 456 };
-      const gameClass: IGameClass = { id: 15358 };
-      gameInst.gameClass = gameClass;
-
-      const gameClassCollection: IGameClass[] = [{ id: 17421 }];
-      jest.spyOn(gameClassService, 'query').mockReturnValue(of(new HttpResponse({ body: gameClassCollection })));
-      const additionalGameClasses = [gameClass];
-      const expectedCollection: IGameClass[] = [...additionalGameClasses, ...gameClassCollection];
-      jest.spyOn(gameClassService, 'addGameClassToCollectionIfMissing').mockReturnValue(expectedCollection);
-
-      activatedRoute.data = of({ gameInst });
-      comp.ngOnInit();
-
-      expect(gameClassService.query).toHaveBeenCalled();
-      expect(gameClassService.addGameClassToCollectionIfMissing).toHaveBeenCalledWith(
-        gameClassCollection,
-        ...additionalGameClasses.map(expect.objectContaining)
-      );
-      expect(comp.gameClassesSharedCollection).toEqual(expectedCollection);
     });
 
     it('Should call Player query and add missing value', () => {
@@ -121,24 +99,46 @@ describe('GameInst Management Update Component', () => {
       expect(comp.playersSharedCollection).toEqual(expectedCollection);
     });
 
+    it('Should call GameClass query and add missing value', () => {
+      const gameInst: IGameInst = { id: 456 };
+      const gameClass: IGameClass = { id: 15358 };
+      gameInst.gameClass = gameClass;
+
+      const gameClassCollection: IGameClass[] = [{ id: 17421 }];
+      jest.spyOn(gameClassService, 'query').mockReturnValue(of(new HttpResponse({ body: gameClassCollection })));
+      const additionalGameClasses = [gameClass];
+      const expectedCollection: IGameClass[] = [...additionalGameClasses, ...gameClassCollection];
+      jest.spyOn(gameClassService, 'addGameClassToCollectionIfMissing').mockReturnValue(expectedCollection);
+
+      activatedRoute.data = of({ gameInst });
+      comp.ngOnInit();
+
+      expect(gameClassService.query).toHaveBeenCalled();
+      expect(gameClassService.addGameClassToCollectionIfMissing).toHaveBeenCalledWith(
+        gameClassCollection,
+        ...additionalGameClasses.map(expect.objectContaining)
+      );
+      expect(comp.gameClassesSharedCollection).toEqual(expectedCollection);
+    });
+
     it('Should update editForm', () => {
       const gameInst: IGameInst = { id: 456 };
       const props: IGameInstProps = { id: 80442 };
       gameInst.props = props;
-      const gameClass: IGameClass = { id: 70074 };
-      gameInst.gameClass = gameClass;
       const playerA: IPlayer = { id: 32095 };
       gameInst.playerA = playerA;
       const playerB: IPlayer = { id: 87163 };
       gameInst.playerB = playerB;
+      const gameClass: IGameClass = { id: 70074 };
+      gameInst.gameClass = gameClass;
 
       activatedRoute.data = of({ gameInst });
       comp.ngOnInit();
 
       expect(comp.propsCollection).toContain(props);
-      expect(comp.gameClassesSharedCollection).toContain(gameClass);
       expect(comp.playersSharedCollection).toContain(playerA);
       expect(comp.playersSharedCollection).toContain(playerB);
+      expect(comp.gameClassesSharedCollection).toContain(gameClass);
       expect(comp.gameInst).toEqual(gameInst);
     });
   });
@@ -222,16 +222,6 @@ describe('GameInst Management Update Component', () => {
       });
     });
 
-    describe('compareGameClass', () => {
-      it('Should forward to gameClassService', () => {
-        const entity = { id: 123 };
-        const entity2 = { id: 456 };
-        jest.spyOn(gameClassService, 'compareGameClass');
-        comp.compareGameClass(entity, entity2);
-        expect(gameClassService.compareGameClass).toHaveBeenCalledWith(entity, entity2);
-      });
-    });
-
     describe('comparePlayer', () => {
       it('Should forward to playerService', () => {
         const entity = { id: 123 };
@@ -239,6 +229,16 @@ describe('GameInst Management Update Component', () => {
         jest.spyOn(playerService, 'comparePlayer');
         comp.comparePlayer(entity, entity2);
         expect(playerService.comparePlayer).toHaveBeenCalledWith(entity, entity2);
+      });
+    });
+
+    describe('compareGameClass', () => {
+      it('Should forward to gameClassService', () => {
+        const entity = { id: 123 };
+        const entity2 = { id: 456 };
+        jest.spyOn(gameClassService, 'compareGameClass');
+        comp.compareGameClass(entity, entity2);
+        expect(gameClassService.compareGameClass).toHaveBeenCalledWith(entity, entity2);
       });
     });
   });

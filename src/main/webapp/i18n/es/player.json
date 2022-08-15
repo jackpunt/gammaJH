@@ -25,11 +25,8 @@
       "scoreTime": "Score Time",
       "rankTime": "Rank Time",
       "displayClient": "Display Client",
-      "ida": "Ida",
-      "idb": "Idb",
-      "gamePlayer": "Game Player",
       "gameClass": "Game Class",
-      "asset": "Asset"
+      "mainJar": "Main Jar"
     }
   }
 }

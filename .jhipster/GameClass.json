@@ -51,25 +51,6 @@
   "name": "GameClass",
   "pagination": "no",
   "readOnly": false,
-  "relationships": [
-    {
-      "otherEntityName": "gameInst",
-      "otherEntityRelationshipName": "gameClass",
-      "relationshipName": "gameInst",
-      "relationshipType": "one-to-many"
-    },
-    {
-      "otherEntityName": "memberGameProps",
-      "otherEntityRelationshipName": "gameClass",
-      "relationshipName": "memberGameProps",
-      "relationshipType": "one-to-many"
-    },
-    {
-      "otherEntityName": "player",
-      "otherEntityRelationshipName": "gameClass",
-      "relationshipName": "player",
-      "relationshipType": "one-to-many"
-    }
-  ],
+  "relationships": [],
   "service": "serviceClass"
 }

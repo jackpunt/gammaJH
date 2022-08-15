@@ -89,7 +89,7 @@ export class PlayerUpdateComponent implements OnInit {
       this.gameClassesSharedCollection,
       player.gameClass
     );
-    this.assetsSharedCollection = this.assetService.addAssetToCollectionIfMissing<IAsset>(this.assetsSharedCollection, player.asset);
+    this.assetsSharedCollection = this.assetService.addAssetToCollectionIfMissing<IAsset>(this.assetsSharedCollection, player.mainJar);
   }
 
   protected loadRelationshipsOptions(): void {
@@ -106,7 +106,7 @@ export class PlayerUpdateComponent implements OnInit {
     this.assetService
       .query()
       .pipe(map((res: HttpResponse<IAsset[]>) => res.body ?? []))
-      .pipe(map((assets: IAsset[]) => this.assetService.addAssetToCollectionIfMissing<IAsset>(assets, this.player?.asset)))
+      .pipe(map((assets: IAsset[]) => this.assetService.addAssetToCollectionIfMissing<IAsset>(assets, this.player?.mainJar)))
       .subscribe((assets: IAsset[]) => (this.assetsSharedCollection = assets));
   }
 }

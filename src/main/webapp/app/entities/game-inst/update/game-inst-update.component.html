@@ -136,23 +136,6 @@
         </div>
 
         <div class="row mb-3">
-          <label class="form-label" jhiTranslate="gammaJhApp.gameInst.gameClass" for="field_gameClass">Game Class</label>
-          <select
-            class="form-control"
-            id="field_gameClass"
-            data-cy="gameClass"
-            name="gameClass"
-            formControlName="gameClass"
-            [compareWith]="compareGameClass"
-          >
-            <option [ngValue]="null"></option>
-            <option [ngValue]="gameClassOption" *ngFor="let gameClassOption of gameClassesSharedCollection">
-              {{ gameClassOption.id }}
-            </option>
-          </select>
-        </div>
-
-        <div class="row mb-3">
           <label class="form-label" jhiTranslate="gammaJhApp.gameInst.playerA" for="field_playerA">Player A</label>
           <select
             class="form-control"
@@ -179,6 +162,23 @@
           >
             <option [ngValue]="null"></option>
             <option [ngValue]="playerOption" *ngFor="let playerOption of playersSharedCollection">{{ playerOption.id }}</option>
+          </select>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="gammaJhApp.gameInst.gameClass" for="field_gameClass">Game Class</label>
+          <select
+            class="form-control"
+            id="field_gameClass"
+            data-cy="gameClass"
+            name="gameClass"
+            formControlName="gameClass"
+            [compareWith]="compareGameClass"
+          >
+            <option [ngValue]="null"></option>
+            <option [ngValue]="gameClassOption" *ngFor="let gameClassOption of gameClassesSharedCollection">
+              {{ gameClassOption.id }}
+            </option>
           </select>
         </div>
       </div>

@@ -14,7 +14,7 @@ import org.mapstruct.*;
 @Mapper(componentModel = "spring")
 public interface PlayerMapper extends EntityMapper<PlayerDTO, Player> {
     @Mapping(target = "gameClass", source = "gameClass", qualifiedByName = "gameClassId")
-    @Mapping(target = "asset", source = "asset", qualifiedByName = "assetId")
+    @Mapping(target = "mainJar", source = "mainJar", qualifiedByName = "assetId")
     PlayerDTO toDto(Player s);
 
     @Named("gameClassId")

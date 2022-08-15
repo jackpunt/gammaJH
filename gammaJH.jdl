@@ -134,19 +134,17 @@ relationship OneToOne {
   AccountInfo to @Id User // extension to 'user'
   GameInst{props} to @Id GameInstProps{gameInst} // GameProps as negotiated
 }
-relationship OneToMany {
-  GameClass{gameInst} to GameInst{gameClass}
-  Player{ida} to GameInst{playerA}
-  Player{idb} to GameInst{playerB}
-  GameInst{gamePlayer} to GamePlayer{gameInst} // gameInst has 2 GamePlayer
-  Player{gamePlayer} to GamePlayer{player}     // GamePlayer is instance of Player
-  GameClass{memberGameProps} to MemberGameProps{gameClass}
-  GameClass{player} to Player{gameClass}
-  Asset{player} to Player{asset}
-}
 relationship ManyToOne {
+  GamePlayer{gameInst} to GameInst
+  GamePlayer{player} to Player
+  GameInst{playerA} to Player
+  GameInst{playerB} to Player
+  GameInst{gameClass} to GameClass
+  Player{gameClass} to GameClass
+  Player{mainJar} to Asset
   Asset{user} to User
   MemberGameProps{user} to User
+  MemberGameProps{gameClass} to GameClass
 }
 
 dto * with mapstruct

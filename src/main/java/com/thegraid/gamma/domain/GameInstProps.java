@@ -40,7 +40,7 @@ public class GameInstProps implements Serializable {
     @Column(name = "updated")
     private Instant updated;
 
-    @JsonIgnoreProperties(value = { "props", "gamePlayers", "gameClass", "playerA", "playerB" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "props", "playerA", "playerB", "gameClass" }, allowSetters = true)
     @OneToOne(mappedBy = "props")
     private GameInst gameInst;
 

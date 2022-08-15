@@ -14,9 +14,9 @@
                                  referencedColumnNames="id"
                                  referencedTableName="game_class"/>
 
-        <addForeignKeyConstraint baseColumnNames="asset_id"
+        <addForeignKeyConstraint baseColumnNames="main_jar_id"
                                  baseTableName="player"
-                                 constraintName="fk_player__asset_id"
+                                 constraintName="fk_player__main_jar_id"
                                  referencedColumnNames="id"
                                  referencedTableName="asset"/>
     </changeSet>

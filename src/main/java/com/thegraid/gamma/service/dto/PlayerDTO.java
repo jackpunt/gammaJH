@@ -32,7 +32,7 @@ public class PlayerDTO implements Serializable {
 
     private GameClassDTO gameClass;
 
-    private AssetDTO asset;
+    private AssetDTO mainJar;
 
     public Long getId() {
         return id;
@@ -106,12 +106,12 @@ public class PlayerDTO implements Serializable {
         this.gameClass = gameClass;
     }
 
-    public AssetDTO getAsset() {
-        return asset;
+    public AssetDTO getMainJar() {
+        return mainJar;
     }
 
-    public void setAsset(AssetDTO asset) {
-        this.asset = asset;
+    public void setMainJar(AssetDTO mainJar) {
+        this.mainJar = mainJar;
     }
 
     @Override
@@ -148,7 +148,7 @@ public class PlayerDTO implements Serializable {
             ", rankTime='" + getRankTime() + "'" +
             ", displayClient='" + getDisplayClient() + "'" +
             ", gameClass=" + getGameClass() +
-            ", asset=" + getAsset() +
+            ", mainJar=" + getMainJar() +
             "}";
     }
 }

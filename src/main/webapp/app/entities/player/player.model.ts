@@ -12,7 +12,7 @@ export interface IPlayer {
   rankTime?: dayjs.Dayjs | null;
   displayClient?: string | null;
   gameClass?: Pick<IGameClass, 'id'> | null;
-  asset?: Pick<IAsset, 'id'> | null;
+  mainJar?: Pick<IAsset, 'id'> | null;
 }
 
 export type NewPlayer = Omit<IPlayer, 'id'> & { id: null };

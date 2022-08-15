@@ -117,8 +117,15 @@
         </div>
 
         <div class="row mb-3">
-          <label class="form-label" jhiTranslate="gammaJhApp.player.asset" for="field_asset">Asset</label>
-          <select class="form-control" id="field_asset" data-cy="asset" name="asset" formControlName="asset" [compareWith]="compareAsset">
+          <label class="form-label" jhiTranslate="gammaJhApp.player.mainJar" for="field_mainJar">Main Jar</label>
+          <select
+            class="form-control"
+            id="field_mainJar"
+            data-cy="mainJar"
+            name="mainJar"
+            formControlName="mainJar"
+            [compareWith]="compareAsset"
+          >
             <option [ngValue]="null"></option>
             <option [ngValue]="assetOption" *ngFor="let assetOption of assetsSharedCollection">{{ assetOption.id }}</option>
           </select>

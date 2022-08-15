@@ -16,9 +16,9 @@ import org.mapstruct.*;
 @Mapper(componentModel = "spring")
 public interface GameInstMapper extends EntityMapper<GameInstDTO, GameInst> {
     @Mapping(target = "props", source = "props", qualifiedByName = "gameInstPropsId")
-    @Mapping(target = "gameClass", source = "gameClass", qualifiedByName = "gameClassId")
     @Mapping(target = "playerA", source = "playerA", qualifiedByName = "playerId")
     @Mapping(target = "playerB", source = "playerB", qualifiedByName = "playerId")
+    @Mapping(target = "gameClass", source = "gameClass", qualifiedByName = "gameClassId")
     GameInstDTO toDto(GameInst s);
 
     @Named("gameInstPropsId")
@@ -26,13 +26,13 @@ public interface GameInstMapper extends EntityMapper<GameInstDTO, GameInst> {
     @Mapping(target = "id", source = "id")
     GameInstPropsDTO toDtoGameInstPropsId(GameInstProps gameInstProps);
 
-    @Named("gameClassId")
-    @BeanMapping(ignoreByDefault = true)
-    @Mapping(target = "id", source = "id")
-    GameClassDTO toDtoGameClassId(GameClass gameClass);
-
     @Named("playerId")
     @BeanMapping(ignoreByDefault = true)
     @Mapping(target = "id", source = "id")
     PlayerDTO toDtoPlayerId(Player player);
+
+    @Named("gameClassId")
+    @BeanMapping(ignoreByDefault = true)
+    @Mapping(target = "id", source = "id")
+    GameClassDTO toDtoGameClassId(GameClass gameClass);
 }
