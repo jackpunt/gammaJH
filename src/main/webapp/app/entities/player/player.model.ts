@@ -1,6 +1,7 @@
 import dayjs from 'dayjs/esm';
 import { IGameClass } from 'app/entities/game-class/game-class.model';
 import { IAsset } from 'app/entities/asset/asset.model';
+import { IUser } from 'app/entities/user/user.model';
 
 export interface IPlayer {
   id: number;
@@ -13,6 +14,7 @@ export interface IPlayer {
   displayClient?: string | null;
   gameClass?: Pick<IGameClass, 'id'> | null;
   mainJar?: Pick<IAsset, 'id'> | null;
+  user?: Pick<IUser, 'id'> | null;
 }
 
 export type NewPlayer = Omit<IPlayer, 'id'> & { id: null };

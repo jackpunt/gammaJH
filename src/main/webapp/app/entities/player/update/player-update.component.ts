@@ -11,6 +11,8 @@ import { IGameClass } from 'app/entities/game-class/game-class.model';
 import { GameClassService } from 'app/entities/game-class/service/game-class.service';
 import { IAsset } from 'app/entities/asset/asset.model';
 import { AssetService } from 'app/entities/asset/service/asset.service';
+import { IUser } from 'app/entities/user/user.model';
+import { UserService } from 'app/entities/user/user.service';
 
 @Component({
   selector: 'jhi-player-update',
@@ -22,6 +24,7 @@ export class PlayerUpdateComponent implements OnInit {
 
   gameClassesSharedCollection: IGameClass[] = [];
   assetsSharedCollection: IAsset[] = [];
+  usersSharedCollection: IUser[] = [];
 
   editForm: PlayerFormGroup = this.playerFormService.createPlayerFormGroup();
 
@@ -30,12 +33,15 @@ export class PlayerUpdateComponent implements OnInit {
     protected playerFormService: PlayerFormService,
     protected gameClassService: GameClassService,
     protected assetService: AssetService,
+    protected userService: UserService,
     protected activatedRoute: ActivatedRoute
   ) {}
 
   compareGameClass = (o1: IGameClass | null, o2: IGameClass | null): boolean => this.gameClassService.compareGameClass(o1, o2);
 
   compareAsset = (o1: IAsset | null, o2: IAsset | null): boolean => this.assetService.compareAsset(o1, o2);
+
+  compareUser = (o1: IUser | null, o2: IUser | null): boolean => this.userService.compareUser(o1, o2);
 
   ngOnInit(): void {
     this.activatedRoute.data.subscribe(({ player }) => {
@@ -90,6 +96,7 @@ export class PlayerUpdateComponent implements OnInit {
       player.gameClass
     );
     this.assetsSharedCollection = this.assetService.addAssetToCollectionIfMissing<IAsset>(this.assetsSharedCollection, player.mainJar);
+    this.usersSharedCollection = this.userService.addUserToCollectionIfMissing<IUser>(this.usersSharedCollection, player.user);
   }
 
   protected loadRelationshipsOptions(): void {
@@ -108,5 +115,11 @@ export class PlayerUpdateComponent implements OnInit {
       .pipe(map((res: HttpResponse<IAsset[]>) => res.body ?? []))
       .pipe(map((assets: IAsset[]) => this.assetService.addAssetToCollectionIfMissing<IAsset>(assets, this.player?.mainJar)))
       .subscribe((assets: IAsset[]) => (this.assetsSharedCollection = assets));
+
+    this.userService
+      .query()
+      .pipe(map((res: HttpResponse<IUser[]>) => res.body ?? []))
+      .pipe(map((users: IUser[]) => this.userService.addUserToCollectionIfMissing<IUser>(users, this.player?.user)))
+      .subscribe((users: IUser[]) => (this.usersSharedCollection = users));
   }
 }

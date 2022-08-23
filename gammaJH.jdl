@@ -31,7 +31,7 @@ application {
     reactive false
     rememberMeKey "2f51cb2b5a56a62718e77f9cac4d420799d6a01a8c4cc2fd50f271a9bdaf7c41c8bb9b10f5b5aa0046ee1f28326be9d4cd36"
     searchEngine false
-    serverPort 8080
+    serverPort 8081
     serviceDiscoveryType no
     skipUserManagement false
     testFrameworks []
@@ -142,6 +142,7 @@ relationship ManyToOne {
   GameInst{gameClass} to GameClass
   Player{gameClass} to GameClass
   Player{mainJar} to Asset
+  Player{user} to User
   Asset{user} to User
   MemberGameProps{user} to User
   MemberGameProps{gameClass} to GameClass

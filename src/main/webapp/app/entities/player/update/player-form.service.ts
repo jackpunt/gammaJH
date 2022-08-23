@@ -41,6 +41,7 @@ type PlayerFormGroupContent = {
   displayClient: FormControl<PlayerFormRawValue['displayClient']>;
   gameClass: FormControl<PlayerFormRawValue['gameClass']>;
   mainJar: FormControl<PlayerFormRawValue['mainJar']>;
+  user: FormControl<PlayerFormRawValue['user']>;
 };
 
 export type PlayerFormGroup = FormGroup<PlayerFormGroupContent>;
@@ -73,6 +74,7 @@ export class PlayerFormService {
       }),
       gameClass: new FormControl(playerRawValue.gameClass),
       mainJar: new FormControl(playerRawValue.mainJar),
+      user: new FormControl(playerRawValue.user),
     });
   }
 

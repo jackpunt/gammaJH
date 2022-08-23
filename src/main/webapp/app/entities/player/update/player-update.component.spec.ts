@@ -14,6 +14,9 @@ import { GameClassService } from 'app/entities/game-class/service/game-class.ser
 import { IAsset } from 'app/entities/asset/asset.model';
 import { AssetService } from 'app/entities/asset/service/asset.service';
 
+import { IUser } from 'app/entities/user/user.model';
+import { UserService } from 'app/entities/user/user.service';
+
 import { PlayerUpdateComponent } from './player-update.component';
 
 describe('Player Management Update Component', () => {
@@ -24,6 +27,7 @@ describe('Player Management Update Component', () => {
   let playerService: PlayerService;
   let gameClassService: GameClassService;
   let assetService: AssetService;
+  let userService: UserService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -48,6 +52,7 @@ describe('Player Management Update Component', () => {
     playerService = TestBed.inject(PlayerService);
     gameClassService = TestBed.inject(GameClassService);
     assetService = TestBed.inject(AssetService);
+    userService = TestBed.inject(UserService);
 
     comp = fixture.componentInstance;
   });
@@ -97,18 +102,43 @@ describe('Player Management Update Component', () => {
       expect(comp.assetsSharedCollection).toEqual(expectedCollection);
     });
 
+    it('Should call User query and add missing value', () => {
+      const player: IPlayer = { id: 456 };
+      const user: IUser = { id: 29150 };
+      player.user = user;
+
+      const userCollection: IUser[] = [{ id: 10108 }];
+      jest.spyOn(userService, 'query').mockReturnValue(of(new HttpResponse({ body: userCollection })));
+      const additionalUsers = [user];
+      const expectedCollection: IUser[] = [...additionalUsers, ...userCollection];
+      jest.spyOn(userService, 'addUserToCollectionIfMissing').mockReturnValue(expectedCollection);
+
+      activatedRoute.data = of({ player });
+      comp.ngOnInit();
+
+      expect(userService.query).toHaveBeenCalled();
+      expect(userService.addUserToCollectionIfMissing).toHaveBeenCalledWith(
+        userCollection,
+        ...additionalUsers.map(expect.objectContaining)
+      );
+      expect(comp.usersSharedCollection).toEqual(expectedCollection);
+    });
+
     it('Should update editForm', () => {
       const player: IPlayer = { id: 456 };
       const gameClass: IGameClass = { id: 85527 };
       player.gameClass = gameClass;
       const mainJar: IAsset = { id: 92190 };
       player.mainJar = mainJar;
+      const user: IUser = { id: 13396 };
+      player.user = user;
 
       activatedRoute.data = of({ player });
       comp.ngOnInit();
 
       expect(comp.gameClassesSharedCollection).toContain(gameClass);
       expect(comp.assetsSharedCollection).toContain(mainJar);
+      expect(comp.usersSharedCollection).toContain(user);
       expect(comp.player).toEqual(player);
     });
   });
@@ -199,6 +229,16 @@ describe('Player Management Update Component', () => {
         jest.spyOn(assetService, 'compareAsset');
         comp.compareAsset(entity, entity2);
         expect(assetService.compareAsset).toHaveBeenCalledWith(entity, entity2);
+      });
+    });
+
+    describe('compareUser', () => {
+      it('Should forward to userService', () => {
+        const entity = { id: 123 };
+        const entity2 = { id: 456 };
+        jest.spyOn(userService, 'compareUser');
+        comp.compareUser(entity, entity2);
+        expect(userService.compareUser).toHaveBeenCalledWith(entity, entity2);
       });
     });
   });

@@ -29,6 +29,7 @@ describe('Player Form Service', () => {
             displayClient: expect.any(Object),
             gameClass: expect.any(Object),
             mainJar: expect.any(Object),
+            user: expect.any(Object),
           })
         );
       });
@@ -48,6 +49,7 @@ describe('Player Form Service', () => {
             displayClient: expect.any(Object),
             gameClass: expect.any(Object),
             mainJar: expect.any(Object),
+            user: expect.any(Object),
           })
         );
       });

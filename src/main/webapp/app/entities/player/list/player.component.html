@@ -54,6 +54,7 @@
           <th scope="col" jhiSortBy="mainJar.id">
             <span jhiTranslate="gammaJhApp.player.mainJar">Main Jar</span> <fa-icon icon="sort"></fa-icon>
           </th>
+          <th scope="col" jhiSortBy="user.id"><span jhiTranslate="gammaJhApp.player.user">User</span> <fa-icon icon="sort"></fa-icon></th>
           <th scope="col"></th>
         </tr>
       </thead>
@@ -78,6 +79,9 @@
             <div *ngIf="player.mainJar">
               <a [routerLink]="['/asset', player.mainJar.id, 'view']">{{ player.mainJar?.id }}</a>
             </div>
+          </td>
+          <td>
+            {{ player.user?.id }}
           </td>
           <td class="text-end">
             <div class="btn-group">

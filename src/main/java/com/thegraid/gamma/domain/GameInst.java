@@ -60,11 +60,11 @@ public class GameInst implements Serializable {
     private GameInstProps props;
 
     @ManyToOne
-    @JsonIgnoreProperties(value = { "gameClass", "mainJar" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "gameClass", "mainJar", "user" }, allowSetters = true)
     private Player playerA;
 
     @ManyToOne
-    @JsonIgnoreProperties(value = { "gameClass", "mainJar" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "gameClass", "mainJar", "user" }, allowSetters = true)
     private Player playerB;
 
     @ManyToOne

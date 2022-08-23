@@ -57,6 +57,11 @@
       "otherEntityName": "asset",
       "relationshipName": "mainJar",
       "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityName": "user",
+      "relationshipName": "user",
+      "relationshipType": "many-to-one"
     }
   ],
   "service": "serviceClass"

@@ -34,7 +34,7 @@ public class GamePlayer implements Serializable {
     private GameInst gameInst;
 
     @ManyToOne
-    @JsonIgnoreProperties(value = { "gameClass", "mainJar" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "gameClass", "mainJar", "user" }, allowSetters = true)
     private Player player;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here

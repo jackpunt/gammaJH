@@ -1,6 +1,7 @@
 package com.thegraid.gamma.repository;
 
 import com.thegraid.gamma.domain.Player;
+import java.util.List;
 import org.springframework.data.jpa.repository.*;
 import org.springframework.stereotype.Repository;
 
@@ -9,4 +10,7 @@ import org.springframework.stereotype.Repository;
  */
 @SuppressWarnings("unused")
 @Repository
-public interface PlayerRepository extends JpaRepository<Player, Long> {}
+public interface PlayerRepository extends JpaRepository<Player, Long> {
+    @Query("select player from Player player where player.user.login = ?#{principal.username}")
+    List<Player> findByUserIsCurrentUser();
+}

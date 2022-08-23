@@ -50,6 +50,9 @@ public class Player implements Serializable {
     @JsonIgnoreProperties(value = { "user" }, allowSetters = true)
     private Asset mainJar;
 
+    @ManyToOne
+    private User user;
+
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
     public Long getId() {
@@ -179,6 +182,19 @@ public class Player implements Serializable {
 
     public Player mainJar(Asset asset) {
         this.setMainJar(asset);
+        return this;
+    }
+
+    public User getUser() {
+        return this.user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Player user(User user) {
+        this.setUser(user);
         return this;
     }
 

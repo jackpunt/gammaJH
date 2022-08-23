@@ -54,6 +54,10 @@
             <a [routerLink]="['/asset', player.mainJar.id, 'view']">{{ player.mainJar?.id }}</a>
           </div>
         </dd>
+        <dt><span jhiTranslate="gammaJhApp.player.user">User</span></dt>
+        <dd>
+          <span>{{ player.user?.id }}</span>
+        </dd>
       </dl>
 
       <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">

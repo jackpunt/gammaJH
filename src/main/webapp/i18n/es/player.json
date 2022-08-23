@@ -26,7 +26,8 @@
       "rankTime": "Rank Time",
       "displayClient": "Display Client",
       "gameClass": "Game Class",
-      "mainJar": "Main Jar"
+      "mainJar": "Main Jar",
+      "user": "User"
     }
   }
 }
