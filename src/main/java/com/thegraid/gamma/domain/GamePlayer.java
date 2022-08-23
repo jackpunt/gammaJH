@@ -22,11 +22,19 @@ public class GamePlayer implements Serializable {
     @Column(name = "version")
     private Integer version;
 
-    @Size(max = 2)
-    @Column(name = "role", length = 2)
+    /**
+     * assigned in Lobby
+     */
+    @NotNull
+    @Size(max = 4)
+    @Column(name = "role", length = 4, nullable = false)
     private String role;
 
-    @Column(name = "ready")
+    /**
+     * initial FALSE(-1)
+     */
+    @NotNull
+    @Column(name = "ready", nullable = false)
     private Boolean ready;
 
     @ManyToOne

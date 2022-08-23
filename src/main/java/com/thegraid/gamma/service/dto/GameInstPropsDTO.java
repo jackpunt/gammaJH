@@ -2,8 +2,9 @@ package com.thegraid.gamma.service.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.io.Serializable;
-import java.time.Instant;
+import java.time.ZonedDateTime;
 import java.util.Objects;
+import javax.validation.constraints.*;
 
 /**
  * A DTO for the {@link com.thegraid.gamma.domain.GameInstProps} entity.
@@ -17,15 +18,33 @@ public class GameInstPropsDTO implements Serializable {
 
     private Long seed;
 
+    /**
+     * NULL means use normal/standard
+     */
+    @Size(max = 45)
+    @Schema(description = "NULL means use normal/standard")
     private String mapName;
 
+    /**
+     * NULL means not-specified'
+     */
+    @Schema(description = "NULL means not-specified'")
     private Integer mapSize;
 
+    /**
+     * NULL means not-specified'
+     */
+    @Schema(description = "NULL means not-specified'")
     private Integer npcCount;
 
+    /**
+     * json form of game-specific properties
+     */
+    @Schema(description = "json form of game-specific properties")
     private String jsonProps;
 
-    private Instant updated;
+    @NotNull
+    private ZonedDateTime updated;
 
     public Long getId() {
         return id;
@@ -83,11 +102,11 @@ public class GameInstPropsDTO implements Serializable {
         this.jsonProps = jsonProps;
     }
 
-    public Instant getUpdated() {
+    public ZonedDateTime getUpdated() {
         return updated;
     }
 
-    public void setUpdated(Instant updated) {
+    public void setUpdated(ZonedDateTime updated) {
         this.updated = updated;
     }
 

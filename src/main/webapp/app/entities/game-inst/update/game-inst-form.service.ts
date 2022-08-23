@@ -70,14 +70,22 @@ export class GameInstFormService {
       ),
       version: new FormControl(gameInstRawValue.version),
       gameName: new FormControl(gameInstRawValue.gameName, {
-        validators: [Validators.maxLength(45)],
+        validators: [Validators.maxLength(64)],
       }),
-      hostUrl: new FormControl(gameInstRawValue.hostUrl),
-      passcode: new FormControl(gameInstRawValue.passcode),
-      created: new FormControl(gameInstRawValue.created),
+      hostUrl: new FormControl(gameInstRawValue.hostUrl, {
+        validators: [Validators.maxLength(64)],
+      }),
+      passcode: new FormControl(gameInstRawValue.passcode, {
+        validators: [Validators.maxLength(64)],
+      }),
+      created: new FormControl(gameInstRawValue.created, {
+        validators: [Validators.required],
+      }),
       started: new FormControl(gameInstRawValue.started),
       finished: new FormControl(gameInstRawValue.finished),
-      updated: new FormControl(gameInstRawValue.updated),
+      updated: new FormControl(gameInstRawValue.updated, {
+        validators: [Validators.required],
+      }),
       scoreA: new FormControl(gameInstRawValue.scoreA),
       scoreB: new FormControl(gameInstRawValue.scoreB),
       ticks: new FormControl(gameInstRawValue.ticks),

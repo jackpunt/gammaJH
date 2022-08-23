@@ -44,9 +44,11 @@ export class GamePlayerFormService {
       ),
       version: new FormControl(gamePlayerRawValue.version),
       role: new FormControl(gamePlayerRawValue.role, {
-        validators: [Validators.maxLength(2)],
+        validators: [Validators.required, Validators.maxLength(4)],
       }),
-      ready: new FormControl(gamePlayerRawValue.ready),
+      ready: new FormControl(gamePlayerRawValue.ready, {
+        validators: [Validators.required],
+      }),
       gameInst: new FormControl(gamePlayerRawValue.gameInst),
       player: new FormControl(gamePlayerRawValue.player),
     });

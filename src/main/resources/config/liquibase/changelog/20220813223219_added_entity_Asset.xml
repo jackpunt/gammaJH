@@ -17,19 +17,19 @@
             <column name="version" type="integer">
                 <constraints nullable="true" />
             </column>
-            <column name="name" type="varchar(45)">
+            <column name="name" type="varchar(45)" remarks="display name">
                 <constraints nullable="true" />
             </column>
-            <column name="main" type="boolean">
+            <column name="main" type="boolean" remarks="IPlayer - can be player.main_jar">
                 <constraints nullable="true" />
             </column>
-            <column name="auto" type="boolean">
+            <column name="auto" type="boolean" remarks="bot is full-auto">
                 <constraints nullable="true" />
             </column>
-            <column name="path" type="varchar(255)">
+            <column name="path" type="varchar(255)" remarks="url to asset (class or document/resource)\njar-path ! fqcn.of.asset.class \njar-path ! path/inside/jar/document\nURL=getenv(“ASSETBASE”)+path/to/release.jar ! user.supplied.Player">
                 <constraints nullable="true" />
             </column>
-            <column name="include" type="varchar(255)">
+            <column name="include" type="varchar(255)" remarks="comma-separated list of asset Ids">
                 <constraints nullable="true" />
             </column>
             <column name="user_id" type="bigint">

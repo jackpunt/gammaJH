@@ -37,7 +37,7 @@ type GameClassFormGroupContent = {
   launcherPath: FormControl<GameClassFormRawValue['launcherPath']>;
   gamePath: FormControl<GameClassFormRawValue['gamePath']>;
   docsPath: FormControl<GameClassFormRawValue['docsPath']>;
-  propsNames: FormControl<GameClassFormRawValue['propsNames']>;
+  propNames: FormControl<GameClassFormRawValue['propNames']>;
   updated: FormControl<GameClassFormRawValue['updated']>;
 };
 
@@ -60,16 +60,18 @@ export class GameClassFormService {
       ),
       version: new FormControl(gameClassRawValue.version),
       name: new FormControl(gameClassRawValue.name, {
-        validators: [Validators.maxLength(45)],
+        validators: [Validators.required, Validators.maxLength(45)],
       }),
       revision: new FormControl(gameClassRawValue.revision, {
-        validators: [Validators.maxLength(45)],
+        validators: [Validators.maxLength(24)],
       }),
       launcherPath: new FormControl(gameClassRawValue.launcherPath),
       gamePath: new FormControl(gameClassRawValue.gamePath),
       docsPath: new FormControl(gameClassRawValue.docsPath),
-      propsNames: new FormControl(gameClassRawValue.propsNames),
-      updated: new FormControl(gameClassRawValue.updated),
+      propNames: new FormControl(gameClassRawValue.propNames),
+      updated: new FormControl(gameClassRawValue.updated, {
+        validators: [Validators.required],
+      }),
     });
   }
 

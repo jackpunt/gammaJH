@@ -17,11 +17,11 @@
             <column name="version" type="integer">
                 <constraints nullable="true" />
             </column>
-            <column name="role" type="varchar(2)">
-                <constraints nullable="true" />
+            <column name="role" type="varchar(4)" remarks="assigned in Lobby">
+                <constraints nullable="false" />
             </column>
-            <column name="ready" type="boolean">
-                <constraints nullable="true" />
+            <column name="ready" type="boolean" remarks="initial FALSE(-1)">
+                <constraints nullable="false" />
             </column>
             <column name="game_inst_id" type="bigint">
                 <constraints nullable="true" />

@@ -15,9 +15,19 @@ public class GamePlayerDTO implements Serializable {
 
     private Integer version;
 
-    @Size(max = 2)
+    /**
+     * assigned in Lobby
+     */
+    @NotNull
+    @Size(max = 4)
+    @Schema(description = "assigned in Lobby", required = true)
     private String role;
 
+    /**
+     * initial FALSE(-1)
+     */
+    @NotNull
+    @Schema(description = "initial FALSE(-1)", required = true)
     private Boolean ready;
 
     private GameInstDTO gameInst;

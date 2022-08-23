@@ -16,23 +16,28 @@
       "fieldName": "name",
       "fieldType": "String",
       "fieldValidateRules": ["maxlength"],
-      "fieldValidateRulesMaxlength": "45"
+      "fieldValidateRulesMaxlength": "45",
+      "javadoc": "display name"
     },
     {
       "fieldName": "main",
-      "fieldType": "Boolean"
+      "fieldType": "Boolean",
+      "javadoc": "IPlayer - can be player.main_jar"
     },
     {
       "fieldName": "auto",
-      "fieldType": "Boolean"
+      "fieldType": "Boolean",
+      "javadoc": "bot is full-auto"
     },
     {
       "fieldName": "path",
-      "fieldType": "String"
+      "fieldType": "String",
+      "javadoc": "url to asset (class or document/resource)\\njar-path ! fqcn.of.asset.class \\njar-path ! path/inside/jar/document\\nURL=getenv(“ASSETBASE”)+path/to/release.jar ! user.supplied.Player"
     },
     {
       "fieldName": "include",
-      "fieldType": "String"
+      "fieldType": "String",
+      "javadoc": "comma-separated list of asset Ids"
     }
   ],
   "fluentMethods": true,

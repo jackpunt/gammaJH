@@ -2,7 +2,7 @@ package com.thegraid.gamma.service.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.io.Serializable;
-import java.time.Instant;
+import java.time.ZonedDateTime;
 import java.util.Objects;
 import javax.validation.constraints.*;
 
@@ -16,10 +16,11 @@ public class GameClassDTO implements Serializable {
 
     private Integer version;
 
+    @NotNull
     @Size(max = 45)
     private String name;
 
-    @Size(max = 45)
+    @Size(max = 24)
     private String revision;
 
     private String launcherPath;
@@ -28,9 +29,10 @@ public class GameClassDTO implements Serializable {
 
     private String docsPath;
 
-    private String propsNames;
+    private String propNames;
 
-    private Instant updated;
+    @NotNull
+    private ZonedDateTime updated;
 
     public Long getId() {
         return id;
@@ -88,19 +90,19 @@ public class GameClassDTO implements Serializable {
         this.docsPath = docsPath;
     }
 
-    public String getPropsNames() {
-        return propsNames;
+    public String getPropNames() {
+        return propNames;
     }
 
-    public void setPropsNames(String propsNames) {
-        this.propsNames = propsNames;
+    public void setPropNames(String propNames) {
+        this.propNames = propNames;
     }
 
-    public Instant getUpdated() {
+    public ZonedDateTime getUpdated() {
         return updated;
     }
 
-    public void setUpdated(Instant updated) {
+    public void setUpdated(ZonedDateTime updated) {
         this.updated = updated;
     }
 
@@ -136,7 +138,7 @@ public class GameClassDTO implements Serializable {
             ", launcherPath='" + getLauncherPath() + "'" +
             ", gamePath='" + getGamePath() + "'" +
             ", docsPath='" + getDocsPath() + "'" +
-            ", propsNames='" + getPropsNames() + "'" +
+            ", propNames='" + getPropNames() + "'" +
             ", updated='" + getUpdated() + "'" +
             "}";
     }

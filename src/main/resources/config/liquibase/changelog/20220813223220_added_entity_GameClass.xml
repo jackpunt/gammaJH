@@ -18,9 +18,9 @@
                 <constraints nullable="true" />
             </column>
             <column name="name" type="varchar(45)">
-                <constraints nullable="true" />
+                <constraints nullable="false" />
             </column>
-            <column name="revision" type="varchar(45)">
+            <column name="revision" type="varchar(24)">
                 <constraints nullable="true" />
             </column>
             <column name="launcher_path" type="varchar(255)">
@@ -32,11 +32,11 @@
             <column name="docs_path" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
-            <column name="props_names" type="varchar(255)">
+            <column name="prop_names" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
             <column name="updated" type="${datetimeType}">
-                <constraints nullable="true" />
+                <constraints nullable="false" />
             </column>
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here -->
         </createTable>

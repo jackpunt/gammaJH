@@ -25,7 +25,13 @@
       "npcCount": "Npc Count",
       "jsonProps": "Json Props",
       "updated": "Updated",
-      "gameInst": "Game Inst"
+      "gameInst": "Game Inst",
+      "help": {
+        "mapName": "NULL means use normal/standard",
+        "mapSize": "NULL means not-specified&#39;",
+        "npcCount": "NULL means not-specified&#39;",
+        "jsonProps": "json form of game-specific properties"
+      }
     }
   }
 }

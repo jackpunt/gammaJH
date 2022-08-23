@@ -63,14 +63,14 @@ export class PlayerFormService {
       ),
       version: new FormControl(playerRawValue.version),
       name: new FormControl(playerRawValue.name, {
-        validators: [Validators.maxLength(45)],
+        validators: [Validators.maxLength(64)],
       }),
       rank: new FormControl(playerRawValue.rank),
       score: new FormControl(playerRawValue.score),
       scoreTime: new FormControl(playerRawValue.scoreTime),
       rankTime: new FormControl(playerRawValue.rankTime),
       displayClient: new FormControl(playerRawValue.displayClient, {
-        validators: [Validators.maxLength(45)],
+        validators: [Validators.maxLength(64)],
       }),
       gameClass: new FormControl(playerRawValue.gameClass),
       mainJar: new FormControl(playerRawValue.mainJar),

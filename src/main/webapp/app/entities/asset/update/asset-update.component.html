@@ -19,7 +19,13 @@
         </div>
 
         <div class="row mb-3">
-          <label class="form-label" jhiTranslate="gammaJhApp.asset.name" for="field_name">Name</label>
+          <label
+            class="form-label"
+            jhiTranslate="gammaJhApp.asset.name"
+            for="field_name"
+            [ngbTooltip]="'gammaJhApp.asset.help.name' | translate"
+            >Name</label
+          >
           <input type="text" class="form-control" name="name" id="field_name" data-cy="name" formControlName="name" />
           <div *ngIf="editForm.get('name')!.invalid && (editForm.get('name')!.dirty || editForm.get('name')!.touched)">
             <small
@@ -34,22 +40,46 @@
         </div>
 
         <div class="row mb-3">
-          <label class="form-label" jhiTranslate="gammaJhApp.asset.main" for="field_main">Main</label>
+          <label
+            class="form-label"
+            jhiTranslate="gammaJhApp.asset.main"
+            for="field_main"
+            [ngbTooltip]="'gammaJhApp.asset.help.main' | translate"
+            >Main</label
+          >
           <input type="checkbox" class="form-check" name="main" id="field_main" data-cy="main" formControlName="main" />
         </div>
 
         <div class="row mb-3">
-          <label class="form-label" jhiTranslate="gammaJhApp.asset.auto" for="field_auto">Auto</label>
+          <label
+            class="form-label"
+            jhiTranslate="gammaJhApp.asset.auto"
+            for="field_auto"
+            [ngbTooltip]="'gammaJhApp.asset.help.auto' | translate"
+            >Auto</label
+          >
           <input type="checkbox" class="form-check" name="auto" id="field_auto" data-cy="auto" formControlName="auto" />
         </div>
 
         <div class="row mb-3">
-          <label class="form-label" jhiTranslate="gammaJhApp.asset.path" for="field_path">Path</label>
+          <label
+            class="form-label"
+            jhiTranslate="gammaJhApp.asset.path"
+            for="field_path"
+            [ngbTooltip]="'gammaJhApp.asset.help.path' | translate"
+            >Path</label
+          >
           <input type="text" class="form-control" name="path" id="field_path" data-cy="path" formControlName="path" />
         </div>
 
         <div class="row mb-3">
-          <label class="form-label" jhiTranslate="gammaJhApp.asset.include" for="field_include">Include</label>
+          <label
+            class="form-label"
+            jhiTranslate="gammaJhApp.asset.include"
+            for="field_include"
+            [ngbTooltip]="'gammaJhApp.asset.help.include' | translate"
+            >Include</label
+          >
           <input type="text" class="form-control" name="include" id="field_include" data-cy="include" formControlName="include" />
         </div>
 

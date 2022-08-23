@@ -59,11 +59,15 @@ export class GameInstPropsFormService {
       ),
       version: new FormControl(gameInstPropsRawValue.version),
       seed: new FormControl(gameInstPropsRawValue.seed),
-      mapName: new FormControl(gameInstPropsRawValue.mapName),
+      mapName: new FormControl(gameInstPropsRawValue.mapName, {
+        validators: [Validators.maxLength(45)],
+      }),
       mapSize: new FormControl(gameInstPropsRawValue.mapSize),
       npcCount: new FormControl(gameInstPropsRawValue.npcCount),
       jsonProps: new FormControl(gameInstPropsRawValue.jsonProps),
-      updated: new FormControl(gameInstPropsRawValue.updated),
+      updated: new FormControl(gameInstPropsRawValue.updated, {
+        validators: [Validators.required],
+      }),
     });
   }
 

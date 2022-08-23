@@ -35,8 +35,8 @@ class GamePlayerResourceIT {
     private static final Integer DEFAULT_VERSION = 1;
     private static final Integer UPDATED_VERSION = 2;
 
-    private static final String DEFAULT_ROLE = "AA";
-    private static final String UPDATED_ROLE = "BB";
+    private static final String DEFAULT_ROLE = "AAAA";
+    private static final String UPDATED_ROLE = "BBBB";
 
     private static final Boolean DEFAULT_READY = false;
     private static final Boolean UPDATED_READY = true;
@@ -134,6 +134,52 @@ class GamePlayerResourceIT {
         // Validate the GamePlayer in the database
         List<GamePlayer> gamePlayerList = gamePlayerRepository.findAll();
         assertThat(gamePlayerList).hasSize(databaseSizeBeforeCreate);
+    }
+
+    @Test
+    @Transactional
+    void checkRoleIsRequired() throws Exception {
+        int databaseSizeBeforeTest = gamePlayerRepository.findAll().size();
+        // set the field null
+        gamePlayer.setRole(null);
+
+        // Create the GamePlayer, which fails.
+        GamePlayerDTO gamePlayerDTO = gamePlayerMapper.toDto(gamePlayer);
+
+        restGamePlayerMockMvc
+            .perform(
+                post(ENTITY_API_URL)
+                    .with(csrf())
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(TestUtil.convertObjectToJsonBytes(gamePlayerDTO))
+            )
+            .andExpect(status().isBadRequest());
+
+        List<GamePlayer> gamePlayerList = gamePlayerRepository.findAll();
+        assertThat(gamePlayerList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
+    void checkReadyIsRequired() throws Exception {
+        int databaseSizeBeforeTest = gamePlayerRepository.findAll().size();
+        // set the field null
+        gamePlayer.setReady(null);
+
+        // Create the GamePlayer, which fails.
+        GamePlayerDTO gamePlayerDTO = gamePlayerMapper.toDto(gamePlayer);
+
+        restGamePlayerMockMvc
+            .perform(
+                post(ENTITY_API_URL)
+                    .with(csrf())
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(TestUtil.convertObjectToJsonBytes(gamePlayerDTO))
+            )
+            .andExpect(status().isBadRequest());
+
+        List<GamePlayer> gamePlayerList = gamePlayerRepository.findAll();
+        assertThat(gamePlayerList).hasSize(databaseSizeBeforeTest);
     }
 
     @Test

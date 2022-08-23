@@ -18,15 +18,15 @@
         <dd>
           <span>{{ player.version }}</span>
         </dd>
-        <dt><span jhiTranslate="gammaJhApp.player.name">Name</span></dt>
+        <dt><span jhiTranslate="gammaJhApp.player.name" [ngbTooltip]="'gammaJhApp.player.help.name' | translate">Name</span></dt>
         <dd>
           <span>{{ player.name }}</span>
         </dd>
-        <dt><span jhiTranslate="gammaJhApp.player.rank">Rank</span></dt>
+        <dt><span jhiTranslate="gammaJhApp.player.rank" [ngbTooltip]="'gammaJhApp.player.help.rank' | translate">Rank</span></dt>
         <dd>
           <span>{{ player.rank }}</span>
         </dd>
-        <dt><span jhiTranslate="gammaJhApp.player.score">Score</span></dt>
+        <dt><span jhiTranslate="gammaJhApp.player.score" [ngbTooltip]="'gammaJhApp.player.help.score' | translate">Score</span></dt>
         <dd>
           <span>{{ player.score }}</span>
         </dd>
@@ -38,7 +38,11 @@
         <dd>
           <span>{{ player.rankTime | formatMediumDatetime }}</span>
         </dd>
-        <dt><span jhiTranslate="gammaJhApp.player.displayClient">Display Client</span></dt>
+        <dt>
+          <span jhiTranslate="gammaJhApp.player.displayClient" [ngbTooltip]="'gammaJhApp.player.help.displayClient' | translate"
+            >Display Client</span
+          >
+        </dt>
         <dd>
           <span>{{ player.displayClient }}</span>
         </dd>

@@ -15,12 +15,15 @@
     {
       "fieldName": "role",
       "fieldType": "String",
-      "fieldValidateRules": ["maxlength"],
-      "fieldValidateRulesMaxlength": "2"
+      "fieldValidateRules": ["maxlength", "required"],
+      "fieldValidateRulesMaxlength": "4",
+      "javadoc": "assigned in Lobby"
     },
     {
       "fieldName": "ready",
-      "fieldType": "Boolean"
+      "fieldType": "Boolean",
+      "fieldValidateRules": ["required"],
+      "javadoc": "initial FALSE(-1)"
     }
   ],
   "fluentMethods": true,

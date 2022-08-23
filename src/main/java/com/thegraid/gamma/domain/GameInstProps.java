@@ -2,8 +2,9 @@ package com.thegraid.gamma.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
-import java.time.Instant;
+import java.time.ZonedDateTime;
 import javax.persistence.*;
+import javax.validation.constraints.*;
 
 /**
  * the final negotiated properties for GameInst
@@ -25,20 +26,34 @@ public class GameInstProps implements Serializable {
     @Column(name = "seed")
     private Long seed;
 
-    @Column(name = "map_name")
+    /**
+     * NULL means use normal/standard
+     */
+    @Size(max = 45)
+    @Column(name = "map_name", length = 45)
     private String mapName;
 
+    /**
+     * NULL means not-specified'
+     */
     @Column(name = "map_size")
     private Integer mapSize;
 
+    /**
+     * NULL means not-specified'
+     */
     @Column(name = "npc_count")
     private Integer npcCount;
 
+    /**
+     * json form of game-specific properties
+     */
     @Column(name = "json_props")
     private String jsonProps;
 
-    @Column(name = "updated")
-    private Instant updated;
+    @NotNull
+    @Column(name = "updated", nullable = false)
+    private ZonedDateTime updated;
 
     @JsonIgnoreProperties(value = { "props", "playerA", "playerB", "gameClass" }, allowSetters = true)
     @OneToOne(mappedBy = "props")
@@ -137,16 +152,16 @@ public class GameInstProps implements Serializable {
         this.jsonProps = jsonProps;
     }
 
-    public Instant getUpdated() {
+    public ZonedDateTime getUpdated() {
         return this.updated;
     }
 
-    public GameInstProps updated(Instant updated) {
+    public GameInstProps updated(ZonedDateTime updated) {
         this.setUpdated(updated);
         return this;
     }
 
-    public void setUpdated(Instant updated) {
+    public void setUpdated(ZonedDateTime updated) {
         this.updated = updated;
     }
 

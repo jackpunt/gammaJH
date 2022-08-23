@@ -24,7 +24,14 @@
       "auto": "Auto",
       "path": "Path",
       "include": "Include",
-      "user": "User"
+      "user": "User",
+      "help": {
+        "name": "display name",
+        "main": "IPlayer - can be player.main_jar",
+        "auto": "bot is full-auto",
+        "path": "url to asset (class or document/resource)\njar-path ! fqcn.of.asset.class \njar-path ! path/inside/jar/document\nURL=getenv(“ASSETBASE”)+path/to/release.jar ! user.supplied.Player",
+        "include": "comma-separated list of asset Ids"
+      }
     }
   }
 }

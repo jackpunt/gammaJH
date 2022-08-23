@@ -9,25 +9,43 @@ import javax.validation.constraints.*;
 /**
  * A DTO for the {@link com.thegraid.gamma.domain.Player} entity.
  */
-@Schema(description = "a virtual player (the horse in a horse-race)")
+@Schema(description = "A Member-owned PlayerAI [Asset] with a displayClient [Asset]\na virtual player (the horse in a horse-race)")
 public class PlayerDTO implements Serializable {
 
     private Long id;
 
     private Integer version;
 
-    @Size(max = 45)
+    /**
+     * display name, as set by the owning Member.
+     */
+    @Size(max = 64)
+    @Schema(description = "display name, as set by the owning Member.")
     private String name;
 
+    /**
+     * NULL until ranked
+     */
+    @Schema(description = "NULL until ranked")
     private Integer rank;
 
+    /**
+     * initial 0
+     */
+    @Schema(description = "initial 0")
     private Integer score;
 
     private Instant scoreTime;
 
     private Instant rankTime;
 
-    @Size(max = 45)
+    /**
+     * URL path fragment to download display client from graid server.\nProbably redo as reference to display_client table entry or an asset entry.
+     */
+    @Size(max = 64)
+    @Schema(
+        description = "URL path fragment to download display client from graid server.\nProbably redo as reference to display_client table entry or an asset entry."
+    )
     private String displayClient;
 
     private GameClassDTO gameClass;

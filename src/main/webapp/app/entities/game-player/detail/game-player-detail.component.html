@@ -18,11 +18,11 @@
         <dd>
           <span>{{ gamePlayer.version }}</span>
         </dd>
-        <dt><span jhiTranslate="gammaJhApp.gamePlayer.role">Role</span></dt>
+        <dt><span jhiTranslate="gammaJhApp.gamePlayer.role" [ngbTooltip]="'gammaJhApp.gamePlayer.help.role' | translate">Role</span></dt>
         <dd>
           <span>{{ gamePlayer.role }}</span>
         </dd>
-        <dt><span jhiTranslate="gammaJhApp.gamePlayer.ready">Ready</span></dt>
+        <dt><span jhiTranslate="gammaJhApp.gamePlayer.ready" [ngbTooltip]="'gammaJhApp.gamePlayer.help.ready' | translate">Ready</span></dt>
         <dd>
           <span>{{ gamePlayer.ready }}</span>
         </dd>

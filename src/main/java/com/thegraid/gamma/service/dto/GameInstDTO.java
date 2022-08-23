@@ -2,7 +2,7 @@ package com.thegraid.gamma.service.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.io.Serializable;
-import java.time.Instant;
+import java.time.ZonedDateTime;
 import java.util.Objects;
 import javax.validation.constraints.*;
 
@@ -16,26 +16,30 @@ public class GameInstDTO implements Serializable {
 
     private Integer version;
 
-    @Size(max = 45)
+    @Size(max = 64)
     private String gameName;
 
+    @Size(max = 64)
     private String hostUrl;
 
+    @Size(max = 64)
     private String passcode;
 
-    private Instant created;
+    @NotNull
+    private ZonedDateTime created;
 
-    private Instant started;
+    private ZonedDateTime started;
 
-    private Instant finished;
+    private ZonedDateTime finished;
 
-    private Instant updated;
+    @NotNull
+    private ZonedDateTime updated;
 
     private Integer scoreA;
 
     private Integer scoreB;
 
-    private Long ticks;
+    private Integer ticks;
 
     private GameInstPropsDTO props;
 
@@ -85,35 +89,35 @@ public class GameInstDTO implements Serializable {
         this.passcode = passcode;
     }
 
-    public Instant getCreated() {
+    public ZonedDateTime getCreated() {
         return created;
     }
 
-    public void setCreated(Instant created) {
+    public void setCreated(ZonedDateTime created) {
         this.created = created;
     }
 
-    public Instant getStarted() {
+    public ZonedDateTime getStarted() {
         return started;
     }
 
-    public void setStarted(Instant started) {
+    public void setStarted(ZonedDateTime started) {
         this.started = started;
     }
 
-    public Instant getFinished() {
+    public ZonedDateTime getFinished() {
         return finished;
     }
 
-    public void setFinished(Instant finished) {
+    public void setFinished(ZonedDateTime finished) {
         this.finished = finished;
     }
 
-    public Instant getUpdated() {
+    public ZonedDateTime getUpdated() {
         return updated;
     }
 
-    public void setUpdated(Instant updated) {
+    public void setUpdated(ZonedDateTime updated) {
         this.updated = updated;
     }
 
@@ -133,11 +137,11 @@ public class GameInstDTO implements Serializable {
         this.scoreB = scoreB;
     }
 
-    public Long getTicks() {
+    public Integer getTicks() {
         return ticks;
     }
 
-    public void setTicks(Long ticks) {
+    public void setTicks(Integer ticks) {
         this.ticks = ticks;
     }
 

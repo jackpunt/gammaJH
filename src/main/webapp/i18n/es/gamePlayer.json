@@ -22,7 +22,11 @@
       "role": "Role",
       "ready": "Ready",
       "gameInst": "Game Inst",
-      "player": "Player"
+      "player": "Player",
+      "help": {
+        "role": "assigned in Lobby",
+        "ready": "initial FALSE(-1)"
+      }
     }
   }
 }

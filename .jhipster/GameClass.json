@@ -15,14 +15,14 @@
     {
       "fieldName": "name",
       "fieldType": "String",
-      "fieldValidateRules": ["maxlength"],
+      "fieldValidateRules": ["maxlength", "required"],
       "fieldValidateRulesMaxlength": "45"
     },
     {
       "fieldName": "revision",
       "fieldType": "String",
       "fieldValidateRules": ["maxlength"],
-      "fieldValidateRulesMaxlength": "45"
+      "fieldValidateRulesMaxlength": "24"
     },
     {
       "fieldName": "launcherPath",
@@ -37,12 +37,13 @@
       "fieldType": "String"
     },
     {
-      "fieldName": "propsNames",
+      "fieldName": "propNames",
       "fieldType": "String"
     },
     {
       "fieldName": "updated",
-      "fieldType": "Instant"
+      "fieldType": "ZonedDateTime",
+      "fieldValidateRules": ["required"]
     }
   ],
   "fluentMethods": true,

@@ -1,7 +1,7 @@
 package com.thegraid.gamma.domain;
 
 import java.io.Serializable;
-import java.time.Instant;
+import java.time.ZonedDateTime;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 
@@ -22,12 +22,13 @@ public class GameClass implements Serializable {
     @Column(name = "version")
     private Integer version;
 
+    @NotNull
     @Size(max = 45)
-    @Column(name = "name", length = 45)
+    @Column(name = "name", length = 45, nullable = false)
     private String name;
 
-    @Size(max = 45)
-    @Column(name = "revision", length = 45)
+    @Size(max = 24)
+    @Column(name = "revision", length = 24)
     private String revision;
 
     @Column(name = "launcher_path")
@@ -39,11 +40,12 @@ public class GameClass implements Serializable {
     @Column(name = "docs_path")
     private String docsPath;
 
-    @Column(name = "props_names")
-    private String propsNames;
+    @Column(name = "prop_names")
+    private String propNames;
 
-    @Column(name = "updated")
-    private Instant updated;
+    @NotNull
+    @Column(name = "updated", nullable = false)
+    private ZonedDateTime updated;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -138,29 +140,29 @@ public class GameClass implements Serializable {
         this.docsPath = docsPath;
     }
 
-    public String getPropsNames() {
-        return this.propsNames;
+    public String getPropNames() {
+        return this.propNames;
     }
 
-    public GameClass propsNames(String propsNames) {
-        this.setPropsNames(propsNames);
+    public GameClass propNames(String propNames) {
+        this.setPropNames(propNames);
         return this;
     }
 
-    public void setPropsNames(String propsNames) {
-        this.propsNames = propsNames;
+    public void setPropNames(String propNames) {
+        this.propNames = propNames;
     }
 
-    public Instant getUpdated() {
+    public ZonedDateTime getUpdated() {
         return this.updated;
     }
 
-    public GameClass updated(Instant updated) {
+    public GameClass updated(ZonedDateTime updated) {
         this.setUpdated(updated);
         return this;
     }
 
-    public void setUpdated(Instant updated) {
+    public void setUpdated(ZonedDateTime updated) {
         this.updated = updated;
     }
 
@@ -194,7 +196,7 @@ public class GameClass implements Serializable {
             ", launcherPath='" + getLauncherPath() + "'" +
             ", gamePath='" + getGamePath() + "'" +
             ", docsPath='" + getDocsPath() + "'" +
-            ", propsNames='" + getPropsNames() + "'" +
+            ", propNames='" + getPropNames() + "'" +
             ", updated='" + getUpdated() + "'" +
             "}";
     }

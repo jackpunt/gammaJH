@@ -22,23 +22,43 @@
         <dd>
           <span>{{ memberGameProps.seed }}</span>
         </dd>
-        <dt><span jhiTranslate="gammaJhApp.memberGameProps.mapName">Map Name</span></dt>
+        <dt>
+          <span jhiTranslate="gammaJhApp.memberGameProps.mapName" [ngbTooltip]="'gammaJhApp.memberGameProps.help.mapName' | translate"
+            >Map Name</span
+          >
+        </dt>
         <dd>
           <span>{{ memberGameProps.mapName }}</span>
         </dd>
-        <dt><span jhiTranslate="gammaJhApp.memberGameProps.mapSize">Map Size</span></dt>
+        <dt>
+          <span jhiTranslate="gammaJhApp.memberGameProps.mapSize" [ngbTooltip]="'gammaJhApp.memberGameProps.help.mapSize' | translate"
+            >Map Size</span
+          >
+        </dt>
         <dd>
           <span>{{ memberGameProps.mapSize }}</span>
         </dd>
-        <dt><span jhiTranslate="gammaJhApp.memberGameProps.npcCount">Npc Count</span></dt>
+        <dt>
+          <span jhiTranslate="gammaJhApp.memberGameProps.npcCount" [ngbTooltip]="'gammaJhApp.memberGameProps.help.npcCount' | translate"
+            >Npc Count</span
+          >
+        </dt>
         <dd>
           <span>{{ memberGameProps.npcCount }}</span>
         </dd>
-        <dt><span jhiTranslate="gammaJhApp.memberGameProps.jsonProps">Json Props</span></dt>
+        <dt>
+          <span jhiTranslate="gammaJhApp.memberGameProps.jsonProps" [ngbTooltip]="'gammaJhApp.memberGameProps.help.jsonProps' | translate"
+            >Json Props</span
+          >
+        </dt>
         <dd>
           <span>{{ memberGameProps.jsonProps }}</span>
         </dd>
-        <dt><span jhiTranslate="gammaJhApp.memberGameProps.configName">Config Name</span></dt>
+        <dt>
+          <span jhiTranslate="gammaJhApp.memberGameProps.configName" [ngbTooltip]="'gammaJhApp.memberGameProps.help.configName' | translate"
+            >Config Name</span
+          >
+        </dt>
         <dd>
           <span>{{ memberGameProps.configName }}</span>
         </dd>

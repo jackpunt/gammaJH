@@ -1,5 +1,6 @@
 package com.thegraid.gamma.web.rest;
 
+import static com.thegraid.gamma.web.rest.TestUtil.sameInstant;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
@@ -12,7 +13,9 @@ import com.thegraid.gamma.repository.GameClassRepository;
 import com.thegraid.gamma.service.dto.GameClassDTO;
 import com.thegraid.gamma.service.mapper.GameClassMapper;
 import java.time.Instant;
-import java.time.temporal.ChronoUnit;
+import java.time.ZoneId;
+import java.time.ZoneOffset;
+import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicLong;
@@ -52,11 +55,11 @@ class GameClassResourceIT {
     private static final String DEFAULT_DOCS_PATH = "AAAAAAAAAA";
     private static final String UPDATED_DOCS_PATH = "BBBBBBBBBB";
 
-    private static final String DEFAULT_PROPS_NAMES = "AAAAAAAAAA";
-    private static final String UPDATED_PROPS_NAMES = "BBBBBBBBBB";
+    private static final String DEFAULT_PROP_NAMES = "AAAAAAAAAA";
+    private static final String UPDATED_PROP_NAMES = "BBBBBBBBBB";
 
-    private static final Instant DEFAULT_UPDATED = Instant.ofEpochMilli(0L);
-    private static final Instant UPDATED_UPDATED = Instant.now().truncatedTo(ChronoUnit.MILLIS);
+    private static final ZonedDateTime DEFAULT_UPDATED = ZonedDateTime.ofInstant(Instant.ofEpochMilli(0L), ZoneOffset.UTC);
+    private static final ZonedDateTime UPDATED_UPDATED = ZonedDateTime.now(ZoneId.systemDefault()).withNano(0);
 
     private static final String ENTITY_API_URL = "/api/game-classes";
     private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{id}";
@@ -92,7 +95,7 @@ class GameClassResourceIT {
             .launcherPath(DEFAULT_LAUNCHER_PATH)
             .gamePath(DEFAULT_GAME_PATH)
             .docsPath(DEFAULT_DOCS_PATH)
-            .propsNames(DEFAULT_PROPS_NAMES)
+            .propNames(DEFAULT_PROP_NAMES)
             .updated(DEFAULT_UPDATED);
         return gameClass;
     }
@@ -111,7 +114,7 @@ class GameClassResourceIT {
             .launcherPath(UPDATED_LAUNCHER_PATH)
             .gamePath(UPDATED_GAME_PATH)
             .docsPath(UPDATED_DOCS_PATH)
-            .propsNames(UPDATED_PROPS_NAMES)
+            .propNames(UPDATED_PROP_NAMES)
             .updated(UPDATED_UPDATED);
         return gameClass;
     }
@@ -146,7 +149,7 @@ class GameClassResourceIT {
         assertThat(testGameClass.getLauncherPath()).isEqualTo(DEFAULT_LAUNCHER_PATH);
         assertThat(testGameClass.getGamePath()).isEqualTo(DEFAULT_GAME_PATH);
         assertThat(testGameClass.getDocsPath()).isEqualTo(DEFAULT_DOCS_PATH);
-        assertThat(testGameClass.getPropsNames()).isEqualTo(DEFAULT_PROPS_NAMES);
+        assertThat(testGameClass.getPropNames()).isEqualTo(DEFAULT_PROP_NAMES);
         assertThat(testGameClass.getUpdated()).isEqualTo(DEFAULT_UPDATED);
     }
 
@@ -176,6 +179,52 @@ class GameClassResourceIT {
 
     @Test
     @Transactional
+    void checkNameIsRequired() throws Exception {
+        int databaseSizeBeforeTest = gameClassRepository.findAll().size();
+        // set the field null
+        gameClass.setName(null);
+
+        // Create the GameClass, which fails.
+        GameClassDTO gameClassDTO = gameClassMapper.toDto(gameClass);
+
+        restGameClassMockMvc
+            .perform(
+                post(ENTITY_API_URL)
+                    .with(csrf())
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(TestUtil.convertObjectToJsonBytes(gameClassDTO))
+            )
+            .andExpect(status().isBadRequest());
+
+        List<GameClass> gameClassList = gameClassRepository.findAll();
+        assertThat(gameClassList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
+    void checkUpdatedIsRequired() throws Exception {
+        int databaseSizeBeforeTest = gameClassRepository.findAll().size();
+        // set the field null
+        gameClass.setUpdated(null);
+
+        // Create the GameClass, which fails.
+        GameClassDTO gameClassDTO = gameClassMapper.toDto(gameClass);
+
+        restGameClassMockMvc
+            .perform(
+                post(ENTITY_API_URL)
+                    .with(csrf())
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(TestUtil.convertObjectToJsonBytes(gameClassDTO))
+            )
+            .andExpect(status().isBadRequest());
+
+        List<GameClass> gameClassList = gameClassRepository.findAll();
+        assertThat(gameClassList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
     void getAllGameClasses() throws Exception {
         // Initialize the database
         gameClassRepository.saveAndFlush(gameClass);
@@ -192,8 +241,8 @@ class GameClassResourceIT {
             .andExpect(jsonPath("$.[*].launcherPath").value(hasItem(DEFAULT_LAUNCHER_PATH)))
             .andExpect(jsonPath("$.[*].gamePath").value(hasItem(DEFAULT_GAME_PATH)))
             .andExpect(jsonPath("$.[*].docsPath").value(hasItem(DEFAULT_DOCS_PATH)))
-            .andExpect(jsonPath("$.[*].propsNames").value(hasItem(DEFAULT_PROPS_NAMES)))
-            .andExpect(jsonPath("$.[*].updated").value(hasItem(DEFAULT_UPDATED.toString())));
+            .andExpect(jsonPath("$.[*].propNames").value(hasItem(DEFAULT_PROP_NAMES)))
+            .andExpect(jsonPath("$.[*].updated").value(hasItem(sameInstant(DEFAULT_UPDATED))));
     }
 
     @Test
@@ -214,8 +263,8 @@ class GameClassResourceIT {
             .andExpect(jsonPath("$.launcherPath").value(DEFAULT_LAUNCHER_PATH))
             .andExpect(jsonPath("$.gamePath").value(DEFAULT_GAME_PATH))
             .andExpect(jsonPath("$.docsPath").value(DEFAULT_DOCS_PATH))
-            .andExpect(jsonPath("$.propsNames").value(DEFAULT_PROPS_NAMES))
-            .andExpect(jsonPath("$.updated").value(DEFAULT_UPDATED.toString()));
+            .andExpect(jsonPath("$.propNames").value(DEFAULT_PROP_NAMES))
+            .andExpect(jsonPath("$.updated").value(sameInstant(DEFAULT_UPDATED)));
     }
 
     @Test
@@ -244,7 +293,7 @@ class GameClassResourceIT {
             .launcherPath(UPDATED_LAUNCHER_PATH)
             .gamePath(UPDATED_GAME_PATH)
             .docsPath(UPDATED_DOCS_PATH)
-            .propsNames(UPDATED_PROPS_NAMES)
+            .propNames(UPDATED_PROP_NAMES)
             .updated(UPDATED_UPDATED);
         GameClassDTO gameClassDTO = gameClassMapper.toDto(updatedGameClass);
 
@@ -267,7 +316,7 @@ class GameClassResourceIT {
         assertThat(testGameClass.getLauncherPath()).isEqualTo(UPDATED_LAUNCHER_PATH);
         assertThat(testGameClass.getGamePath()).isEqualTo(UPDATED_GAME_PATH);
         assertThat(testGameClass.getDocsPath()).isEqualTo(UPDATED_DOCS_PATH);
-        assertThat(testGameClass.getPropsNames()).isEqualTo(UPDATED_PROPS_NAMES);
+        assertThat(testGameClass.getPropNames()).isEqualTo(UPDATED_PROP_NAMES);
         assertThat(testGameClass.getUpdated()).isEqualTo(UPDATED_UPDATED);
     }
 
@@ -376,7 +425,7 @@ class GameClassResourceIT {
         assertThat(testGameClass.getLauncherPath()).isEqualTo(UPDATED_LAUNCHER_PATH);
         assertThat(testGameClass.getGamePath()).isEqualTo(DEFAULT_GAME_PATH);
         assertThat(testGameClass.getDocsPath()).isEqualTo(DEFAULT_DOCS_PATH);
-        assertThat(testGameClass.getPropsNames()).isEqualTo(DEFAULT_PROPS_NAMES);
+        assertThat(testGameClass.getPropNames()).isEqualTo(DEFAULT_PROP_NAMES);
         assertThat(testGameClass.getUpdated()).isEqualTo(DEFAULT_UPDATED);
     }
 
@@ -399,7 +448,7 @@ class GameClassResourceIT {
             .launcherPath(UPDATED_LAUNCHER_PATH)
             .gamePath(UPDATED_GAME_PATH)
             .docsPath(UPDATED_DOCS_PATH)
-            .propsNames(UPDATED_PROPS_NAMES)
+            .propNames(UPDATED_PROP_NAMES)
             .updated(UPDATED_UPDATED);
 
         restGameClassMockMvc
@@ -421,7 +470,7 @@ class GameClassResourceIT {
         assertThat(testGameClass.getLauncherPath()).isEqualTo(UPDATED_LAUNCHER_PATH);
         assertThat(testGameClass.getGamePath()).isEqualTo(UPDATED_GAME_PATH);
         assertThat(testGameClass.getDocsPath()).isEqualTo(UPDATED_DOCS_PATH);
-        assertThat(testGameClass.getPropsNames()).isEqualTo(UPDATED_PROPS_NAMES);
+        assertThat(testGameClass.getPropNames()).isEqualTo(UPDATED_PROP_NAMES);
         assertThat(testGameClass.getUpdated()).isEqualTo(UPDATED_UPDATED);
     }
 

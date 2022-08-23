@@ -7,7 +7,7 @@ import javax.persistence.*;
 import javax.validation.constraints.*;
 
 /**
- * a virtual player (the horse in a horse-race)
+ * A Member-owned PlayerAI [Asset] with a displayClient [Asset]\na virtual player (the horse in a horse-race)
  */
 @Entity
 @Table(name = "player")
@@ -23,13 +23,22 @@ public class Player implements Serializable {
     @Column(name = "version")
     private Integer version;
 
-    @Size(max = 45)
-    @Column(name = "name", length = 45)
+    /**
+     * display name, as set by the owning Member.
+     */
+    @Size(max = 64)
+    @Column(name = "name", length = 64)
     private String name;
 
+    /**
+     * NULL until ranked
+     */
     @Column(name = "jhi_rank")
     private Integer rank;
 
+    /**
+     * initial 0
+     */
     @Column(name = "score")
     private Integer score;
 
@@ -39,13 +48,22 @@ public class Player implements Serializable {
     @Column(name = "rank_time")
     private Instant rankTime;
 
-    @Size(max = 45)
-    @Column(name = "display_client", length = 45)
+    /**
+     * URL path fragment to download display client from graid server.\nProbably redo as reference to display_client table entry or an asset entry.
+     */
+    @Size(max = 64)
+    @Column(name = "display_client", length = 64)
     private String displayClient;
 
+    /**
+     * what Games this Player can play
+     */
     @ManyToOne
     private GameClass gameClass;
 
+    /**
+     * identify the code that implements this PlayerAI: a registered Asset.
+     */
     @ManyToOne
     @JsonIgnoreProperties(value = { "user" }, allowSetters = true)
     private Asset mainJar;

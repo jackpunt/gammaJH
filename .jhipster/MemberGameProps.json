@@ -20,25 +20,30 @@
       "fieldName": "mapName",
       "fieldType": "String",
       "fieldValidateRules": ["maxlength"],
-      "fieldValidateRulesMaxlength": "45"
+      "fieldValidateRulesMaxlength": "45",
+      "javadoc": "NULL means use normal/standard"
     },
     {
       "fieldName": "mapSize",
-      "fieldType": "Integer"
+      "fieldType": "Integer",
+      "javadoc": "NULL means not-specified'"
     },
     {
       "fieldName": "npcCount",
-      "fieldType": "Integer"
+      "fieldType": "Integer",
+      "javadoc": "NULL means not-specified'"
     },
     {
       "fieldName": "jsonProps",
-      "fieldType": "String"
+      "fieldType": "String",
+      "javadoc": "json form of game-specific properties"
     },
     {
       "fieldName": "configName",
       "fieldType": "String",
       "fieldValidateRules": ["maxlength"],
-      "fieldValidateRulesMaxlength": "45"
+      "fieldValidateRulesMaxlength": "45",
+      "javadoc": "MyGameConfig"
     }
   ],
   "fluentMethods": true,

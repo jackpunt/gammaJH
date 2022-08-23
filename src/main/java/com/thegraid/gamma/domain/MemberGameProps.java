@@ -24,19 +24,34 @@ public class MemberGameProps implements Serializable {
     @Column(name = "seed")
     private Long seed;
 
+    /**
+     * NULL means use normal/standard
+     */
     @Size(max = 45)
     @Column(name = "map_name", length = 45)
     private String mapName;
 
+    /**
+     * NULL means not-specified'
+     */
     @Column(name = "map_size")
     private Integer mapSize;
 
+    /**
+     * NULL means not-specified'
+     */
     @Column(name = "npc_count")
     private Integer npcCount;
 
+    /**
+     * json form of game-specific properties
+     */
     @Column(name = "json_props")
     private String jsonProps;
 
+    /**
+     * MyGameConfig
+     */
     @Size(max = 45)
     @Column(name = "config_name", length = 45)
     private String configName;

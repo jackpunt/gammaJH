@@ -1,5 +1,6 @@
 package com.thegraid.gamma.web.rest;
 
+import static com.thegraid.gamma.web.rest.TestUtil.sameInstant;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
@@ -12,7 +13,9 @@ import com.thegraid.gamma.repository.GameInstPropsRepository;
 import com.thegraid.gamma.service.dto.GameInstPropsDTO;
 import com.thegraid.gamma.service.mapper.GameInstPropsMapper;
 import java.time.Instant;
-import java.time.temporal.ChronoUnit;
+import java.time.ZoneId;
+import java.time.ZoneOffset;
+import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicLong;
@@ -52,8 +55,8 @@ class GameInstPropsResourceIT {
     private static final String DEFAULT_JSON_PROPS = "AAAAAAAAAA";
     private static final String UPDATED_JSON_PROPS = "BBBBBBBBBB";
 
-    private static final Instant DEFAULT_UPDATED = Instant.ofEpochMilli(0L);
-    private static final Instant UPDATED_UPDATED = Instant.now().truncatedTo(ChronoUnit.MILLIS);
+    private static final ZonedDateTime DEFAULT_UPDATED = ZonedDateTime.ofInstant(Instant.ofEpochMilli(0L), ZoneOffset.UTC);
+    private static final ZonedDateTime UPDATED_UPDATED = ZonedDateTime.now(ZoneId.systemDefault()).withNano(0);
 
     private static final String ENTITY_API_URL = "/api/game-inst-props";
     private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{id}";
@@ -170,6 +173,29 @@ class GameInstPropsResourceIT {
 
     @Test
     @Transactional
+    void checkUpdatedIsRequired() throws Exception {
+        int databaseSizeBeforeTest = gameInstPropsRepository.findAll().size();
+        // set the field null
+        gameInstProps.setUpdated(null);
+
+        // Create the GameInstProps, which fails.
+        GameInstPropsDTO gameInstPropsDTO = gameInstPropsMapper.toDto(gameInstProps);
+
+        restGameInstPropsMockMvc
+            .perform(
+                post(ENTITY_API_URL)
+                    .with(csrf())
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(TestUtil.convertObjectToJsonBytes(gameInstPropsDTO))
+            )
+            .andExpect(status().isBadRequest());
+
+        List<GameInstProps> gameInstPropsList = gameInstPropsRepository.findAll();
+        assertThat(gameInstPropsList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
     void getAllGameInstProps() throws Exception {
         // Initialize the database
         gameInstPropsRepository.saveAndFlush(gameInstProps);
@@ -186,7 +212,7 @@ class GameInstPropsResourceIT {
             .andExpect(jsonPath("$.[*].mapSize").value(hasItem(DEFAULT_MAP_SIZE)))
             .andExpect(jsonPath("$.[*].npcCount").value(hasItem(DEFAULT_NPC_COUNT)))
             .andExpect(jsonPath("$.[*].jsonProps").value(hasItem(DEFAULT_JSON_PROPS)))
-            .andExpect(jsonPath("$.[*].updated").value(hasItem(DEFAULT_UPDATED.toString())));
+            .andExpect(jsonPath("$.[*].updated").value(hasItem(sameInstant(DEFAULT_UPDATED))));
     }
 
     @Test
@@ -207,7 +233,7 @@ class GameInstPropsResourceIT {
             .andExpect(jsonPath("$.mapSize").value(DEFAULT_MAP_SIZE))
             .andExpect(jsonPath("$.npcCount").value(DEFAULT_NPC_COUNT))
             .andExpect(jsonPath("$.jsonProps").value(DEFAULT_JSON_PROPS))
-            .andExpect(jsonPath("$.updated").value(DEFAULT_UPDATED.toString()));
+            .andExpect(jsonPath("$.updated").value(sameInstant(DEFAULT_UPDATED)));
     }
 
     @Test

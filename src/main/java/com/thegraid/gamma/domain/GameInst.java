@@ -2,7 +2,7 @@ package com.thegraid.gamma.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
-import java.time.Instant;
+import java.time.ZonedDateTime;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 
@@ -22,27 +22,31 @@ public class GameInst implements Serializable {
     @Column(name = "version")
     private Integer version;
 
-    @Size(max = 45)
-    @Column(name = "game_name", length = 45)
+    @Size(max = 64)
+    @Column(name = "game_name", length = 64)
     private String gameName;
 
-    @Column(name = "host_url")
+    @Size(max = 64)
+    @Column(name = "host_url", length = 64)
     private String hostUrl;
 
-    @Column(name = "passcode")
+    @Size(max = 64)
+    @Column(name = "passcode", length = 64)
     private String passcode;
 
-    @Column(name = "created")
-    private Instant created;
+    @NotNull
+    @Column(name = "created", nullable = false)
+    private ZonedDateTime created;
 
     @Column(name = "started")
-    private Instant started;
+    private ZonedDateTime started;
 
     @Column(name = "finished")
-    private Instant finished;
+    private ZonedDateTime finished;
 
-    @Column(name = "updated")
-    private Instant updated;
+    @NotNull
+    @Column(name = "updated", nullable = false)
+    private ZonedDateTime updated;
 
     @Column(name = "score_a")
     private Integer scoreA;
@@ -51,7 +55,7 @@ public class GameInst implements Serializable {
     private Integer scoreB;
 
     @Column(name = "ticks")
-    private Long ticks;
+    private Integer ticks;
 
     @JsonIgnoreProperties(value = { "gameInst" }, allowSetters = true)
     @OneToOne
@@ -137,55 +141,55 @@ public class GameInst implements Serializable {
         this.passcode = passcode;
     }
 
-    public Instant getCreated() {
+    public ZonedDateTime getCreated() {
         return this.created;
     }
 
-    public GameInst created(Instant created) {
+    public GameInst created(ZonedDateTime created) {
         this.setCreated(created);
         return this;
     }
 
-    public void setCreated(Instant created) {
+    public void setCreated(ZonedDateTime created) {
         this.created = created;
     }
 
-    public Instant getStarted() {
+    public ZonedDateTime getStarted() {
         return this.started;
     }
 
-    public GameInst started(Instant started) {
+    public GameInst started(ZonedDateTime started) {
         this.setStarted(started);
         return this;
     }
 
-    public void setStarted(Instant started) {
+    public void setStarted(ZonedDateTime started) {
         this.started = started;
     }
 
-    public Instant getFinished() {
+    public ZonedDateTime getFinished() {
         return this.finished;
     }
 
-    public GameInst finished(Instant finished) {
+    public GameInst finished(ZonedDateTime finished) {
         this.setFinished(finished);
         return this;
     }
 
-    public void setFinished(Instant finished) {
+    public void setFinished(ZonedDateTime finished) {
         this.finished = finished;
     }
 
-    public Instant getUpdated() {
+    public ZonedDateTime getUpdated() {
         return this.updated;
     }
 
-    public GameInst updated(Instant updated) {
+    public GameInst updated(ZonedDateTime updated) {
         this.setUpdated(updated);
         return this;
     }
 
-    public void setUpdated(Instant updated) {
+    public void setUpdated(ZonedDateTime updated) {
         this.updated = updated;
     }
 
@@ -215,16 +219,16 @@ public class GameInst implements Serializable {
         this.scoreB = scoreB;
     }
 
-    public Long getTicks() {
+    public Integer getTicks() {
         return this.ticks;
     }
 
-    public GameInst ticks(Long ticks) {
+    public GameInst ticks(Integer ticks) {
         this.setTicks(ticks);
         return this;
     }
 
-    public void setTicks(Long ticks) {
+    public void setTicks(Integer ticks) {
         this.ticks = ticks;
     }
 

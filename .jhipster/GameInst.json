@@ -16,31 +16,37 @@
       "fieldName": "gameName",
       "fieldType": "String",
       "fieldValidateRules": ["maxlength"],
-      "fieldValidateRulesMaxlength": "45"
+      "fieldValidateRulesMaxlength": "64"
     },
     {
       "fieldName": "hostUrl",
-      "fieldType": "String"
+      "fieldType": "String",
+      "fieldValidateRules": ["maxlength"],
+      "fieldValidateRulesMaxlength": "64"
     },
     {
       "fieldName": "passcode",
-      "fieldType": "String"
+      "fieldType": "String",
+      "fieldValidateRules": ["maxlength"],
+      "fieldValidateRulesMaxlength": "64"
     },
     {
       "fieldName": "created",
-      "fieldType": "Instant"
+      "fieldType": "ZonedDateTime",
+      "fieldValidateRules": ["required"]
     },
     {
       "fieldName": "started",
-      "fieldType": "Instant"
+      "fieldType": "ZonedDateTime"
     },
     {
       "fieldName": "finished",
-      "fieldType": "Instant"
+      "fieldType": "ZonedDateTime"
     },
     {
       "fieldName": "updated",
-      "fieldType": "Instant"
+      "fieldType": "ZonedDateTime",
+      "fieldValidateRules": ["required"]
     },
     {
       "fieldName": "scoreA",
@@ -52,7 +58,7 @@
     },
     {
       "fieldName": "ticks",
-      "fieldType": "Long"
+      "fieldType": "Integer"
     }
   ],
   "fluentMethods": true,

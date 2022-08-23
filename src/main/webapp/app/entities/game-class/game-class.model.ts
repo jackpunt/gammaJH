@@ -8,7 +8,7 @@ export interface IGameClass {
   launcherPath?: string | null;
   gamePath?: string | null;
   docsPath?: string | null;
-  propsNames?: string | null;
+  propNames?: string | null;
   updated?: dayjs.Dayjs | null;
 }
 

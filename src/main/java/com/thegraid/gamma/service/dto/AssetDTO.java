@@ -15,15 +15,37 @@ public class AssetDTO implements Serializable {
 
     private Integer version;
 
+    /**
+     * display name
+     */
     @Size(max = 45)
+    @Schema(description = "display name")
     private String name;
 
+    /**
+     * IPlayer - can be player.main_jar
+     */
+    @Schema(description = "IPlayer - can be player.main_jar")
     private Boolean main;
 
+    /**
+     * bot is full-auto
+     */
+    @Schema(description = "bot is full-auto")
     private Boolean auto;
 
+    /**
+     * url to asset (class or document/resource)\njar-path ! fqcn.of.asset.class \njar-path ! path/inside/jar/document\nURL=getenv(“ASSETBASE”)+path/to/release.jar ! user.supplied.Player
+     */
+    @Schema(
+        description = "url to asset (class or document/resource)\njar-path ! fqcn.of.asset.class \njar-path ! path/inside/jar/document\nURL=getenv(“ASSETBASE”)+path/to/release.jar ! user.supplied.Player"
+    )
     private String path;
 
+    /**
+     * comma-separated list of asset Ids
+     */
+    @Schema(description = "comma-separated list of asset Ids")
     private String include;
 
     private UserDTO user;

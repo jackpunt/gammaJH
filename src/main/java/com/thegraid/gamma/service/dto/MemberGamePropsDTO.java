@@ -17,16 +17,36 @@ public class MemberGamePropsDTO implements Serializable {
 
     private Long seed;
 
+    /**
+     * NULL means use normal/standard
+     */
     @Size(max = 45)
+    @Schema(description = "NULL means use normal/standard")
     private String mapName;
 
+    /**
+     * NULL means not-specified'
+     */
+    @Schema(description = "NULL means not-specified'")
     private Integer mapSize;
 
+    /**
+     * NULL means not-specified'
+     */
+    @Schema(description = "NULL means not-specified'")
     private Integer npcCount;
 
+    /**
+     * json form of game-specific properties
+     */
+    @Schema(description = "json form of game-specific properties")
     private String jsonProps;
 
+    /**
+     * MyGameConfig
+     */
     @Size(max = 45)
+    @Schema(description = "MyGameConfig")
     private String configName;
 
     private UserDTO user;

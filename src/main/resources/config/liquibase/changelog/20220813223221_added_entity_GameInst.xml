@@ -17,17 +17,17 @@
             <column name="version" type="integer">
                 <constraints nullable="true" />
             </column>
-            <column name="game_name" type="varchar(45)">
+            <column name="game_name" type="varchar(64)">
                 <constraints nullable="true" />
             </column>
-            <column name="host_url" type="varchar(255)">
+            <column name="host_url" type="varchar(64)">
                 <constraints nullable="true" />
             </column>
-            <column name="passcode" type="varchar(255)">
+            <column name="passcode" type="varchar(64)">
                 <constraints nullable="true" />
             </column>
             <column name="created" type="${datetimeType}">
-                <constraints nullable="true" />
+                <constraints nullable="false" />
             </column>
             <column name="started" type="${datetimeType}">
                 <constraints nullable="true" />
@@ -36,7 +36,7 @@
                 <constraints nullable="true" />
             </column>
             <column name="updated" type="${datetimeType}">
-                <constraints nullable="true" />
+                <constraints nullable="false" />
             </column>
             <column name="score_a" type="integer">
                 <constraints nullable="true" />
@@ -44,7 +44,7 @@
             <column name="score_b" type="integer">
                 <constraints nullable="true" />
             </column>
-            <column name="ticks" type="bigint">
+            <column name="ticks" type="integer">
                 <constraints nullable="true" />
             </column>
             <column name="playera_id" type="bigint">

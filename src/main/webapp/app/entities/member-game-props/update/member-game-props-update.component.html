@@ -28,7 +28,13 @@
         </div>
 
         <div class="row mb-3">
-          <label class="form-label" jhiTranslate="gammaJhApp.memberGameProps.mapName" for="field_mapName">Map Name</label>
+          <label
+            class="form-label"
+            jhiTranslate="gammaJhApp.memberGameProps.mapName"
+            for="field_mapName"
+            [ngbTooltip]="'gammaJhApp.memberGameProps.help.mapName' | translate"
+            >Map Name</label
+          >
           <input type="text" class="form-control" name="mapName" id="field_mapName" data-cy="mapName" formControlName="mapName" />
           <div *ngIf="editForm.get('mapName')!.invalid && (editForm.get('mapName')!.dirty || editForm.get('mapName')!.touched)">
             <small
@@ -43,22 +49,46 @@
         </div>
 
         <div class="row mb-3">
-          <label class="form-label" jhiTranslate="gammaJhApp.memberGameProps.mapSize" for="field_mapSize">Map Size</label>
+          <label
+            class="form-label"
+            jhiTranslate="gammaJhApp.memberGameProps.mapSize"
+            for="field_mapSize"
+            [ngbTooltip]="'gammaJhApp.memberGameProps.help.mapSize' | translate"
+            >Map Size</label
+          >
           <input type="number" class="form-control" name="mapSize" id="field_mapSize" data-cy="mapSize" formControlName="mapSize" />
         </div>
 
         <div class="row mb-3">
-          <label class="form-label" jhiTranslate="gammaJhApp.memberGameProps.npcCount" for="field_npcCount">Npc Count</label>
+          <label
+            class="form-label"
+            jhiTranslate="gammaJhApp.memberGameProps.npcCount"
+            for="field_npcCount"
+            [ngbTooltip]="'gammaJhApp.memberGameProps.help.npcCount' | translate"
+            >Npc Count</label
+          >
           <input type="number" class="form-control" name="npcCount" id="field_npcCount" data-cy="npcCount" formControlName="npcCount" />
         </div>
 
         <div class="row mb-3">
-          <label class="form-label" jhiTranslate="gammaJhApp.memberGameProps.jsonProps" for="field_jsonProps">Json Props</label>
+          <label
+            class="form-label"
+            jhiTranslate="gammaJhApp.memberGameProps.jsonProps"
+            for="field_jsonProps"
+            [ngbTooltip]="'gammaJhApp.memberGameProps.help.jsonProps' | translate"
+            >Json Props</label
+          >
           <input type="text" class="form-control" name="jsonProps" id="field_jsonProps" data-cy="jsonProps" formControlName="jsonProps" />
         </div>
 
         <div class="row mb-3">
-          <label class="form-label" jhiTranslate="gammaJhApp.memberGameProps.configName" for="field_configName">Config Name</label>
+          <label
+            class="form-label"
+            jhiTranslate="gammaJhApp.memberGameProps.configName"
+            for="field_configName"
+            [ngbTooltip]="'gammaJhApp.memberGameProps.help.configName' | translate"
+            >Config Name</label
+          >
           <input
             type="text"
             class="form-control"

@@ -21,19 +21,34 @@ public class Asset implements Serializable {
     @Column(name = "version")
     private Integer version;
 
+    /**
+     * display name
+     */
     @Size(max = 45)
     @Column(name = "name", length = 45)
     private String name;
 
+    /**
+     * IPlayer - can be player.main_jar
+     */
     @Column(name = "main")
     private Boolean main;
 
+    /**
+     * bot is full-auto
+     */
     @Column(name = "auto")
     private Boolean auto;
 
+    /**
+     * url to asset (class or document/resource)\njar-path ! fqcn.of.asset.class \njar-path ! path/inside/jar/document\nURL=getenv(“ASSETBASE”)+path/to/release.jar ! user.supplied.Player
+     */
     @Column(name = "path")
     private String path;
 
+    /**
+     * comma-separated list of asset Ids
+     */
     @Column(name = "include")
     private String include;
 
