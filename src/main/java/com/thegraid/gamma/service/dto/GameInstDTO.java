@@ -41,8 +41,6 @@ public class GameInstDTO implements Serializable {
 
     private Integer ticks;
 
-    private GameInstPropsDTO props;
-
     private PlayerDTO playerA;
 
     private PlayerDTO playerB;
@@ -145,14 +143,6 @@ public class GameInstDTO implements Serializable {
         this.ticks = ticks;
     }
 
-    public GameInstPropsDTO getProps() {
-        return props;
-    }
-
-    public void setProps(GameInstPropsDTO props) {
-        this.props = props;
-    }
-
     public PlayerDTO getPlayerA() {
         return playerA;
     }
@@ -214,7 +204,6 @@ public class GameInstDTO implements Serializable {
             ", scoreA=" + getScoreA() +
             ", scoreB=" + getScoreB() +
             ", ticks=" + getTicks() +
-            ", props=" + getProps() +
             ", playerA=" + getPlayerA() +
             ", playerB=" + getPlayerB() +
             ", gameClass=" + getGameClass() +

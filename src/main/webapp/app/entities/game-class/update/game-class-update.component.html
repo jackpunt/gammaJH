@@ -19,7 +19,13 @@
         </div>
 
         <div class="row mb-3">
-          <label class="form-label" jhiTranslate="gammaJhApp.gameClass.name" for="field_name">Name</label>
+          <label
+            class="form-label"
+            jhiTranslate="gammaJhApp.gameClass.name"
+            for="field_name"
+            [ngbTooltip]="'gammaJhApp.gameClass.help.name' | translate"
+            >Name</label
+          >
           <input type="text" class="form-control" name="name" id="field_name" data-cy="name" formControlName="name" />
           <div *ngIf="editForm.get('name')!.invalid && (editForm.get('name')!.dirty || editForm.get('name')!.touched)">
             <small class="form-text text-danger" *ngIf="editForm.get('name')?.errors?.required" jhiTranslate="entity.validation.required">
@@ -37,7 +43,13 @@
         </div>
 
         <div class="row mb-3">
-          <label class="form-label" jhiTranslate="gammaJhApp.gameClass.revision" for="field_revision">Revision</label>
+          <label
+            class="form-label"
+            jhiTranslate="gammaJhApp.gameClass.revision"
+            for="field_revision"
+            [ngbTooltip]="'gammaJhApp.gameClass.help.revision' | translate"
+            >Revision</label
+          >
           <input type="text" class="form-control" name="revision" id="field_revision" data-cy="revision" formControlName="revision" />
           <div *ngIf="editForm.get('revision')!.invalid && (editForm.get('revision')!.dirty || editForm.get('revision')!.touched)">
             <small
@@ -52,7 +64,13 @@
         </div>
 
         <div class="row mb-3">
-          <label class="form-label" jhiTranslate="gammaJhApp.gameClass.launcherPath" for="field_launcherPath">Launcher Path</label>
+          <label
+            class="form-label"
+            jhiTranslate="gammaJhApp.gameClass.launcherPath"
+            for="field_launcherPath"
+            [ngbTooltip]="'gammaJhApp.gameClass.help.launcherPath' | translate"
+            >Launcher Path</label
+          >
           <input
             type="text"
             class="form-control"
@@ -64,17 +82,35 @@
         </div>
 
         <div class="row mb-3">
-          <label class="form-label" jhiTranslate="gammaJhApp.gameClass.gamePath" for="field_gamePath">Game Path</label>
+          <label
+            class="form-label"
+            jhiTranslate="gammaJhApp.gameClass.gamePath"
+            for="field_gamePath"
+            [ngbTooltip]="'gammaJhApp.gameClass.help.gamePath' | translate"
+            >Game Path</label
+          >
           <input type="text" class="form-control" name="gamePath" id="field_gamePath" data-cy="gamePath" formControlName="gamePath" />
         </div>
 
         <div class="row mb-3">
-          <label class="form-label" jhiTranslate="gammaJhApp.gameClass.docsPath" for="field_docsPath">Docs Path</label>
+          <label
+            class="form-label"
+            jhiTranslate="gammaJhApp.gameClass.docsPath"
+            for="field_docsPath"
+            [ngbTooltip]="'gammaJhApp.gameClass.help.docsPath' | translate"
+            >Docs Path</label
+          >
           <input type="text" class="form-control" name="docsPath" id="field_docsPath" data-cy="docsPath" formControlName="docsPath" />
         </div>
 
         <div class="row mb-3">
-          <label class="form-label" jhiTranslate="gammaJhApp.gameClass.propNames" for="field_propNames">Prop Names</label>
+          <label
+            class="form-label"
+            jhiTranslate="gammaJhApp.gameClass.propNames"
+            for="field_propNames"
+            [ngbTooltip]="'gammaJhApp.gameClass.help.propNames' | translate"
+            >Prop Names</label
+          >
           <input type="text" class="form-control" name="propNames" id="field_propNames" data-cy="propNames" formControlName="propNames" />
         </div>
 

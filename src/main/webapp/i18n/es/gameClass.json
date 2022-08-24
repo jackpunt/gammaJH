@@ -25,7 +25,15 @@
       "gamePath": "Game Path",
       "docsPath": "Docs Path",
       "propNames": "Prop Names",
-      "updated": "Updated"
+      "updated": "Updated",
+      "help": {
+        "name": "a unique name for this GameClass",
+        "revision": "major.minor.patch.TYPE [semver]",
+        "launcherPath": "jar-path ! fqcn.of.launcher\nURL=getenv(“GAMEBASE”)+path/to/release.jar ! fqcn.launcher",
+        "gamePath": "jar-path ! fqcn.of.game\nURL=getenv(“GAMEBASE”)+path/to/release.jar ! pkg.main",
+        "docsPath": "doc-path/to/index.html\nURL=getenv(“GAMEBASE”)+path/to/release.jar ! doc/path/index.html",
+        "propNames": "a comma-separated string of property names for this GameClass\nonly these prop_names can appear in the game_props.json associated with this game_class"
+      }
     }
   }
 }

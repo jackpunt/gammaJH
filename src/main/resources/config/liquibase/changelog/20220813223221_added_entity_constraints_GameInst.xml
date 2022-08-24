@@ -8,12 +8,6 @@
     -->
     <changeSet id="20220813223221-2" author="jhipster">
 
-        <addForeignKeyConstraint baseColumnNames="id"
-                                 baseTableName="game_inst"
-                                 constraintName="fk_game_inst__props_id"
-                                 referencedColumnNames="id"
-                                 referencedTableName="game_inst_props"/>
-
         <addForeignKeyConstraint baseColumnNames="playera_id"
                                  baseTableName="game_inst"
                                  constraintName="fk_game_inst__playera_id"

@@ -18,27 +18,45 @@
         <dd>
           <span>{{ gameClass.version }}</span>
         </dd>
-        <dt><span jhiTranslate="gammaJhApp.gameClass.name">Name</span></dt>
+        <dt><span jhiTranslate="gammaJhApp.gameClass.name" [ngbTooltip]="'gammaJhApp.gameClass.help.name' | translate">Name</span></dt>
         <dd>
           <span>{{ gameClass.name }}</span>
         </dd>
-        <dt><span jhiTranslate="gammaJhApp.gameClass.revision">Revision</span></dt>
+        <dt>
+          <span jhiTranslate="gammaJhApp.gameClass.revision" [ngbTooltip]="'gammaJhApp.gameClass.help.revision' | translate">Revision</span>
+        </dt>
         <dd>
           <span>{{ gameClass.revision }}</span>
         </dd>
-        <dt><span jhiTranslate="gammaJhApp.gameClass.launcherPath">Launcher Path</span></dt>
+        <dt>
+          <span jhiTranslate="gammaJhApp.gameClass.launcherPath" [ngbTooltip]="'gammaJhApp.gameClass.help.launcherPath' | translate"
+            >Launcher Path</span
+          >
+        </dt>
         <dd>
           <span>{{ gameClass.launcherPath }}</span>
         </dd>
-        <dt><span jhiTranslate="gammaJhApp.gameClass.gamePath">Game Path</span></dt>
+        <dt>
+          <span jhiTranslate="gammaJhApp.gameClass.gamePath" [ngbTooltip]="'gammaJhApp.gameClass.help.gamePath' | translate"
+            >Game Path</span
+          >
+        </dt>
         <dd>
           <span>{{ gameClass.gamePath }}</span>
         </dd>
-        <dt><span jhiTranslate="gammaJhApp.gameClass.docsPath">Docs Path</span></dt>
+        <dt>
+          <span jhiTranslate="gammaJhApp.gameClass.docsPath" [ngbTooltip]="'gammaJhApp.gameClass.help.docsPath' | translate"
+            >Docs Path</span
+          >
+        </dt>
         <dd>
           <span>{{ gameClass.docsPath }}</span>
         </dd>
-        <dt><span jhiTranslate="gammaJhApp.gameClass.propNames">Prop Names</span></dt>
+        <dt>
+          <span jhiTranslate="gammaJhApp.gameClass.propNames" [ngbTooltip]="'gammaJhApp.gameClass.help.propNames' | translate"
+            >Prop Names</span
+          >
+        </dt>
         <dd>
           <span>{{ gameClass.propNames }}</span>
         </dd>

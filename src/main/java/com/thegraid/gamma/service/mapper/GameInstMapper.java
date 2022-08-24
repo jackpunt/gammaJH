@@ -2,11 +2,9 @@ package com.thegraid.gamma.service.mapper;
 
 import com.thegraid.gamma.domain.GameClass;
 import com.thegraid.gamma.domain.GameInst;
-import com.thegraid.gamma.domain.GameInstProps;
 import com.thegraid.gamma.domain.Player;
 import com.thegraid.gamma.service.dto.GameClassDTO;
 import com.thegraid.gamma.service.dto.GameInstDTO;
-import com.thegraid.gamma.service.dto.GameInstPropsDTO;
 import com.thegraid.gamma.service.dto.PlayerDTO;
 import org.mapstruct.*;
 
@@ -15,16 +13,10 @@ import org.mapstruct.*;
  */
 @Mapper(componentModel = "spring")
 public interface GameInstMapper extends EntityMapper<GameInstDTO, GameInst> {
-    @Mapping(target = "props", source = "props", qualifiedByName = "gameInstPropsId")
     @Mapping(target = "playerA", source = "playerA", qualifiedByName = "playerId")
     @Mapping(target = "playerB", source = "playerB", qualifiedByName = "playerId")
     @Mapping(target = "gameClass", source = "gameClass", qualifiedByName = "gameClassId")
     GameInstDTO toDto(GameInst s);
-
-    @Named("gameInstPropsId")
-    @BeanMapping(ignoreByDefault = true)
-    @Mapping(target = "id", source = "id")
-    GameInstPropsDTO toDtoGameInstPropsId(GameInstProps gameInstProps);
 
     @Named("playerId")
     @BeanMapping(ignoreByDefault = true)

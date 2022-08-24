@@ -29,10 +29,10 @@
       "scoreA": "Score A",
       "scoreB": "Score B",
       "ticks": "Ticks",
-      "props": "Props",
       "playerA": "Player A",
       "playerB": "Player B",
-      "gameClass": "Game Class"
+      "gameClass": "Game Class",
+      "props": "Props"
     }
   }
 }

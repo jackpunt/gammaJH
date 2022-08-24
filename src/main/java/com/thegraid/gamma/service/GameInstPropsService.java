@@ -2,13 +2,13 @@ package com.thegraid.gamma.service;
 
 import com.thegraid.gamma.domain.GameInstProps;
 import com.thegraid.gamma.repository.GameInstPropsRepository;
+import com.thegraid.gamma.repository.GameInstRepository;
 import com.thegraid.gamma.service.dto.GameInstPropsDTO;
 import com.thegraid.gamma.service.mapper.GameInstPropsMapper;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -27,9 +27,16 @@ public class GameInstPropsService {
 
     private final GameInstPropsMapper gameInstPropsMapper;
 
-    public GameInstPropsService(GameInstPropsRepository gameInstPropsRepository, GameInstPropsMapper gameInstPropsMapper) {
+    private final GameInstRepository gameInstRepository;
+
+    public GameInstPropsService(
+        GameInstPropsRepository gameInstPropsRepository,
+        GameInstPropsMapper gameInstPropsMapper,
+        GameInstRepository gameInstRepository
+    ) {
         this.gameInstPropsRepository = gameInstPropsRepository;
         this.gameInstPropsMapper = gameInstPropsMapper;
+        this.gameInstRepository = gameInstRepository;
     }
 
     /**
@@ -41,6 +48,8 @@ public class GameInstPropsService {
     public GameInstPropsDTO save(GameInstPropsDTO gameInstPropsDTO) {
         log.debug("Request to save GameInstProps : {}", gameInstPropsDTO);
         GameInstProps gameInstProps = gameInstPropsMapper.toEntity(gameInstPropsDTO);
+        Long gameInstId = gameInstPropsDTO.getGameInst().getId();
+        gameInstRepository.findById(gameInstId).ifPresent(gameInstProps::gameInst);
         gameInstProps = gameInstPropsRepository.save(gameInstProps);
         return gameInstPropsMapper.toDto(gameInstProps);
     }
@@ -54,6 +63,8 @@ public class GameInstPropsService {
     public GameInstPropsDTO update(GameInstPropsDTO gameInstPropsDTO) {
         log.debug("Request to save GameInstProps : {}", gameInstPropsDTO);
         GameInstProps gameInstProps = gameInstPropsMapper.toEntity(gameInstPropsDTO);
+        Long gameInstId = gameInstPropsDTO.getGameInst().getId();
+        gameInstRepository.findById(gameInstId).ifPresent(gameInstProps::gameInst);
         gameInstProps = gameInstPropsRepository.save(gameInstProps);
         return gameInstPropsMapper.toDto(gameInstProps);
     }
@@ -87,20 +98,6 @@ public class GameInstPropsService {
     public List<GameInstPropsDTO> findAll() {
         log.debug("Request to get all GameInstProps");
         return gameInstPropsRepository.findAll().stream().map(gameInstPropsMapper::toDto).collect(Collectors.toCollection(LinkedList::new));
-    }
-
-    /**
-     *  Get all the gameInstProps where GameInst is {@code null}.
-     *  @return the list of entities.
-     */
-    @Transactional(readOnly = true)
-    public List<GameInstPropsDTO> findAllWhereGameInstIsNull() {
-        log.debug("Request to get all gameInstProps where GameInst is null");
-        return StreamSupport
-            .stream(gameInstPropsRepository.findAll().spliterator(), false)
-            .filter(gameInstProps -> gameInstProps.getGameInst() == null)
-            .map(gameInstPropsMapper::toDto)
-            .collect(Collectors.toCollection(LinkedList::new));
     }
 
     /**

@@ -8,6 +8,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import com.thegraid.gamma.IntegrationTest;
+import com.thegraid.gamma.domain.GameInst;
 import com.thegraid.gamma.domain.GameInstProps;
 import com.thegraid.gamma.repository.GameInstPropsRepository;
 import com.thegraid.gamma.service.dto.GameInstPropsDTO;
@@ -93,6 +94,16 @@ class GameInstPropsResourceIT {
             .npcCount(DEFAULT_NPC_COUNT)
             .jsonProps(DEFAULT_JSON_PROPS)
             .updated(DEFAULT_UPDATED);
+        // Add required entity
+        GameInst gameInst;
+        if (TestUtil.findAll(em, GameInst.class).isEmpty()) {
+            gameInst = GameInstResourceIT.createEntity(em);
+            em.persist(gameInst);
+            em.flush();
+        } else {
+            gameInst = TestUtil.findAll(em, GameInst.class).get(0);
+        }
+        gameInstProps.setGameInst(gameInst);
         return gameInstProps;
     }
 
@@ -111,6 +122,12 @@ class GameInstPropsResourceIT {
             .npcCount(UPDATED_NPC_COUNT)
             .jsonProps(UPDATED_JSON_PROPS)
             .updated(UPDATED_UPDATED);
+        // Add required entity
+        GameInst gameInst;
+        gameInst = GameInstResourceIT.createUpdatedEntity(em);
+        em.persist(gameInst);
+        em.flush();
+        gameInstProps.setGameInst(gameInst);
         return gameInstProps;
     }
 
@@ -145,6 +162,9 @@ class GameInstPropsResourceIT {
         assertThat(testGameInstProps.getNpcCount()).isEqualTo(DEFAULT_NPC_COUNT);
         assertThat(testGameInstProps.getJsonProps()).isEqualTo(DEFAULT_JSON_PROPS);
         assertThat(testGameInstProps.getUpdated()).isEqualTo(DEFAULT_UPDATED);
+
+        // Validate the id for MapsId, the ids must be same
+        assertThat(testGameInstProps.getId()).isEqualTo(gameInstPropsDTO.getGameInst().getId());
     }
 
     @Test
@@ -169,6 +189,48 @@ class GameInstPropsResourceIT {
         // Validate the GameInstProps in the database
         List<GameInstProps> gameInstPropsList = gameInstPropsRepository.findAll();
         assertThat(gameInstPropsList).hasSize(databaseSizeBeforeCreate);
+    }
+
+    @Test
+    @Transactional
+    void updateGameInstPropsMapsIdAssociationWithNewId() throws Exception {
+        // Initialize the database
+        gameInstPropsRepository.saveAndFlush(gameInstProps);
+        int databaseSizeBeforeCreate = gameInstPropsRepository.findAll().size();
+        // Add a new parent entity
+        GameInst gameInst = GameInstResourceIT.createUpdatedEntity(em);
+        em.persist(gameInst);
+        em.flush();
+
+        // Load the gameInstProps
+        GameInstProps updatedGameInstProps = gameInstPropsRepository.findById(gameInstProps.getId()).get();
+        assertThat(updatedGameInstProps).isNotNull();
+        // Disconnect from session so that the updates on updatedGameInstProps are not directly saved in db
+        em.detach(updatedGameInstProps);
+
+        // Update the GameInst with new association value
+        updatedGameInstProps.setGameInst(gameInst);
+        GameInstPropsDTO updatedGameInstPropsDTO = gameInstPropsMapper.toDto(updatedGameInstProps);
+        assertThat(updatedGameInstPropsDTO).isNotNull();
+
+        // Update the entity
+        restGameInstPropsMockMvc
+            .perform(
+                put(ENTITY_API_URL_ID, updatedGameInstPropsDTO.getId())
+                    .with(csrf())
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(TestUtil.convertObjectToJsonBytes(updatedGameInstPropsDTO))
+            )
+            .andExpect(status().isOk());
+
+        // Validate the GameInstProps in the database
+        List<GameInstProps> gameInstPropsList = gameInstPropsRepository.findAll();
+        assertThat(gameInstPropsList).hasSize(databaseSizeBeforeCreate);
+        GameInstProps testGameInstProps = gameInstPropsList.get(gameInstPropsList.size() - 1);
+        // Validate the id for MapsId, the ids must be same
+        // Uncomment the following line for assertion. However, please note that there is a known issue and uncommenting will fail the test.
+        // Please look at https://github.com/jhipster/generator-jhipster/issues/9100. You can modify this test as necessary.
+        // assertThat(testGameInstProps.getId()).isEqualTo(testGameInstProps.getGameInst().getId());
     }
 
     @Test

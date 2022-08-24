@@ -64,9 +64,6 @@
             <span jhiTranslate="gammaJhApp.gameInst.scoreB">Score B</span> <fa-icon icon="sort"></fa-icon>
           </th>
           <th scope="col" jhiSortBy="ticks"><span jhiTranslate="gammaJhApp.gameInst.ticks">Ticks</span> <fa-icon icon="sort"></fa-icon></th>
-          <th scope="col" jhiSortBy="props.id">
-            <span jhiTranslate="gammaJhApp.gameInst.props">Props</span> <fa-icon icon="sort"></fa-icon>
-          </th>
           <th scope="col" jhiSortBy="playerA.id">
             <span jhiTranslate="gammaJhApp.gameInst.playerA">Player A</span> <fa-icon icon="sort"></fa-icon>
           </th>
@@ -95,11 +92,6 @@
           <td>{{ gameInst.scoreA }}</td>
           <td>{{ gameInst.scoreB }}</td>
           <td>{{ gameInst.ticks }}</td>
-          <td>
-            <div *ngIf="gameInst.props">
-              <a [routerLink]="['/game-inst-props', gameInst.props.id, 'view']">{{ gameInst.props?.id }}</a>
-            </div>
-          </td>
           <td>
             <div *ngIf="gameInst.playerA">
               <a [routerLink]="['/player', gameInst.playerA.id, 'view']">{{ gameInst.playerA?.id }}</a>

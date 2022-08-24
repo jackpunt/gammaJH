@@ -54,6 +54,9 @@
           <th scope="col" jhiSortBy="updated">
             <span jhiTranslate="gammaJhApp.gameInstProps.updated">Updated</span> <fa-icon icon="sort"></fa-icon>
           </th>
+          <th scope="col" jhiSortBy="gameInst.id">
+            <span jhiTranslate="gammaJhApp.gameInstProps.gameInst">Game Inst</span> <fa-icon icon="sort"></fa-icon>
+          </th>
           <th scope="col"></th>
         </tr>
       </thead>
@@ -69,6 +72,11 @@
           <td>{{ gameInstProps.npcCount }}</td>
           <td>{{ gameInstProps.jsonProps }}</td>
           <td>{{ gameInstProps.updated | formatMediumDatetime }}</td>
+          <td>
+            <div *ngIf="gameInstProps.gameInst">
+              <a [routerLink]="['/game-inst', gameInstProps.gameInst.id, 'view']">{{ gameInstProps.gameInst?.id }}</a>
+            </div>
+          </td>
           <td class="text-end">
             <div class="btn-group">
               <button

@@ -58,6 +58,12 @@
         <dd>
           <span>{{ gameInstProps.updated | formatMediumDatetime }}</span>
         </dd>
+        <dt><span jhiTranslate="gammaJhApp.gameInstProps.gameInst">Game Inst</span></dt>
+        <dd>
+          <div *ngIf="gameInstProps.gameInst">
+            <a [routerLink]="['/game-inst', gameInstProps.gameInst.id, 'view']">{{ gameInstProps.gameInst?.id }}</a>
+          </div>
+        </dd>
       </dl>
 
       <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">

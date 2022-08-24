@@ -11,7 +11,7 @@
     -->
     <changeSet id="20220813223222-1" author="jhipster">
         <createTable tableName="game_inst_props" remarks="the final negotiated properties for GameInst">
-            <column name="id" type="bigint" autoIncrement="true">
+            <column name="id" type="bigint">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="version" type="integer">

@@ -16,6 +16,7 @@ public class GameInst implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
 
@@ -57,12 +58,6 @@ public class GameInst implements Serializable {
     @Column(name = "ticks")
     private Integer ticks;
 
-    @JsonIgnoreProperties(value = { "gameInst" }, allowSetters = true)
-    @OneToOne
-    @MapsId
-    @JoinColumn(name = "id")
-    private GameInstProps props;
-
     @ManyToOne
     @JsonIgnoreProperties(value = { "gameClass", "mainJar", "user" }, allowSetters = true)
     private Player playerA;
@@ -73,6 +68,10 @@ public class GameInst implements Serializable {
 
     @ManyToOne
     private GameClass gameClass;
+
+    @JsonIgnoreProperties(value = { "gameInst" }, allowSetters = true)
+    @OneToOne(mappedBy = "gameInst")
+    private GameInstProps props;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -232,19 +231,6 @@ public class GameInst implements Serializable {
         this.ticks = ticks;
     }
 
-    public GameInstProps getProps() {
-        return this.props;
-    }
-
-    public void setProps(GameInstProps gameInstProps) {
-        this.props = gameInstProps;
-    }
-
-    public GameInst props(GameInstProps gameInstProps) {
-        this.setProps(gameInstProps);
-        return this;
-    }
-
     public Player getPlayerA() {
         return this.playerA;
     }
@@ -281,6 +267,25 @@ public class GameInst implements Serializable {
 
     public GameInst gameClass(GameClass gameClass) {
         this.setGameClass(gameClass);
+        return this;
+    }
+
+    public GameInstProps getProps() {
+        return this.props;
+    }
+
+    public void setProps(GameInstProps gameInstProps) {
+        if (this.props != null) {
+            this.props.setGameInst(null);
+        }
+        if (gameInstProps != null) {
+            gameInstProps.setGameInst(this);
+        }
+        this.props = gameInstProps;
+    }
+
+    public GameInst props(GameInstProps gameInstProps) {
+        this.setProps(gameInstProps);
         return this;
     }
 

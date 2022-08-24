@@ -69,16 +69,6 @@
   "readOnly": false,
   "relationships": [
     {
-      "options": {
-        "id": true
-      },
-      "otherEntityName": "gameInstProps",
-      "otherEntityRelationshipName": "gameInst",
-      "ownerSide": true,
-      "relationshipName": "props",
-      "relationshipType": "one-to-one"
-    },
-    {
       "otherEntityName": "player",
       "relationshipName": "playerA",
       "relationshipType": "many-to-one"
@@ -92,6 +82,13 @@
       "otherEntityName": "gameClass",
       "relationshipName": "gameClass",
       "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityName": "gameInstProps",
+      "otherEntityRelationshipName": "gameInst",
+      "ownerSide": false,
+      "relationshipName": "props",
+      "relationshipType": "one-to-one"
     }
   ],
   "service": "serviceClass"

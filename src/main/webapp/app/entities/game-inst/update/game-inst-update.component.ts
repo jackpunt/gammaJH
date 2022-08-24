@@ -7,8 +7,6 @@ import { finalize, map } from 'rxjs/operators';
 import { GameInstFormService, GameInstFormGroup } from './game-inst-form.service';
 import { IGameInst } from '../game-inst.model';
 import { GameInstService } from '../service/game-inst.service';
-import { IGameInstProps } from 'app/entities/game-inst-props/game-inst-props.model';
-import { GameInstPropsService } from 'app/entities/game-inst-props/service/game-inst-props.service';
 import { IPlayer } from 'app/entities/player/player.model';
 import { PlayerService } from 'app/entities/player/service/player.service';
 import { IGameClass } from 'app/entities/game-class/game-class.model';
@@ -22,7 +20,6 @@ export class GameInstUpdateComponent implements OnInit {
   isSaving = false;
   gameInst: IGameInst | null = null;
 
-  propsCollection: IGameInstProps[] = [];
   playersSharedCollection: IPlayer[] = [];
   gameClassesSharedCollection: IGameClass[] = [];
 
@@ -31,14 +28,10 @@ export class GameInstUpdateComponent implements OnInit {
   constructor(
     protected gameInstService: GameInstService,
     protected gameInstFormService: GameInstFormService,
-    protected gameInstPropsService: GameInstPropsService,
     protected playerService: PlayerService,
     protected gameClassService: GameClassService,
     protected activatedRoute: ActivatedRoute
   ) {}
-
-  compareGameInstProps = (o1: IGameInstProps | null, o2: IGameInstProps | null): boolean =>
-    this.gameInstPropsService.compareGameInstProps(o1, o2);
 
   comparePlayer = (o1: IPlayer | null, o2: IPlayer | null): boolean => this.playerService.comparePlayer(o1, o2);
 
@@ -92,10 +85,6 @@ export class GameInstUpdateComponent implements OnInit {
     this.gameInst = gameInst;
     this.gameInstFormService.resetForm(this.editForm, gameInst);
 
-    this.propsCollection = this.gameInstPropsService.addGameInstPropsToCollectionIfMissing<IGameInstProps>(
-      this.propsCollection,
-      gameInst.props
-    );
     this.playersSharedCollection = this.playerService.addPlayerToCollectionIfMissing<IPlayer>(
       this.playersSharedCollection,
       gameInst.playerA,
@@ -108,16 +97,6 @@ export class GameInstUpdateComponent implements OnInit {
   }
 
   protected loadRelationshipsOptions(): void {
-    this.gameInstPropsService
-      .query({ filter: 'gameinst-is-null' })
-      .pipe(map((res: HttpResponse<IGameInstProps[]>) => res.body ?? []))
-      .pipe(
-        map((gameInstProps: IGameInstProps[]) =>
-          this.gameInstPropsService.addGameInstPropsToCollectionIfMissing<IGameInstProps>(gameInstProps, this.gameInst?.props)
-        )
-      )
-      .subscribe((gameInstProps: IGameInstProps[]) => (this.propsCollection = gameInstProps));
-
     this.playerService
       .query()
       .pipe(map((res: HttpResponse<IPlayer[]>) => res.body ?? []))

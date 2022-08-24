@@ -38,7 +38,7 @@ public class GamePlayer implements Serializable {
     private Boolean ready;
 
     @ManyToOne
-    @JsonIgnoreProperties(value = { "props", "playerA", "playerB", "gameClass" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "playerA", "playerB", "gameClass", "props" }, allowSetters = true)
     private GameInst gameInst;
 
     @ManyToOne

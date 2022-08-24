@@ -38,6 +38,7 @@ type GameInstPropsFormGroupContent = {
   npcCount: FormControl<GameInstPropsFormRawValue['npcCount']>;
   jsonProps: FormControl<GameInstPropsFormRawValue['jsonProps']>;
   updated: FormControl<GameInstPropsFormRawValue['updated']>;
+  gameInst: FormControl<GameInstPropsFormRawValue['gameInst']>;
 };
 
 export type GameInstPropsFormGroup = FormGroup<GameInstPropsFormGroupContent>;
@@ -68,6 +69,7 @@ export class GameInstPropsFormService {
       updated: new FormControl(gameInstPropsRawValue.updated, {
         validators: [Validators.required],
       }),
+      gameInst: new FormControl(gameInstPropsRawValue.gameInst),
     });
   }
 

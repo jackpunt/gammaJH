@@ -9,8 +9,6 @@ import { of, Subject, from } from 'rxjs';
 import { GameInstFormService } from './game-inst-form.service';
 import { GameInstService } from '../service/game-inst.service';
 import { IGameInst } from '../game-inst.model';
-import { IGameInstProps } from 'app/entities/game-inst-props/game-inst-props.model';
-import { GameInstPropsService } from 'app/entities/game-inst-props/service/game-inst-props.service';
 import { IPlayer } from 'app/entities/player/player.model';
 import { PlayerService } from 'app/entities/player/service/player.service';
 import { IGameClass } from 'app/entities/game-class/game-class.model';
@@ -24,7 +22,6 @@ describe('GameInst Management Update Component', () => {
   let activatedRoute: ActivatedRoute;
   let gameInstFormService: GameInstFormService;
   let gameInstService: GameInstService;
-  let gameInstPropsService: GameInstPropsService;
   let playerService: PlayerService;
   let gameClassService: GameClassService;
 
@@ -49,7 +46,6 @@ describe('GameInst Management Update Component', () => {
     activatedRoute = TestBed.inject(ActivatedRoute);
     gameInstFormService = TestBed.inject(GameInstFormService);
     gameInstService = TestBed.inject(GameInstService);
-    gameInstPropsService = TestBed.inject(GameInstPropsService);
     playerService = TestBed.inject(PlayerService);
     gameClassService = TestBed.inject(GameClassService);
 
@@ -57,24 +53,6 @@ describe('GameInst Management Update Component', () => {
   });
 
   describe('ngOnInit', () => {
-    it('Should call props query and add missing value', () => {
-      const gameInst: IGameInst = { id: 456 };
-      const props: IGameInstProps = { id: 421 };
-      gameInst.props = props;
-
-      const propsCollection: IGameInstProps[] = [{ id: 12810 }];
-      jest.spyOn(gameInstPropsService, 'query').mockReturnValue(of(new HttpResponse({ body: propsCollection })));
-      const expectedCollection: IGameInstProps[] = [props, ...propsCollection];
-      jest.spyOn(gameInstPropsService, 'addGameInstPropsToCollectionIfMissing').mockReturnValue(expectedCollection);
-
-      activatedRoute.data = of({ gameInst });
-      comp.ngOnInit();
-
-      expect(gameInstPropsService.query).toHaveBeenCalled();
-      expect(gameInstPropsService.addGameInstPropsToCollectionIfMissing).toHaveBeenCalledWith(propsCollection, props);
-      expect(comp.propsCollection).toEqual(expectedCollection);
-    });
-
     it('Should call Player query and add missing value', () => {
       const gameInst: IGameInst = { id: 456 };
       const playerA: IPlayer = { id: 24830 };
@@ -123,8 +101,6 @@ describe('GameInst Management Update Component', () => {
 
     it('Should update editForm', () => {
       const gameInst: IGameInst = { id: 456 };
-      const props: IGameInstProps = { id: 80442 };
-      gameInst.props = props;
       const playerA: IPlayer = { id: 32095 };
       gameInst.playerA = playerA;
       const playerB: IPlayer = { id: 87163 };
@@ -135,7 +111,6 @@ describe('GameInst Management Update Component', () => {
       activatedRoute.data = of({ gameInst });
       comp.ngOnInit();
 
-      expect(comp.propsCollection).toContain(props);
       expect(comp.playersSharedCollection).toContain(playerA);
       expect(comp.playersSharedCollection).toContain(playerB);
       expect(comp.gameClassesSharedCollection).toContain(gameClass);
@@ -212,16 +187,6 @@ describe('GameInst Management Update Component', () => {
   });
 
   describe('Compare relationships', () => {
-    describe('compareGameInstProps', () => {
-      it('Should forward to gameInstPropsService', () => {
-        const entity = { id: 123 };
-        const entity2 = { id: 456 };
-        jest.spyOn(gameInstPropsService, 'compareGameInstProps');
-        comp.compareGameInstProps(entity, entity2);
-        expect(gameInstPropsService.compareGameInstProps).toHaveBeenCalledWith(entity, entity2);
-      });
-    });
-
     describe('comparePlayer', () => {
       it('Should forward to playerService', () => {
         const entity = { id: 123 };

@@ -16,29 +16,35 @@
       "fieldName": "name",
       "fieldType": "String",
       "fieldValidateRules": ["maxlength", "required"],
-      "fieldValidateRulesMaxlength": "45"
+      "fieldValidateRulesMaxlength": "45",
+      "javadoc": "a unique name for this GameClass"
     },
     {
       "fieldName": "revision",
       "fieldType": "String",
       "fieldValidateRules": ["maxlength"],
-      "fieldValidateRulesMaxlength": "24"
+      "fieldValidateRulesMaxlength": "24",
+      "javadoc": "major.minor.patch.TYPE [semver]"
     },
     {
       "fieldName": "launcherPath",
-      "fieldType": "String"
+      "fieldType": "String",
+      "javadoc": "jar-path ! fqcn.of.launcher\\nURL=getenv(“GAMEBASE”)+path/to/release.jar ! fqcn.launcher"
     },
     {
       "fieldName": "gamePath",
-      "fieldType": "String"
+      "fieldType": "String",
+      "javadoc": "jar-path ! fqcn.of.game\\nURL=getenv(“GAMEBASE”)+path/to/release.jar ! pkg.main"
     },
     {
       "fieldName": "docsPath",
-      "fieldType": "String"
+      "fieldType": "String",
+      "javadoc": "doc-path/to/index.html\\nURL=getenv(“GAMEBASE”)+path/to/release.jar ! doc/path/index.html"
     },
     {
       "fieldName": "propNames",
-      "fieldType": "String"
+      "fieldType": "String",
+      "javadoc": "a comma-separated string of property names for this GameClass\\nonly these prop_names can appear in the game_props.json associated with this game_class"
     },
     {
       "fieldName": "updated",

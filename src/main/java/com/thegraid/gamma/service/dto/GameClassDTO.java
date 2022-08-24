@@ -16,19 +16,45 @@ public class GameClassDTO implements Serializable {
 
     private Integer version;
 
+    /**
+     * a unique name for this GameClass
+     */
     @NotNull
     @Size(max = 45)
+    @Schema(description = "a unique name for this GameClass", required = true)
     private String name;
 
+    /**
+     * major.minor.patch.TYPE [semver]
+     */
     @Size(max = 24)
+    @Schema(description = "major.minor.patch.TYPE [semver]")
     private String revision;
 
+    /**
+     * jar-path ! fqcn.of.launcher\nURL=getenv(“GAMEBASE”)+path/to/release.jar ! fqcn.launcher
+     */
+    @Schema(description = "jar-path ! fqcn.of.launcher\nURL=getenv(“GAMEBASE”)+path/to/release.jar ! fqcn.launcher")
     private String launcherPath;
 
+    /**
+     * jar-path ! fqcn.of.game\nURL=getenv(“GAMEBASE”)+path/to/release.jar ! pkg.main
+     */
+    @Schema(description = "jar-path ! fqcn.of.game\nURL=getenv(“GAMEBASE”)+path/to/release.jar ! pkg.main")
     private String gamePath;
 
+    /**
+     * doc-path/to/index.html\nURL=getenv(“GAMEBASE”)+path/to/release.jar ! doc/path/index.html
+     */
+    @Schema(description = "doc-path/to/index.html\nURL=getenv(“GAMEBASE”)+path/to/release.jar ! doc/path/index.html")
     private String docsPath;
 
+    /**
+     * a comma-separated string of property names for this GameClass\nonly these prop_names can appear in the game_props.json associated with this game_class
+     */
+    @Schema(
+        description = "a comma-separated string of property names for this GameClass\nonly these prop_names can appear in the game_props.json associated with this game_class"
+    )
     private String propNames;
 
     @NotNull

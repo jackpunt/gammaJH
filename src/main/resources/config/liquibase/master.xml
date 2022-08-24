@@ -23,6 +23,7 @@
     <include file="config/liquibase/changelog/20220813223218_added_entity_constraints_AccountInfo.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20220813223219_added_entity_constraints_Asset.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20220813223221_added_entity_constraints_GameInst.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20220813223222_added_entity_constraints_GameInstProps.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20220813223223_added_entity_constraints_GamePlayer.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20220813223224_added_entity_constraints_MemberGameProps.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20220813223225_added_entity_constraints_Player.xml" relativeToChangelogFile="false"/>

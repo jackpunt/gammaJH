@@ -171,23 +171,6 @@
         </div>
 
         <div class="row mb-3">
-          <label class="form-label" jhiTranslate="gammaJhApp.gameInst.props" for="field_props">Props</label>
-          <select
-            class="form-control"
-            id="field_props"
-            data-cy="props"
-            name="props"
-            formControlName="props"
-            [compareWith]="compareGameInstProps"
-          >
-            <option [ngValue]="null"></option>
-            <option [ngValue]="gameInstPropsOption" *ngFor="let gameInstPropsOption of propsCollection">
-              {{ gameInstPropsOption.id }}
-            </option>
-          </select>
-        </div>
-
-        <div class="row mb-3">
           <label class="form-label" jhiTranslate="gammaJhApp.gameInst.playerA" for="field_playerA">Player A</label>
           <select
             class="form-control"

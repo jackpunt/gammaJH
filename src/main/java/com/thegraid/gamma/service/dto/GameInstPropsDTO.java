@@ -46,6 +46,8 @@ public class GameInstPropsDTO implements Serializable {
     @NotNull
     private ZonedDateTime updated;
 
+    private GameInstDTO gameInst;
+
     public Long getId() {
         return id;
     }
@@ -110,6 +112,14 @@ public class GameInstPropsDTO implements Serializable {
         this.updated = updated;
     }
 
+    public GameInstDTO getGameInst() {
+        return gameInst;
+    }
+
+    public void setGameInst(GameInstDTO gameInst) {
+        this.gameInst = gameInst;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -143,6 +153,7 @@ public class GameInstPropsDTO implements Serializable {
             ", npcCount=" + getNpcCount() +
             ", jsonProps='" + getJsonProps() + "'" +
             ", updated='" + getUpdated() + "'" +
+            ", gameInst=" + getGameInst() +
             "}";
     }
 }

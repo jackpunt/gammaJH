@@ -9,7 +9,6 @@ import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.stream.StreamSupport;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import org.slf4j.Logger;
@@ -56,6 +55,9 @@ public class GameInstPropsResource {
         log.debug("REST request to save GameInstProps : {}", gameInstPropsDTO);
         if (gameInstPropsDTO.getId() != null) {
             throw new BadRequestAlertException("A new gameInstProps cannot already have an ID", ENTITY_NAME, "idexists");
+        }
+        if (Objects.isNull(gameInstPropsDTO.getGameInst())) {
+            throw new BadRequestAlertException("Invalid association value provided", ENTITY_NAME, "null");
         }
         GameInstPropsDTO result = gameInstPropsService.save(gameInstPropsDTO);
         return ResponseEntity
@@ -137,15 +139,10 @@ public class GameInstPropsResource {
     /**
      * {@code GET  /game-inst-props} : get all the gameInstProps.
      *
-     * @param filter the filter of the request.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of gameInstProps in body.
      */
     @GetMapping("/game-inst-props")
-    public List<GameInstPropsDTO> getAllGameInstProps(@RequestParam(required = false) String filter) {
-        if ("gameinst-is-null".equals(filter)) {
-            log.debug("REST request to get all GameInstPropss where gameInst is null");
-            return gameInstPropsService.findAllWhereGameInstIsNull();
-        }
+    public List<GameInstPropsDTO> getAllGameInstProps() {
         log.debug("REST request to get all GameInstProps");
         return gameInstPropsService.findAll();
     }

@@ -27,6 +27,7 @@ describe('GameInstProps Form Service', () => {
             npcCount: expect.any(Object),
             jsonProps: expect.any(Object),
             updated: expect.any(Object),
+            gameInst: expect.any(Object),
           })
         );
       });
@@ -44,6 +45,7 @@ describe('GameInstProps Form Service', () => {
             npcCount: expect.any(Object),
             jsonProps: expect.any(Object),
             updated: expect.any(Object),
+            gameInst: expect.any(Object),
           })
         );
       });

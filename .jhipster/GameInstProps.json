@@ -52,9 +52,12 @@
   "readOnly": false,
   "relationships": [
     {
+      "options": {
+        "id": true
+      },
       "otherEntityName": "gameInst",
       "otherEntityRelationshipName": "props",
-      "ownerSide": false,
+      "ownerSide": true,
       "relationshipName": "gameInst",
       "relationshipType": "one-to-one"
     }

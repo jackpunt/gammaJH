@@ -1,4 +1,5 @@
 import dayjs from 'dayjs/esm';
+import { IGameInst } from 'app/entities/game-inst/game-inst.model';
 
 export interface IGameInstProps {
   id: number;
@@ -9,6 +10,7 @@ export interface IGameInstProps {
   npcCount?: number | null;
   jsonProps?: string | null;
   updated?: dayjs.Dayjs | null;
+  gameInst?: Pick<IGameInst, 'id'> | null;
 }
 
 export type NewGameInstProps = Omit<IGameInstProps, 'id'> & { id: null };

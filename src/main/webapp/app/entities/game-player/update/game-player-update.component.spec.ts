@@ -55,10 +55,10 @@ describe('GamePlayer Management Update Component', () => {
   describe('ngOnInit', () => {
     it('Should call GameInst query and add missing value', () => {
       const gamePlayer: IGamePlayer = { id: 456 };
-      const gameInst: IGameInst = { id: 1506 };
+      const gameInst: IGameInst = { id: 81483 };
       gamePlayer.gameInst = gameInst;
 
-      const gameInstCollection: IGameInst[] = [{ id: 15745 }];
+      const gameInstCollection: IGameInst[] = [{ id: 3184 }];
       jest.spyOn(gameInstService, 'query').mockReturnValue(of(new HttpResponse({ body: gameInstCollection })));
       const additionalGameInsts = [gameInst];
       const expectedCollection: IGameInst[] = [...additionalGameInsts, ...gameInstCollection];
@@ -99,7 +99,7 @@ describe('GamePlayer Management Update Component', () => {
 
     it('Should update editForm', () => {
       const gamePlayer: IGamePlayer = { id: 456 };
-      const gameInst: IGameInst = { id: 62718 };
+      const gameInst: IGameInst = { id: 79117 };
       gamePlayer.gameInst = gameInst;
       const player: IPlayer = { id: 63420 };
       gamePlayer.player = player;

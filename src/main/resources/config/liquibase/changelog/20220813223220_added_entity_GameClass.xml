@@ -17,22 +17,22 @@
             <column name="version" type="integer">
                 <constraints nullable="true" />
             </column>
-            <column name="name" type="varchar(45)">
+            <column name="name" type="varchar(45)" remarks="a unique name for this GameClass">
                 <constraints nullable="false" />
             </column>
-            <column name="revision" type="varchar(24)">
+            <column name="revision" type="varchar(24)" remarks="major.minor.patch.TYPE [semver]">
                 <constraints nullable="true" />
             </column>
-            <column name="launcher_path" type="varchar(255)">
+            <column name="launcher_path" type="varchar(255)" remarks="jar-path ! fqcn.of.launcher\nURL=getenv(“GAMEBASE”)+path/to/release.jar ! fqcn.launcher">
                 <constraints nullable="true" />
             </column>
-            <column name="game_path" type="varchar(255)">
+            <column name="game_path" type="varchar(255)" remarks="jar-path ! fqcn.of.game\nURL=getenv(“GAMEBASE”)+path/to/release.jar ! pkg.main">
                 <constraints nullable="true" />
             </column>
-            <column name="docs_path" type="varchar(255)">
+            <column name="docs_path" type="varchar(255)" remarks="doc-path/to/index.html\nURL=getenv(“GAMEBASE”)+path/to/release.jar ! doc/path/index.html">
                 <constraints nullable="true" />
             </column>
-            <column name="prop_names" type="varchar(255)">
+            <column name="prop_names" type="varchar(255)" remarks="a comma-separated string of property names for this GameClass\nonly these prop_names can appear in the game_props.json associated with this game_class">
                 <constraints nullable="true" />
             </column>
             <column name="updated" type="${datetimeType}">

@@ -9,6 +9,8 @@ import { of, Subject, from } from 'rxjs';
 import { GameInstPropsFormService } from './game-inst-props-form.service';
 import { GameInstPropsService } from '../service/game-inst-props.service';
 import { IGameInstProps } from '../game-inst-props.model';
+import { IGameInst } from 'app/entities/game-inst/game-inst.model';
+import { GameInstService } from 'app/entities/game-inst/service/game-inst.service';
 
 import { GameInstPropsUpdateComponent } from './game-inst-props-update.component';
 
@@ -18,6 +20,7 @@ describe('GameInstProps Management Update Component', () => {
   let activatedRoute: ActivatedRoute;
   let gameInstPropsFormService: GameInstPropsFormService;
   let gameInstPropsService: GameInstPropsService;
+  let gameInstService: GameInstService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -40,17 +43,39 @@ describe('GameInstProps Management Update Component', () => {
     activatedRoute = TestBed.inject(ActivatedRoute);
     gameInstPropsFormService = TestBed.inject(GameInstPropsFormService);
     gameInstPropsService = TestBed.inject(GameInstPropsService);
+    gameInstService = TestBed.inject(GameInstService);
 
     comp = fixture.componentInstance;
   });
 
   describe('ngOnInit', () => {
-    it('Should update editForm', () => {
+    it('Should call gameInst query and add missing value', () => {
       const gameInstProps: IGameInstProps = { id: 456 };
+      const gameInst: IGameInst = { id: 94154 };
+      gameInstProps.gameInst = gameInst;
+
+      const gameInstCollection: IGameInst[] = [{ id: 5587 }];
+      jest.spyOn(gameInstService, 'query').mockReturnValue(of(new HttpResponse({ body: gameInstCollection })));
+      const expectedCollection: IGameInst[] = [gameInst, ...gameInstCollection];
+      jest.spyOn(gameInstService, 'addGameInstToCollectionIfMissing').mockReturnValue(expectedCollection);
 
       activatedRoute.data = of({ gameInstProps });
       comp.ngOnInit();
 
+      expect(gameInstService.query).toHaveBeenCalled();
+      expect(gameInstService.addGameInstToCollectionIfMissing).toHaveBeenCalledWith(gameInstCollection, gameInst);
+      expect(comp.gameInstsCollection).toEqual(expectedCollection);
+    });
+
+    it('Should update editForm', () => {
+      const gameInstProps: IGameInstProps = { id: 456 };
+      const gameInst: IGameInst = { id: 29122 };
+      gameInstProps.gameInst = gameInst;
+
+      activatedRoute.data = of({ gameInstProps });
+      comp.ngOnInit();
+
+      expect(comp.gameInstsCollection).toContain(gameInst);
       expect(comp.gameInstProps).toEqual(gameInstProps);
     });
   });
@@ -120,6 +145,18 @@ describe('GameInstProps Management Update Component', () => {
       expect(gameInstPropsService.update).toHaveBeenCalled();
       expect(comp.isSaving).toEqual(false);
       expect(comp.previousState).not.toHaveBeenCalled();
+    });
+  });
+
+  describe('Compare relationships', () => {
+    describe('compareGameInst', () => {
+      it('Should forward to gameInstService', () => {
+        const entity = { id: 123 };
+        const entity2 = { id: 456 };
+        jest.spyOn(gameInstService, 'compareGameInst');
+        comp.compareGameInst(entity, entity2);
+        expect(gameInstService.compareGameInst).toHaveBeenCalledWith(entity, entity2);
+      });
     });
   });
 });

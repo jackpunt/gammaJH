@@ -3,42 +3,41 @@ import dayjs from 'dayjs/esm';
 import { IGameInst, NewGameInst } from './game-inst.model';
 
 export const sampleWithRequiredData: IGameInst = {
-  id: 20006,
-  created: dayjs('2022-08-13T02:47'),
-  updated: dayjs('2022-08-13T15:37'),
+  id: 82250,
+  created: dayjs('2022-08-13T15:37'),
+  updated: dayjs('2022-08-13T07:54'),
 };
 
 export const sampleWithPartialData: IGameInst = {
-  id: 47357,
-  version: 22952,
-  gameName: 'Research',
-  hostUrl: 'Gloves compress Practical',
-  passcode: "Zambia Pa'anga",
-  created: dayjs('2022-08-13T14:34'),
-  started: dayjs('2022-08-13T15:49'),
-  updated: dayjs('2022-08-13T20:51'),
-  scoreA: 76184,
-  ticks: 98916,
+  id: 18754,
+  version: 94694,
+  gameName: 'mindshare',
+  hostUrl: 'Shoes',
+  passcode: 'Practical architectures Chicken',
+  created: dayjs('2022-08-13T19:19'),
+  finished: dayjs('2022-08-13T14:34'),
+  updated: dayjs('2022-08-13T15:49'),
+  scoreB: 7036,
 };
 
 export const sampleWithFullData: IGameInst = {
-  id: 49328,
-  version: 24979,
-  gameName: 'Program connecting',
-  hostUrl: 'Metal bandwidth',
-  passcode: 'Developer Group heuristic',
-  created: dayjs('2022-08-13T15:58'),
-  started: dayjs('2022-08-13T06:49'),
-  finished: dayjs('2022-08-13T07:15'),
-  updated: dayjs('2022-08-13T20:57'),
-  scoreA: 50565,
-  scoreB: 33673,
-  ticks: 97930,
+  id: 76184,
+  version: 98916,
+  gameName: 'Uruguay',
+  hostUrl: 'connecting Cameroon hardware',
+  passcode: 'mobile',
+  created: dayjs('2022-08-13T20:50'),
+  started: dayjs('2022-08-12T23:49'),
+  finished: dayjs('2022-08-13T12:44'),
+  updated: dayjs('2022-08-13T07:14'),
+  scoreA: 28501,
+  scoreB: 45049,
+  ticks: 44541,
 };
 
 export const sampleWithNewData: NewGameInst = {
-  created: dayjs('2022-08-12T23:19'),
-  updated: dayjs('2022-08-13T04:51'),
+  created: dayjs('2022-08-13T15:58'),
+  updated: dayjs('2022-08-13T06:49'),
   id: null,
 };
 

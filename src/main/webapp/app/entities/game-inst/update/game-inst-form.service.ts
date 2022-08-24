@@ -45,7 +45,6 @@ type GameInstFormGroupContent = {
   scoreA: FormControl<GameInstFormRawValue['scoreA']>;
   scoreB: FormControl<GameInstFormRawValue['scoreB']>;
   ticks: FormControl<GameInstFormRawValue['ticks']>;
-  props: FormControl<GameInstFormRawValue['props']>;
   playerA: FormControl<GameInstFormRawValue['playerA']>;
   playerB: FormControl<GameInstFormRawValue['playerB']>;
   gameClass: FormControl<GameInstFormRawValue['gameClass']>;
@@ -89,7 +88,6 @@ export class GameInstFormService {
       scoreA: new FormControl(gameInstRawValue.scoreA),
       scoreB: new FormControl(gameInstRawValue.scoreB),
       ticks: new FormControl(gameInstRawValue.ticks),
-      props: new FormControl(gameInstRawValue.props),
       playerA: new FormControl(gameInstRawValue.playerA),
       playerB: new FormControl(gameInstRawValue.playerB),
       gameClass: new FormControl(gameInstRawValue.gameClass),

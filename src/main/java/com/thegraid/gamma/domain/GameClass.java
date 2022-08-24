@@ -22,24 +22,42 @@ public class GameClass implements Serializable {
     @Column(name = "version")
     private Integer version;
 
+    /**
+     * a unique name for this GameClass
+     */
     @NotNull
     @Size(max = 45)
     @Column(name = "name", length = 45, nullable = false)
     private String name;
 
+    /**
+     * major.minor.patch.TYPE [semver]
+     */
     @Size(max = 24)
     @Column(name = "revision", length = 24)
     private String revision;
 
+    /**
+     * jar-path ! fqcn.of.launcher\nURL=getenv(“GAMEBASE”)+path/to/release.jar ! fqcn.launcher
+     */
     @Column(name = "launcher_path")
     private String launcherPath;
 
+    /**
+     * jar-path ! fqcn.of.game\nURL=getenv(“GAMEBASE”)+path/to/release.jar ! pkg.main
+     */
     @Column(name = "game_path")
     private String gamePath;
 
+    /**
+     * doc-path/to/index.html\nURL=getenv(“GAMEBASE”)+path/to/release.jar ! doc/path/index.html
+     */
     @Column(name = "docs_path")
     private String docsPath;
 
+    /**
+     * a comma-separated string of property names for this GameClass\nonly these prop_names can appear in the game_props.json associated with this game_class
+     */
     @Column(name = "prop_names")
     private String propNames;
 

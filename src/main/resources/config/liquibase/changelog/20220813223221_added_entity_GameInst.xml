@@ -11,7 +11,7 @@
     -->
     <changeSet id="20220813223221-1" author="jhipster">
         <createTable tableName="game_inst" remarks="Instance of a Game.">
-            <column name="id" type="bigint">
+            <column name="id" type="bigint" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="version" type="integer">

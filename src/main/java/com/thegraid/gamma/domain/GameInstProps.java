@@ -16,7 +16,6 @@ public class GameInstProps implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
 
@@ -55,8 +54,10 @@ public class GameInstProps implements Serializable {
     @Column(name = "updated", nullable = false)
     private ZonedDateTime updated;
 
-    @JsonIgnoreProperties(value = { "props", "playerA", "playerB", "gameClass" }, allowSetters = true)
-    @OneToOne(mappedBy = "props")
+    @JsonIgnoreProperties(value = { "playerA", "playerB", "gameClass", "props" }, allowSetters = true)
+    @OneToOne
+    @MapsId
+    @JoinColumn(name = "id")
     private GameInst gameInst;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
@@ -170,12 +171,6 @@ public class GameInstProps implements Serializable {
     }
 
     public void setGameInst(GameInst gameInst) {
-        if (this.gameInst != null) {
-            this.gameInst.setProps(null);
-        }
-        if (gameInst != null) {
-            gameInst.setProps(this);
-        }
         this.gameInst = gameInst;
     }
 
