@@ -26,12 +26,12 @@
     {
       "fieldName": "mapSize",
       "fieldType": "Integer",
-      "javadoc": "NULL means not-specified'"
+      "javadoc": "NULL means not-specified"
     },
     {
       "fieldName": "npcCount",
       "fieldType": "Integer",
-      "javadoc": "NULL means not-specified'"
+      "javadoc": "NULL means not-specified"
     },
     {
       "fieldName": "jsonProps",

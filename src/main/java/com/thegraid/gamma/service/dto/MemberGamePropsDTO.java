@@ -25,15 +25,15 @@ public class MemberGamePropsDTO implements Serializable {
     private String mapName;
 
     /**
-     * NULL means not-specified'
+     * NULL means not-specified
      */
-    @Schema(description = "NULL means not-specified'")
+    @Schema(description = "NULL means not-specified")
     private Integer mapSize;
 
     /**
-     * NULL means not-specified'
+     * NULL means not-specified
      */
-    @Schema(description = "NULL means not-specified'")
+    @Schema(description = "NULL means not-specified")
     private Integer npcCount;
 
     /**

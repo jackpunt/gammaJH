@@ -32,7 +32,7 @@
     {
       "fieldName": "path",
       "fieldType": "String",
-      "javadoc": "url to asset (class or document/resource)\\njar-path ! fqcn.of.asset.class \\njar-path ! path/inside/jar/document\\nURL=getenv(“ASSETBASE”)+path/to/release.jar ! user.supplied.Player"
+      "javadoc": "url to asset (class or document/resource)\\njar-path ! fqcn.of.asset.class\\njar-path ! path/inside/jar/document\\nURL=getenv(“ASSETBASE”)+path/to/release.jar ! user.supplied.Player"
     },
     {
       "fieldName": "include",

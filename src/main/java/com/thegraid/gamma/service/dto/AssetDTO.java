@@ -35,10 +35,10 @@ public class AssetDTO implements Serializable {
     private Boolean auto;
 
     /**
-     * url to asset (class or document/resource)\njar-path ! fqcn.of.asset.class \njar-path ! path/inside/jar/document\nURL=getenv(“ASSETBASE”)+path/to/release.jar ! user.supplied.Player
+     * url to asset (class or document/resource)\njar-path ! fqcn.of.asset.class\njar-path ! path/inside/jar/document\nURL=getenv(“ASSETBASE”)+path/to/release.jar ! user.supplied.Player
      */
     @Schema(
-        description = "url to asset (class or document/resource)\njar-path ! fqcn.of.asset.class \njar-path ! path/inside/jar/document\nURL=getenv(“ASSETBASE”)+path/to/release.jar ! user.supplied.Player"
+        description = "url to asset (class or document/resource)\njar-path ! fqcn.of.asset.class\njar-path ! path/inside/jar/document\nURL=getenv(“ASSETBASE”)+path/to/release.jar ! user.supplied.Player"
     )
     private String path;
 

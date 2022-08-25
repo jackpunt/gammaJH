@@ -23,10 +23,10 @@
             <column name="map_name" type="varchar(45)" remarks="NULL means use normal/standard">
                 <constraints nullable="true" />
             </column>
-            <column name="map_size" type="integer" remarks="NULL means not-specified&apos;">
+            <column name="map_size" type="integer" remarks="NULL means not-specified">
                 <constraints nullable="true" />
             </column>
-            <column name="npc_count" type="integer" remarks="NULL means not-specified&apos;">
+            <column name="npc_count" type="integer" remarks="NULL means not-specified">
                 <constraints nullable="true" />
             </column>
             <column name="json_props" type="varchar(255)" remarks="json form of game-specific properties">

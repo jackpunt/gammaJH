@@ -26,7 +26,7 @@
             <column name="auto" type="boolean" remarks="bot is full-auto">
                 <constraints nullable="true" />
             </column>
-            <column name="path" type="varchar(255)" remarks="url to asset (class or document/resource)\njar-path ! fqcn.of.asset.class \njar-path ! path/inside/jar/document\nURL=getenv(“ASSETBASE”)+path/to/release.jar ! user.supplied.Player">
+            <column name="path" type="varchar(255)" remarks="url to asset (class or document/resource)\njar-path ! fqcn.of.asset.class\njar-path ! path/inside/jar/document\nURL=getenv(“ASSETBASE”)+path/to/release.jar ! user.supplied.Player">
                 <constraints nullable="true" />
             </column>
             <column name="include" type="varchar(255)" remarks="comma-separated list of asset Ids">

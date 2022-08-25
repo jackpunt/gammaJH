@@ -32,13 +32,13 @@ public class MemberGameProps implements Serializable {
     private String mapName;
 
     /**
-     * NULL means not-specified'
+     * NULL means not-specified
      */
     @Column(name = "map_size")
     private Integer mapSize;
 
     /**
-     * NULL means not-specified'
+     * NULL means not-specified
      */
     @Column(name = "npc_count")
     private Integer npcCount;
