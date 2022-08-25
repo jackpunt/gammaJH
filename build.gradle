@@ -182,6 +182,14 @@ repositories {
     // mavenLocal()
     mavenCentral()
     //jhipster-needle-gradle-repositories - JHipster will add additional repositories
+    // .m2/settings.xml --> file:///Users/Jpeck/Data/Programs/mavenRepo
+    mavenLocal () {
+        content {
+            // this repository *only* contains artifacts with group "gamma"
+            includeGroup "gamma"
+            // also: "jpeck.local" for "userAI", "generic", ... maybe "util"?
+        }
+    }
 }
 
 dependencies {
@@ -189,7 +197,7 @@ dependencies {
     if (!project.hasProperty("gae")) {
         implementation platform("tech.jhipster:jhipster-dependencies:${jhipsterDependenciesVersion}")
     }
-
+    implementation "gamma:gamma-main:0.1.1-SNAPSHOT"
     // Use ", version: jhipsterDependenciesVersion, changing: true" if you want
     // to use a SNAPSHOT release instead of a stable release
     implementation group: "tech.jhipster", name: "jhipster-framework"
