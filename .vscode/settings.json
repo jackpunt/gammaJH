@@ -3,5 +3,5 @@
         "JAVA_HOME": "/Library/Java/JavaVirtualMachines/adoptopenjdk-11.jdk/Contents/Home"
     },
     // ask about classpath after changing build files
-    "java.configuration.updateBuildConfiguration": "interactive"
+    "java.configuration.updateBuildConfiguration": "automatic"
 }
