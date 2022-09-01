@@ -80,6 +80,14 @@ eclipse {
     }
 }
 
+// https://mapstruct.org/documentation/stable/reference/html/#configuration-options
+// https://www.baeldung.com/mapstruct-ignore-unmapped-properties
+compileJava {
+    options.compilerArgs += [
+        '-Amapstruct.unmappedTargetPolicy=IGNORE'
+    ]
+}
+
 defaultTasks "bootRun"
 
 springBoot {
