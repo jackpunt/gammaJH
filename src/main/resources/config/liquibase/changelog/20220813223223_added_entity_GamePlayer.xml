@@ -20,7 +20,7 @@
             <column name="role" type="varchar(4)" remarks="assigned in Lobby">
                 <constraints nullable="false" />
             </column>
-            <column name="ready" type="integer" remarks="initial FALSE(-1)">
+            <column name="ready" type="integer" remarks="ack&apos;d version; initial -1">
                 <constraints nullable="false" />
             </column>
             <column name="game_inst_id" type="bigint">

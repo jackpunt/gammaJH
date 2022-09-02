@@ -23,7 +23,7 @@
       "fieldName": "ready",
       "fieldType": "Integer",
       "fieldValidateRules": ["required"],
-      "javadoc": "initial FALSE(-1)"
+      "javadoc": "ack'd version; initial -1"
     }
   ],
   "fluentMethods": true,

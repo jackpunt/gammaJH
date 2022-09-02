@@ -24,10 +24,10 @@ public class GamePlayerDTO implements Serializable {
     private String role;
 
     /**
-     * initial FALSE(-1)
+     * ack'd version; initial -1
      */
     @NotNull
-    @Schema(description = "initial FALSE(-1)", required = true)
+    @Schema(description = "ack'd version; initial -1", required = true)
     private Integer ready;
 
     private GameInstDTO gameInst;

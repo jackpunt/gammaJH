@@ -31,7 +31,7 @@ public class GamePlayer implements Serializable {
     private String role;
 
     /**
-     * initial FALSE(-1)
+     * ack'd version; initial -1
      */
     @NotNull
     @Column(name = "ready", nullable = false)

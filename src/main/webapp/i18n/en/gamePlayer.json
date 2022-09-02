@@ -25,7 +25,7 @@
       "player": "Player",
       "help": {
         "role": "assigned in Lobby",
-        "ready": "initial FALSE(-1)"
+        "ready": "ack&#39;d version; initial -1"
       }
     }
   }

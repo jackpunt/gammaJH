@@ -130,7 +130,7 @@ entity GamePlayer {
   version Integer
   /** assigned in Lobby */
   role String maxlength(4) required // 'A' or 'B'
-  /** initial FALSE(-1) */
+  /** ack'd version; initial -1 */
   ready Integer required
 }
 /** member/player proposes properties for a new GameInst. */
