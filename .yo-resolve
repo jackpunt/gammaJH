@@ -3,3 +3,5 @@
 src/main/resources/config/application-dev.yml skip
 src/test/java/com/thegraid/gamma/config/MysqlTestContainer.java skip
 tsconfig.app.json skip
+gradlew skip
+build.gradle skip

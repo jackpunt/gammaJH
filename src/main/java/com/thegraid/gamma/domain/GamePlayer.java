@@ -35,7 +35,7 @@ public class GamePlayer implements Serializable {
      */
     @NotNull
     @Column(name = "ready", nullable = false)
-    private Boolean ready;
+    private Integer ready;
 
     @ManyToOne
     @JsonIgnoreProperties(value = { "playerA", "playerB", "gameClass", "props" }, allowSetters = true)
@@ -86,16 +86,16 @@ public class GamePlayer implements Serializable {
         this.role = role;
     }
 
-    public Boolean getReady() {
+    public Integer getReady() {
         return this.ready;
     }
 
-    public GamePlayer ready(Boolean ready) {
+    public GamePlayer ready(Integer ready) {
         this.setReady(ready);
         return this;
     }
 
-    public void setReady(Boolean ready) {
+    public void setReady(Integer ready) {
         this.ready = ready;
     }
 
@@ -151,7 +151,7 @@ public class GamePlayer implements Serializable {
             "id=" + getId() +
             ", version=" + getVersion() +
             ", role='" + getRole() + "'" +
-            ", ready='" + getReady() + "'" +
+            ", ready=" + getReady() +
             "}";
     }
 }

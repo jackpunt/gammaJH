@@ -21,7 +21,7 @@
     },
     {
       "fieldName": "ready",
-      "fieldType": "Boolean",
+      "fieldType": "Integer",
       "fieldValidateRules": ["required"],
       "javadoc": "initial FALSE(-1)"
     }

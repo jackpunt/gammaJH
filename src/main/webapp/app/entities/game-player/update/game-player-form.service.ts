@@ -14,7 +14,7 @@ type PartialWithRequiredKeyOf<T extends { id: unknown }> = Partial<Omit<T, 'id'>
  */
 type GamePlayerFormGroupInput = IGamePlayer | PartialWithRequiredKeyOf<NewGamePlayer>;
 
-type GamePlayerFormDefaults = Pick<NewGamePlayer, 'id' | 'ready'>;
+type GamePlayerFormDefaults = Pick<NewGamePlayer, 'id'>;
 
 type GamePlayerFormGroupContent = {
   id: FormControl<IGamePlayer['id'] | NewGamePlayer['id']>;
@@ -71,7 +71,6 @@ export class GamePlayerFormService {
   private getFormDefaults(): GamePlayerFormDefaults {
     return {
       id: null,
-      ready: false,
     };
   }
 }

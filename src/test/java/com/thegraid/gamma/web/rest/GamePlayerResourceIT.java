@@ -38,8 +38,8 @@ class GamePlayerResourceIT {
     private static final String DEFAULT_ROLE = "AAAA";
     private static final String UPDATED_ROLE = "BBBB";
 
-    private static final Boolean DEFAULT_READY = false;
-    private static final Boolean UPDATED_READY = true;
+    private static final Integer DEFAULT_READY = 1;
+    private static final Integer UPDATED_READY = 2;
 
     private static final String ENTITY_API_URL = "/api/game-players";
     private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{id}";
@@ -196,7 +196,7 @@ class GamePlayerResourceIT {
             .andExpect(jsonPath("$.[*].id").value(hasItem(gamePlayer.getId().intValue())))
             .andExpect(jsonPath("$.[*].version").value(hasItem(DEFAULT_VERSION)))
             .andExpect(jsonPath("$.[*].role").value(hasItem(DEFAULT_ROLE)))
-            .andExpect(jsonPath("$.[*].ready").value(hasItem(DEFAULT_READY.booleanValue())));
+            .andExpect(jsonPath("$.[*].ready").value(hasItem(DEFAULT_READY)));
     }
 
     @Test
@@ -213,7 +213,7 @@ class GamePlayerResourceIT {
             .andExpect(jsonPath("$.id").value(gamePlayer.getId().intValue()))
             .andExpect(jsonPath("$.version").value(DEFAULT_VERSION))
             .andExpect(jsonPath("$.role").value(DEFAULT_ROLE))
-            .andExpect(jsonPath("$.ready").value(DEFAULT_READY.booleanValue()));
+            .andExpect(jsonPath("$.ready").value(DEFAULT_READY));
     }
 
     @Test

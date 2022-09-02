@@ -131,7 +131,7 @@ entity GamePlayer {
   /** assigned in Lobby */
   role String maxlength(4) required // 'A' or 'B'
   /** initial FALSE(-1) */
-  ready Boolean required
+  ready Integer required
 }
 /** member/player proposes properties for a new GameInst. */
 entity MemberGameProps {

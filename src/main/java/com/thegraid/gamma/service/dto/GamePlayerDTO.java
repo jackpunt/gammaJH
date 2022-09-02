@@ -28,7 +28,7 @@ public class GamePlayerDTO implements Serializable {
      */
     @NotNull
     @Schema(description = "initial FALSE(-1)", required = true)
-    private Boolean ready;
+    private Integer ready;
 
     private GameInstDTO gameInst;
 
@@ -58,11 +58,11 @@ public class GamePlayerDTO implements Serializable {
         this.role = role;
     }
 
-    public Boolean getReady() {
+    public Integer getReady() {
         return ready;
     }
 
-    public void setReady(Boolean ready) {
+    public void setReady(Integer ready) {
         this.ready = ready;
     }
 
@@ -110,7 +110,7 @@ public class GamePlayerDTO implements Serializable {
             "id=" + getId() +
             ", version=" + getVersion() +
             ", role='" + getRole() + "'" +
-            ", ready='" + getReady() + "'" +
+            ", ready=" + getReady() +
             ", gameInst=" + getGameInst() +
             ", player=" + getPlayer() +
             "}";

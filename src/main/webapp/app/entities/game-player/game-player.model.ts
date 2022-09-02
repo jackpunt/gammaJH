@@ -5,7 +5,7 @@ export interface IGamePlayer {
   id: number;
   version?: number | null;
   role?: string | null;
-  ready?: boolean | null;
+  ready?: number | null;
   gameInst?: Pick<IGameInst, 'id'> | null;
   player?: Pick<IPlayer, 'id'> | null;
 }
