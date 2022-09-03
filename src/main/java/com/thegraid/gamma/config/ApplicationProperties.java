@@ -10,7 +10,25 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  */
 @ConfigurationProperties(prefix = "application", ignoreUnknownFields = false)
 public class ApplicationProperties {
+
     // jhipster-needle-application-properties-property
     // jhipster-needle-application-properties-property-getter
     // jhipster-needle-application-properties-property-class
+
+    public Gamma gamma = new Gamma();
+
+    public Gamma getGamma() {
+        return this.gamma;
+    }
+
+    public static class Gamma {
+
+        public Launch launch = new Launch();
+        public String gameLaunchUrl = "https://game5.thegraid.com:8443/gamma-web/launcher/results/";
+
+        public static class Launch {
+
+            public String propval = "this arbitrary string";
+        }
+    }
 }
