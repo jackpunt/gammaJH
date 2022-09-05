@@ -16,8 +16,9 @@
 logging:
   level:
     ROOT: DEBUG
+    jdk.event.security: WARN # DEBUG for X509Certficate on startup
     tech.jhipster: DEBUG
-    org.hibernate.SQL: DEBUG
+    org.hibernate.SQL: WARN
     com.thegraid.gamma: DEBUG
 
 spring:
@@ -71,7 +72,22 @@ spring:
         enabled: true
 
 server:
-  port: 8081
+  address: 127.0.0.2
+  port: 8443
+
+  # The alias mapped to the certificate
+  ssl.key-alias: lobby2.thegraid.com
+  # Tell Spring Security (if used) to require requests over HTTPS
+  # security.require-ssl: true
+  # The format used for the keystore  (TODO: PKCS12)
+  ssl.key-store-type: jks
+  # The path to the keystore containing the certificate
+  ssl.key-store: /Users/jpeck/keys/keystore
+  # The password used to generate the certificate
+  ssl.key-store-password: changeit
+  ssl.ciphers: TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256, TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384, TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA, TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA, TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256, TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384, TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA, TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA
+  ssl.enabled-protocols: TLSv1.2
+  http2.enabled: true
 
 # ===================================================================
 # JHipster specific properties
