@@ -1,6 +1,6 @@
 package com.thegraid.gamma.domain.intf;
 
-public interface IGameClass {
+public interface IGameClassDTO {
     public long getId();
 
     // public Integer getVersion();

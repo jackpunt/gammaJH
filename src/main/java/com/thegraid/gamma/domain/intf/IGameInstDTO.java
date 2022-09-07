@@ -5,7 +5,7 @@ import com.thegraid.gamma.service.dto.PlayerDTO;
 import java.time.ZonedDateTime;
 import java.util.Map;
 
-public interface IGameInst {
+public interface IGameInstDTO {
     public Long getId();
 
     public GameClassDTO getGameClass();
@@ -18,8 +18,9 @@ public interface IGameInst {
 
     public String getHostUrl();
 
-    //public String getPasscode();
-    //public Long getPropsId();
+    public String getPasscode();
+
+    // findGameInstProps(this.getId()).parseJSON().asMap()
     public Map<String, Object> getPropertyMap();
 
     public Integer getScoreA();
@@ -34,7 +35,6 @@ public interface IGameInst {
 
     public ZonedDateTime getFinished();
 
-    //public void setAborted(boolean aborted);
     public void setId(Long id);
 
     public void setGameClass(GameClassDTO gameClass);
@@ -47,8 +47,8 @@ public interface IGameInst {
 
     public void setHostUrl(String hostUrl);
 
-    //public void setPasscode(String passcode);
-    //public void setPropsId(Long propsId);
+    public void setPasscode(String passcode);
+
     public void setScoreA(Integer scoreA);
 
     public void setScoreB(Integer scoreB);
