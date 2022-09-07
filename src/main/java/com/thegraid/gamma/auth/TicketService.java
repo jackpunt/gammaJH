@@ -1,7 +1,5 @@
 package com.thegraid.gamma.auth;
 
-import com.thegraid.gamma.domain.User;
-import com.thegraid.gamma.service.UserService;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.charset.StandardCharsets;
@@ -15,18 +13,11 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 public class TicketService {
 
     protected static final Logger log = LoggerFactory.getLogger(TicketService.class);
-
-    protected UserService userService;
-
-    TicketService(UserService userService) {
-        this.userService = userService;
-    }
 
     /**
      * create a time-limited, validate-able String, with labeled properties.
@@ -38,9 +29,9 @@ public class TicketService {
      * @return
      */
     // 2 cases: salt from JSESSIONID/UUID [EmailTicket] -or- salt from member.getSalt() [GameTicket]
-    private String getGenericTicket(User user, Long salt, long validTime, String... args) {
+    protected String getGenericTicket(String username, Long salt, long validTime, String... args) {
         // compose: ^P=(1)&(T=(ddd)&U=(username)&...)$
-        String username = user.getLogin();
+        // String username = user.getLogin();
         Long timelimit = new Date().getTime() + validTime;
         StringBuilder sb = new StringBuilder();
         sb.append("&T=").append(Long.toHexString(timelimit));
@@ -141,98 +132,9 @@ public class TicketService {
         return (Long) uuid_salt;
     }
 
-    private final Long no_salt = 5345909788840343976L; // or 0 or null I suppose
-    private final BCryptSaltSource bcss = new BCryptSaltSource();
-
-    public Long getSaltFromUser(User user) {
-        String pw = user.getPassword();
-        if (pw.length() < 60) return no_salt;
-        // 0:{bcrypt}, 1:2a, 2:12, 3:salt+passwd
-        String salt22 = pw.split("\\$", 4)[3].substring(0, 22);
-        return bcss.decodeSalt(salt22);
-    }
-
-    static class BCryptSaltSource {
-
-        long decodeSalt(String salt22) {
-            String base64Salt = utilStringTr(salt22, CHARS_BCRYPT, CHARS_BASE64);
-            byte[] bytes = Base64.getDecoder().decode(base64Salt); // 8 bytes
-            return ByteBuffer.wrap(bytes).order(ByteOrder.BIG_ENDIAN).getLong();
-        }
-
-        long byteToLong(byte[] bytes) {
-            return ByteBuffer.wrap(bytes).order(ByteOrder.BIG_ENDIAN).getLong();
-        }
-
-        byte[] longToBytes(long number) {
-            return ByteBuffer.allocate(8).order(ByteOrder.BIG_ENDIAN).putLong(number).array();
-        }
-
-        /**
-         * BCrypt base64 encoding alphabet
-         */
-        static String CHARS_BCRYPT = "./ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-
-        /**
-         * RFC-4648 base64 encoding alphabet
-         */
-        static String CHARS_BASE64 = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
-
-        /** translate chars of str from xin to xout */
-        String utilStringTr(String str, String xin, String xout) {
-            StringBuilder sb = new StringBuilder();
-            for (int i = 0; i < str.length(); i++) {
-                int ndx = xin.indexOf(str.substring(i, i + 1));
-                sb.append(xout.substring(ndx, ndx + 1));
-            }
-            return sb.toString();
-        }
-    }
-
-    @Service
-    public static class EmailTicketService extends TicketService {
-
-        EmailTicketService(UserService userService) {
-            super(userService);
-        }
-
-        /** P=(40-digit Token)(&T=(11-xDigit timelimit)&U=(username)&...) */
-        private final Pattern pat = Pattern.compile(
-            "P=(?<P>\\p{XDigit}{40,})(?<raw2>&T=(?<T>\\p{XDigit}{11,})&U=(?<U>[^&]+))(?<rest>&.*)?$"
-        );
-
-        /**
-         * Create an email-able hash token encapsulating login credentials.
-         * Create ticket for *this* user, include additional info in token:
-         * passwordUserDetails.getEmailTicket(time, "V", iview.getId(), "W",
-         * job.getId())
-         *
-         * @param user      the Member to login (so we can getSalt/secret)
-         * @param validTime deadlne for ticket to be valid
-         * @param args      &"key"="value" to be included in ticket
-         * @return a String that can be validated by NoFormLoginDecoder.
-         */
-        public String getTicket(User user, long validTime, String... args) {
-            // do not modify pwh or salt if already exists
-            Long genSalt = getSaltFromUser(user); // assert(genSalt != null)
-            return super.getGenericTicket(user, genSalt, validTime, args);
-        }
-
-        public boolean validateTicket(CharSequence raw, Long salt) {
-            return super.validateTicket(pat, raw, salt);
-        }
-
-        public Ticket parseTicket(String query) {
-            return new Ticket(pat, query);
-        }
-    }
-
+    /** Validate Ticket using JSESSIONID as key. */
     @Service
     public static class GameTicketService extends TicketService {
-
-        GameTicketService(UserService userService) {
-            super(userService);
-        }
 
         /** P=(\p{XDigit}{64})(&T=(\p{XDigit}{11,})&U=([^&]+)&V=(\d{1,19}))(&.*)?$ */
         private final Pattern pat = Pattern.compile(
@@ -250,13 +152,13 @@ public class TicketService {
          * @param uuids     String representing a UUID that is shared with the
          *                  GameServer.
          */
-        public String getTicket(User user, Long validTime, Long gpid, String uuids) {
-            return getTicket(user, validTime, gpid, getSaltFromUUID(uuids));
+        public String getTicket(String username, Long validTime, Long gpid, String uuids) {
+            return getTicket(username, validTime, gpid, getSaltFromUUID(uuids));
         }
 
         // export this if there is some other salt to share with the validating side
-        private String getTicket(User user, Long validTime, Long gpid, Long salt) {
-            return super.getGenericTicket(user, salt, validTime, "V", gpid.toString());
+        private String getTicket(String username, Long validTime, Long gpid, Long salt) {
+            return super.getGenericTicket(username, salt, validTime, "V", gpid.toString());
         }
 
         public boolean validateTicket(CharSequence raw, Long salt) {
