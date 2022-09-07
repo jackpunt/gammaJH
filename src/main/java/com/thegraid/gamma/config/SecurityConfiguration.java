@@ -116,6 +116,9 @@ public class SecurityConfiguration {
             .antMatchers("/api/account/reset-password/finish").permitAll()
             .antMatchers("/api/admin/**").hasAuthority(AuthoritiesConstants.ADMIN)
             .antMatchers("/api/**").authenticated()
+            // TODO: .hasRole("GameLauncher") or .hasAuthority("GameLauncher")
+            // when we .launchGame() --> include a JWT or Token to allow getInfo & putInfo
+            .antMatchers("/gammaDS/**").authenticated()
             .antMatchers("/websocket/**").authenticated()
             .antMatchers("/management/health").permitAll()
             .antMatchers("/management/health/**").permitAll()

@@ -7,6 +7,7 @@ import com.thegraid.gamma.domain.Authority;
 import com.thegraid.gamma.domain.GameInst;
 import com.thegraid.gamma.domain.GameInstProps;
 import com.thegraid.gamma.domain.GamePlayer;
+import com.thegraid.gamma.domain.Player;
 import com.thegraid.gamma.domain.User;
 import com.thegraid.gamma.repository.GameInstPropsRepository;
 import com.thegraid.gamma.repository.GameInstRepository;
@@ -14,6 +15,7 @@ import com.thegraid.gamma.repository.GamePlayerRepositoryExt;
 import com.thegraid.gamma.security.AuthoritiesConstants;
 import com.thegraid.gamma.service.GameInstService;
 import com.thegraid.gamma.service.UserService;
+import com.thegraid.gamma.service.dto.GameInstDTO;
 import gamma.main.GameLauncher;
 import gamma.main.Launcher;
 import gamma.main.Launcher.Game;
@@ -22,6 +24,7 @@ import gamma.main.Launcher.LaunchResults;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.security.Principal;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -43,12 +46,13 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
 @Primary
 @RestController
-@RequestMapping("/gi")
+@RequestMapping("gammaDS/gi")
 public class GameInstResourceExt extends GameInstResource {
 
     static final Logger log = LoggerFactory.getLogger(GameInstResource.class);
@@ -181,6 +185,7 @@ public class GameInstResourceExt extends GameInstResource {
 
     private final GamePlayerRepositoryExt gamePlayerRepository;
 
+    // Constructor
     public GameInstResourceExt(
         GameInstService gameInstService,
         GameInstRepository gameInstRepository,
@@ -244,7 +249,12 @@ public class GameInstResourceExt extends GameInstResource {
         // Now: launchGameInstIfReady()
 
         GamePlayer gamePlayer = findGamePlayerInRole(gameInst, role); // Assume URL identifies Player; spoof
-        loginAs(gamePlayer.getPlayer().getUser(), role);
+        Player player = gamePlayer.getPlayer();
+        //User user = player.getUser();
+        User u2 = userService.getUserWithAuthorities().get();
+        log.debug("Player: {}, User: {}", player, u2);
+        //Set<Authority> auths = user.getAuthorities();
+        loginAs(u2, role);
         // unused return values; except to update to new values
         Principal principal = (Principal) SecurityContextHolder.getContext().getAuthentication();
         log.debug("Principal requesting reset: {} of gameInst= {}", principal.getName(), gameInst);
@@ -363,9 +373,10 @@ public class GameInstResourceExt extends GameInstResource {
         Optional<User> optUser = userService.getUserWithAuthoritiesByLogin(loginid);
         if (optUser.isEmpty()) return null;
         User user = optUser.get();
+        String username = user.getLogin();
         Long validTime = TimeUnit.HOURS.toMillis(3);
         Long gpid = gamePlayer.getId(); // @NotNull (was gamePlayer.getRole())
-        String token = gameTicketService.getTicket(user, validTime, gpid, uuids); // includes U=loginId
+        String token = gameTicketService.getTicket(username, validTime, gpid, uuids); // includes U=loginId
         return token;
     }
 
@@ -377,5 +388,46 @@ public class GameInstResourceExt extends GameInstResource {
             if (cookie.getName().equals(name)) return cookie.getValue();
         }
         return null;
+    }
+
+    // InfoService for GamaLauncher
+    @RequestMapping("info/{giid}")
+    public GameInstDTO getGameInfo(@PathVariable("giid") Long giid, HttpServletRequest request) {
+        log.debug("getGameInfo({})", giid);
+        Optional<GameInstDTO> optGameInstDTO = gameInstService.findOne(giid);
+        GameInstDTO dto = optGameInstDTO.get();
+        //Long propsId = dto.getPropsId();
+        //gameInstPropsService
+        // TODO: must include gameInstProps; getPropertyMap();
+        // gameInstDTO implements com.thegraid.gamma.domain.intf.IGameInstDTO
+        log.debug("getGameInfo({}) GameInstDTO = {{}}", giid, dto);
+        return dto;
+    }
+
+    // doc says RequestParam works for query-params AND form-data
+    @RequestMapping("update/{giid}")
+    public boolean updateGameInfo(
+        @PathVariable("giid") Long giid,
+        @RequestParam(name = "time") ZonedDateTime timestamp,
+        @RequestParam(name = "hostUrl") String hostUrl
+    ) {
+        if (timestamp == null) {
+            log.error("Game Launch failed: giid={} @ {}", giid, timestamp);
+            return true;
+        }
+        ZonedDateTime started = timestamp;
+        Optional<GameInstDTO> optGameInstDTO = gameInstService.findOne(giid);
+        GameInstDTO dto = optGameInstDTO.get();
+        try {
+            dto.setStarted(started); // mark start time
+            dto.setHostUrl(hostUrl); // on which server
+            gameInstService.save(dto); // back to database.
+        } catch (Exception ex) {
+            log.error("while gameInstService.save(started {}): {}", giid, ex);
+            return false;
+            // not clear what can we do about it; retry?
+            // the game is presumably already in progress
+        }
+        return true;
     }
 }
