@@ -194,10 +194,25 @@ repositories {
     mavenLocal () {
         content {
             // this repository *only* contains artifacts with group "gamma" & "jpeck.local"
+            includeGroup "com.thegraid.gamma"
             includeGroup "gamma"
             includeGroup "jpeck.local"          // for "userAI", "generic", "util"?
         }
     }
+}
+publishing {
+    publications {
+        maven(MavenPublication) {
+            groupId = 'com.thegraid.gamma'
+            artifactId = 'gamma-jh'
+            version = '0.1.1'
+            from components.java
+        }
+    }
+}
+java {
+    withJavadocJar()
+    withSourcesJar()
 }
 
 dependencies {
