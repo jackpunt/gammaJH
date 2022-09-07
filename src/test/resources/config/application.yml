@@ -28,7 +28,7 @@ spring:
     allow-bean-definition-overriding: true
   mvc:
     pathmatch:
-      matching-strategy: ant_path_matcher
+      matching-strategy: ANT_PATH_MATCHER
   messages:
     basename: i18n/messages
   task:
