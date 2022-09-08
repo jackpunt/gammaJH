@@ -136,7 +136,11 @@ public class GameInstResourceExt extends GameInstResource {
             this.url = url;
         }
 
-        /** suitable for SpringMVC redirect */
+        /**
+         * suitable for SpringMVC redirect
+         *
+         * @return HTML body with a redirect link
+         */
         public String toBody() {
             return String.format("<body>redirect:<a href=\"%1$s\">%1$s</a></body>", this.url);
         }

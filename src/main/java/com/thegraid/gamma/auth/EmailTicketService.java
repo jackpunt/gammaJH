@@ -22,7 +22,7 @@ public class EmailTicketService extends TicketService {
      *
      * @param user      the Member to login (so we can getSalt/secret)
      * @param validTime deadlne for ticket to be valid
-     * @param args      &"key"="value" to be included in ticket
+     * @param args      &amp;"key"="value" to be included in ticket
      * @return a String that can be validated by NoFormLoginDecoder.
      */
     public String getTicket(User user, long validTime, String... args) {

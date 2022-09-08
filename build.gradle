@@ -200,6 +200,7 @@ repositories {
         }
     }
 }
+// gradle publishToMavenLocal
 publishing {
     publications {
         maven(MavenPublication) {
@@ -213,6 +214,7 @@ publishing {
 java {
     withJavadocJar()
     withSourcesJar()
+    sourcesJar.dependsOn compileJava // specify dependency
 }
 
 dependencies {

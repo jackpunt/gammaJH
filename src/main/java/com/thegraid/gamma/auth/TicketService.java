@@ -15,6 +15,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+/** common code with gammaJH and launcher. */
 public class TicketService {
 
     protected static final Logger log = LoggerFactory.getLogger(TicketService.class);
@@ -22,11 +23,11 @@ public class TicketService {
     /**
      * create a time-limited, validate-able String, with labeled properties.
      * [implicit arg: username]
-     * @parma user
+     * @param username asserts the username
      * @param salt either the user.salt OR salt(UUID=JSESSIONID) ?
-     * @param validTime
-     * @param args Key Value ...
-     * @return
+     * @param validTime token is invalid after validTime
+     * @param args "Key Value ..."
+     * @return "P=signature,T=dddd,U=username,...""
      */
     // 2 cases: salt from JSESSIONID/UUID [EmailTicket] -or- salt from member.getSalt() [GameTicket]
     protected String getGenericTicket(String username, Long salt, long validTime, String... args) {
@@ -114,7 +115,10 @@ public class TicketService {
         return true;
     }
 
-    /** suitable for using JSESSIONID as a per-user/session Salt */
+    /** suitable for using JSESSIONID as a per-user/session Salt
+     * @param uuids UUID as string of digits
+     * @return Long hash of the bits of uuids
+     */
     public Long getSaltFromUUID(String uuids) {
         String uuidss =
             uuids.substring(0, 7) +
@@ -146,11 +150,12 @@ public class TicketService {
         /**
          * Create query string Ticket for DisplayClient to authenticate to game server.
          *
-         * @param user      include user.loginid
+         * @param username  include user.loginid
          * @param validTime deadlne for ticket to be valid
          * @param gpid      the long id (not null, not 0L)
          * @param uuids     String representing a UUID that is shared with the
          *                  GameServer.
+         * @return Ticket signed with uuids
          */
         public String getTicket(String username, Long validTime, Long gpid, String uuids) {
             return getTicket(username, validTime, gpid, getSaltFromUUID(uuids));
