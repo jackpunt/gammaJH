@@ -2,7 +2,7 @@ package com.thegraid.gamma.domain.intf;
 
 import com.thegraid.gamma.service.dto.GameClassDTO;
 import com.thegraid.gamma.service.dto.PlayerDTO;
-import java.time.ZonedDateTime;
+import java.time.Instant;
 import java.util.Map;
 
 public interface IGameInstDTO {
@@ -29,11 +29,11 @@ public interface IGameInstDTO {
 
     public Integer getTicks();
 
-    public ZonedDateTime getCreated();
+    public Instant getCreated();
 
-    public ZonedDateTime getStarted();
+    public Instant getStarted();
 
-    public ZonedDateTime getFinished();
+    public Instant getFinished();
 
     public void setId(Long id);
 
@@ -55,9 +55,9 @@ public interface IGameInstDTO {
 
     public void setTicks(Integer ticks);
 
-    public void setCreated(ZonedDateTime created);
+    public void setCreated(Instant created);
 
-    public void setStarted(ZonedDateTime started);
+    public void setStarted(Instant started);
 
-    public void setFinished(ZonedDateTime finished);
+    public void setFinished(Instant finished);
 }

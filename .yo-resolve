@@ -5,3 +5,8 @@ src/test/java/com/thegraid/gamma/config/MysqlTestContainer.java skip
 tsconfig.app.json skip
 gradlew skip
 build.gradle skip
+src/main/resources/config/application.yml skip
+src/main/java/com/thegraid/gamma/GammaJhApp.java skip
+src/main/java/com/thegraid/gamma/config/ApplicationProperties.java skip
+src/main/java/com/thegraid/gamma/config/SecurityConfiguration.java skip
+src/test/resources/config/application.yml skip

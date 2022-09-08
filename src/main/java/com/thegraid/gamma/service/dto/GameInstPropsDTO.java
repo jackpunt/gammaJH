@@ -2,7 +2,7 @@ package com.thegraid.gamma.service.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.io.Serializable;
-import java.time.ZonedDateTime;
+import java.time.Instant;
 import java.util.Objects;
 import javax.validation.constraints.*;
 
@@ -44,7 +44,7 @@ public class GameInstPropsDTO implements Serializable {
     private String jsonProps;
 
     @NotNull
-    private ZonedDateTime updated;
+    private Instant updated;
 
     private GameInstDTO gameInst;
 
@@ -104,11 +104,11 @@ public class GameInstPropsDTO implements Serializable {
         this.jsonProps = jsonProps;
     }
 
-    public ZonedDateTime getUpdated() {
+    public Instant getUpdated() {
         return updated;
     }
 
-    public void setUpdated(ZonedDateTime updated) {
+    public void setUpdated(Instant updated) {
         this.updated = updated;
     }
 

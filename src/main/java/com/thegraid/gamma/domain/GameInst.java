@@ -2,7 +2,7 @@ package com.thegraid.gamma.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
-import java.time.ZonedDateTime;
+import java.time.Instant;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 
@@ -37,17 +37,17 @@ public class GameInst implements Serializable {
 
     @NotNull
     @Column(name = "created", nullable = false)
-    private ZonedDateTime created;
+    private Instant created;
 
     @Column(name = "started")
-    private ZonedDateTime started;
+    private Instant started;
 
     @Column(name = "finished")
-    private ZonedDateTime finished;
+    private Instant finished;
 
     @NotNull
     @Column(name = "updated", nullable = false)
-    private ZonedDateTime updated;
+    private Instant updated;
 
     @Column(name = "score_a")
     private Integer scoreA;
@@ -140,55 +140,55 @@ public class GameInst implements Serializable {
         this.passcode = passcode;
     }
 
-    public ZonedDateTime getCreated() {
+    public Instant getCreated() {
         return this.created;
     }
 
-    public GameInst created(ZonedDateTime created) {
+    public GameInst created(Instant created) {
         this.setCreated(created);
         return this;
     }
 
-    public void setCreated(ZonedDateTime created) {
+    public void setCreated(Instant created) {
         this.created = created;
     }
 
-    public ZonedDateTime getStarted() {
+    public Instant getStarted() {
         return this.started;
     }
 
-    public GameInst started(ZonedDateTime started) {
+    public GameInst started(Instant started) {
         this.setStarted(started);
         return this;
     }
 
-    public void setStarted(ZonedDateTime started) {
+    public void setStarted(Instant started) {
         this.started = started;
     }
 
-    public ZonedDateTime getFinished() {
+    public Instant getFinished() {
         return this.finished;
     }
 
-    public GameInst finished(ZonedDateTime finished) {
+    public GameInst finished(Instant finished) {
         this.setFinished(finished);
         return this;
     }
 
-    public void setFinished(ZonedDateTime finished) {
+    public void setFinished(Instant finished) {
         this.finished = finished;
     }
 
-    public ZonedDateTime getUpdated() {
+    public Instant getUpdated() {
         return this.updated;
     }
 
-    public GameInst updated(ZonedDateTime updated) {
+    public GameInst updated(Instant updated) {
         this.setUpdated(updated);
         return this;
     }
 
-    public void setUpdated(ZonedDateTime updated) {
+    public void setUpdated(Instant updated) {
         this.updated = updated;
     }
 

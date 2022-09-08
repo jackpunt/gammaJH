@@ -48,7 +48,7 @@
     },
     {
       "fieldName": "updated",
-      "fieldType": "ZonedDateTime",
+      "fieldType": "Instant",
       "fieldValidateRules": ["required"]
     }
   ],

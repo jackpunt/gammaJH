@@ -2,7 +2,7 @@ package com.thegraid.gamma.service.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.io.Serializable;
-import java.time.ZonedDateTime;
+import java.time.Instant;
 import java.util.Objects;
 import javax.validation.constraints.*;
 
@@ -26,14 +26,14 @@ public class GameInstDTO implements Serializable {
     private String passcode;
 
     @NotNull
-    private ZonedDateTime created;
+    private Instant created;
 
-    private ZonedDateTime started;
+    private Instant started;
 
-    private ZonedDateTime finished;
+    private Instant finished;
 
     @NotNull
-    private ZonedDateTime updated;
+    private Instant updated;
 
     private Integer scoreA;
 
@@ -87,35 +87,35 @@ public class GameInstDTO implements Serializable {
         this.passcode = passcode;
     }
 
-    public ZonedDateTime getCreated() {
+    public Instant getCreated() {
         return created;
     }
 
-    public void setCreated(ZonedDateTime created) {
+    public void setCreated(Instant created) {
         this.created = created;
     }
 
-    public ZonedDateTime getStarted() {
+    public Instant getStarted() {
         return started;
     }
 
-    public void setStarted(ZonedDateTime started) {
+    public void setStarted(Instant started) {
         this.started = started;
     }
 
-    public ZonedDateTime getFinished() {
+    public Instant getFinished() {
         return finished;
     }
 
-    public void setFinished(ZonedDateTime finished) {
+    public void setFinished(Instant finished) {
         this.finished = finished;
     }
 
-    public ZonedDateTime getUpdated() {
+    public Instant getUpdated() {
         return updated;
     }
 
-    public void setUpdated(ZonedDateTime updated) {
+    public void setUpdated(Instant updated) {
         this.updated = updated;
     }
 

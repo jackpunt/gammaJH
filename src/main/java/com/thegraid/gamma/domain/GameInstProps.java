@@ -2,7 +2,7 @@ package com.thegraid.gamma.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
-import java.time.ZonedDateTime;
+import java.time.Instant;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 
@@ -52,7 +52,7 @@ public class GameInstProps implements Serializable {
 
     @NotNull
     @Column(name = "updated", nullable = false)
-    private ZonedDateTime updated;
+    private Instant updated;
 
     @JsonIgnoreProperties(value = { "playerA", "playerB", "gameClass", "props" }, allowSetters = true)
     @OneToOne
@@ -153,16 +153,16 @@ public class GameInstProps implements Serializable {
         this.jsonProps = jsonProps;
     }
 
-    public ZonedDateTime getUpdated() {
+    public Instant getUpdated() {
         return this.updated;
     }
 
-    public GameInstProps updated(ZonedDateTime updated) {
+    public GameInstProps updated(Instant updated) {
         this.setUpdated(updated);
         return this;
     }
 
-    public void setUpdated(ZonedDateTime updated) {
+    public void setUpdated(Instant updated) {
         this.updated = updated;
     }
 

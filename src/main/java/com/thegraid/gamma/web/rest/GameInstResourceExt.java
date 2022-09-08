@@ -24,7 +24,7 @@ import gamma.main.Launcher.LaunchResults;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.security.Principal;
-import java.time.ZonedDateTime;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -408,14 +408,14 @@ public class GameInstResourceExt extends GameInstResource {
     @RequestMapping("update/{giid}")
     public boolean updateGameInfo(
         @PathVariable("giid") Long giid,
-        @RequestParam(name = "time") ZonedDateTime timestamp,
+        @RequestParam(name = "time") Instant timestamp,
         @RequestParam(name = "hostUrl") String hostUrl
     ) {
         if (timestamp == null) {
             log.error("Game Launch failed: giid={} @ {}", giid, timestamp);
             return true;
         }
-        ZonedDateTime started = timestamp;
+        Instant started = timestamp;
         Optional<GameInstDTO> optGameInstDTO = gameInstService.findOne(giid);
         GameInstDTO dto = optGameInstDTO.get();
         try {

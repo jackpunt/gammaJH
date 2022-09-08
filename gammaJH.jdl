@@ -92,7 +92,7 @@ entity GameClass {  // DTO
   only these prop_names can appear in the game_props.json associated with this game_class */
   propNames String
   // timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-  updated ZonedDateTime required // timestamp CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+  updated Instant required // timestamp CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 }
 /** Instance of a Game. */
 entity GameInst {  // DTO
@@ -101,10 +101,10 @@ entity GameInst {  // DTO
   gameName String maxlength(64)
   hostUrl String maxlength(64)
   passcode String maxlength(64)
-  created ZonedDateTime required // timestamp CURRENT_TIMESTAMP
-  started ZonedDateTime
-  finished ZonedDateTime
-  updated ZonedDateTime required // timestamp CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+  created Instant required // timestamp CURRENT_TIMESTAMP
+  started Instant
+  finished Instant
+  updated Instant required // timestamp CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
   scoreA Integer
   scoreB Integer
   ticks Integer   // how long the GameInst lasted (# of turns)
@@ -122,7 +122,7 @@ entity GameInstProps {
   npcCount Integer
   /** json form of game-specific properties */
   jsonProps String
-  updated ZonedDateTime required // timestamp CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+  updated Instant required // timestamp CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 }
 /** one of 2 Players (A or B) in a GameInst */
 entity GamePlayer {

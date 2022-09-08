@@ -1,7 +1,7 @@
 package com.thegraid.gamma.domain;
 
 import java.io.Serializable;
-import java.time.ZonedDateTime;
+import java.time.Instant;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 
@@ -63,7 +63,7 @@ public class GameClass implements Serializable {
 
     @NotNull
     @Column(name = "updated", nullable = false)
-    private ZonedDateTime updated;
+    private Instant updated;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -171,16 +171,16 @@ public class GameClass implements Serializable {
         this.propNames = propNames;
     }
 
-    public ZonedDateTime getUpdated() {
+    public Instant getUpdated() {
         return this.updated;
     }
 
-    public GameClass updated(ZonedDateTime updated) {
+    public GameClass updated(Instant updated) {
         this.setUpdated(updated);
         return this;
     }
 
-    public void setUpdated(ZonedDateTime updated) {
+    public void setUpdated(Instant updated) {
         this.updated = updated;
     }
 
