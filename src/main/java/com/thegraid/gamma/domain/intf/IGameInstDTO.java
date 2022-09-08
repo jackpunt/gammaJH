@@ -1,18 +1,16 @@
 package com.thegraid.gamma.domain.intf;
 
-import com.thegraid.gamma.service.dto.GameClassDTO;
-import com.thegraid.gamma.service.dto.PlayerDTO;
 import java.time.Instant;
 import java.util.Map;
 
 public interface IGameInstDTO {
     public Long getId();
 
-    public GameClassDTO getGameClass();
+    public IGameClassDTO getGameClass();
 
-    public PlayerDTO getPlayerA();
+    public IPlayerDTO getPlayerA();
 
-    public PlayerDTO getPlayerB();
+    public IPlayerDTO getPlayerB();
 
     public String getGameName();
 
@@ -37,11 +35,11 @@ public interface IGameInstDTO {
 
     public void setId(Long id);
 
-    public void setGameClass(GameClassDTO gameClass);
+    public void setGameClass(IGameClassDTO gameClass);
 
-    public void setPlayerA(PlayerDTO playerA);
+    public void setPlayerA(IPlayerDTO playerA);
 
-    public void setPlayerB(PlayerDTO playerB);
+    public void setPlayerB(IPlayerDTO playerB);
 
     public void setGameName(String gameName);
 

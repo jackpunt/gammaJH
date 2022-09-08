@@ -1,7 +1,7 @@
 package com.thegraid.gamma.domain.intf;
 
 public interface IGameClassDTO {
-    public long getId();
+    public Long getId();
 
     // public Integer getVersion();
     public String getName();
@@ -15,7 +15,7 @@ public interface IGameClassDTO {
     // public String getDocsPath();
     public String getPropNames();
 
-    public void setId(long id);
+    public void setId(Long id);
 
     // public void setVersion(Integer version);
     public void setName(String name);
