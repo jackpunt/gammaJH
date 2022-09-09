@@ -1,4 +1,4 @@
-package com.thegraid.gamma.domain.intf;
+package com.thegraid.share.domain.intf;
 
 public interface IUserDTO {
     public Long getId();

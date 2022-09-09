@@ -24,7 +24,7 @@ public class ApplicationProperties {
     public static class Gamma {
 
         public Launch launch = new Launch();
-        public String gameLaunchUrl = "https://game5.thegraid.com:8443/gamma-web/launcher/results/";
+        public String gameLaunchUrl = "https://game5.thegraid.com:8443/gamma-web/launcher/launch/";
 
         public static class Launch {
 
