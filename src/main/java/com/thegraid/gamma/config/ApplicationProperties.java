@@ -21,10 +21,23 @@ public class ApplicationProperties {
         return this.gamma;
     }
 
+    /** actual values set in application[-env].yml */
+    // consider alternatives: https://stackoverflow.com/questions/21271468/spring-propertysource-using-yaml
+    // can this class be auto-composed? PropertySourcesPlaceholderConfigurer? YamlPropertiesFactoryBean
+    //
+    // @Bean
+    // public static PropertySourcesPlaceholderConfigurer properties() {
+    //     PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer = new PropertySourcesPlaceholderConfigurer();
+    //     YamlPropertiesFactoryBean yaml = new YamlPropertiesFactoryBean();
+    //     yaml.setResources(new ClassPathResource("default.yml")); // <-- or any Path/FileSystem/InputStream Resource
+    //     propertySourcesPlaceholderConfigurer.setProperties(yaml.getObject());
+    //     return propertySourcesPlaceholderConfigurer;
+    // }
+    // @PropertySource()
     public static class Gamma {
 
         public Launch launch = new Launch();
-        public String gameLaunchUrl = "https://game5.thegraid.com:8443/gamma-web/launcher/launch/";
+        public String gameLaunchUrl = "https://game5.thegraid.com:8445/gamma-web/launcher/launch/";
 
         public static class Launch {
 

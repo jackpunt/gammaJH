@@ -266,8 +266,8 @@ public class GameInstResourceExt extends GameInstResource {
         GamePlayer otherPlayer = findGamePlayerInRole(gameInst, otherRole);
         GameInstProps gameProps = gameInstPropsRepository.getReferenceById(gameInst.getId());
 
-        String launchUrl = props.gamma.gameLaunchUrl;
-        String hostUrl = gameInst.getHostUrl(); // 'https://game4.gamma.com:port/gamma-web/GameControl/giid'
+        String launchUrl = props.gamma.gameLaunchUrl; // where the launcher is listening
+        String hostUrl = gameInst.getHostUrl(); // "https://game5.gamma.com:8445/launcher/GameControl/giid"
         String newUrl = replaceHostInUrl(hostUrl, launchUrl);
         log.info("temporary setLaunchUrl: {}", newUrl);
         props.gamma.gameLaunchUrl = newUrl;
@@ -287,7 +287,8 @@ public class GameInstResourceExt extends GameInstResource {
         //return rv;
     }
 
-    String replaceHostInUrl(String url, String gameLaunchUrl) {
+    /** use HOST:PORT from url with proto/path from gameLaunchUrl */
+    private String replaceHostInUrl(String url, String gameLaunchUrl) {
         if (url != null) try {
             URL hostURL = new URL(url);
             URL gameLaunchURL = new URL(gameLaunchUrl); //.getProtocol().split("/")[0];
@@ -303,7 +304,7 @@ public class GameInstResourceExt extends GameInstResource {
     // Start game [delegate to GameLauncher] & download [JNLP? Flash? whatever...]
     /**
      * Start a game.
-     * Send info to GameLauncher, redirect to login URL if launch works.
+     * Send info to LauncherService; redirect to login URL if launch works.
      * @param gamePlayer who initiated the Launch (so is active/online/driving this request)
      * @param otherPlayer (maybe not online)
      * @param gameProps
@@ -314,7 +315,8 @@ public class GameInstResourceExt extends GameInstResource {
         GameInst gameInst = gamePlayer1.getGameInst();
         String base = request.getRequestURL().toString(); //baseURL(request);
         log.warn("launchGame: {} from {}", gameInst, base);
-        // why synchronized here? maybe multiple client requests.
+        // why synchronized here? maybe multiple client requests. ?SAME? Entity (no, entity is per-hibernate-session)
+        // we are trusting that hibernate will 'sync' entity state across servers?
         synchronized (gameInst) {
             if (gameInst.getStarted() != null) {
                 String url1 = loginUrl(gamePlayer1, request);

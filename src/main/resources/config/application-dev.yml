@@ -73,7 +73,7 @@ spring:
 
 server:
   address: 127.0.0.2
-  port: 8443
+  port: 8442
 
   # The alias mapped to the certificate
   ssl.key-alias: lobby2.thegraid.com

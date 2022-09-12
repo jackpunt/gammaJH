@@ -47,7 +47,7 @@ public class GameInstProps implements Serializable {
     /**
      * json form of game-specific properties
      */
-    @Column(name = "json_props")
+    @Column(name = "json_props") // @JsonRawValue; receive with JsonNode OR Map<String,Object> Object->Number,String,Array<Object>,Map<String,Object>
     private String jsonProps;
 
     @NotNull
