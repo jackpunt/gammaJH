@@ -5,6 +5,9 @@ import java.time.Instant;
 /** service.dto.PlayerDTO implements IPlayerDTO */
 public interface IPlayerDTO {
     //static class APlayerPDTO extends PlayerDTO implements IPlayerDTO {}
+    public Long getGpid();
+
+    public void setGpid(Long gpid);
 
     public Long getId();
 

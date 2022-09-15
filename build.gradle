@@ -25,9 +25,9 @@ plugins {
 }
 
 group = "com.thegraid.gamma"
-version = "0.0.1-SNAPSHOT"
+version = "0.1.3" // see: publishToMavenLocal() which can override
 
-description = ""
+description = "jhipster Lobby (REST & ng) and Domain (MySQL)"
 
 sourceCompatibility=11
 targetCompatibility=11
@@ -200,17 +200,45 @@ repositories {
         }
     }
 }
+task domainJar (type: Jar) {
+    from sourceSets.main.output
+    exclude 'src/main/webapp/**'
+    include 'com/**'
+}
 // gradle publishToMavenLocal
 publishing {
     publications {
         maven(MavenPublication) {
             groupId = 'com.thegraid.gamma'
             artifactId = 'gamma-jh'
-            version = '0.1.1'
+            //version = '0.1.2'     // overrides groupId & version from above
             from components.java
+        }
+
+        def pomString = null       // pom for full project
+
+        internal(MavenPublication) {
+            artifactId = 'gamma-jh-pom'
+            from components.java
+            pom.withXml {
+                pomString = asString().toString().replace("gamma-jh", "gamma-jh-domain")
+            }
+        }
+        domain(MavenPublication) {
+            pom.withXml {
+                def builder = asString()
+                builder.delete(0, builder.length())
+                builder.append(pomString)
+            }
+
+            groupId = 'com.thegraid.gamma'
+            artifactId = 'gamma-jh-domain'
+            artifact domainJar
         }
     }
 }
+generatePomFileForDomainPublication.dependsOn(generatePomFileForInternalPublication)
+
 java {
     withJavadocJar()
     withSourcesJar()
